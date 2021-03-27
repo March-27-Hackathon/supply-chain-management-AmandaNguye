@@ -47,4 +47,14 @@ public class Manufacturer {
     public void setProvince(String province) {
         this.province = province;
     }
+
+    //method to return a formatted string
+    public String toString(){
+        String temp = "Manufacturer Object consists of [";
+        temp += "ManuID: " + manuId + ", ";
+        temp += "Name: " + name + ", ";
+        temp += "Phone: " + phone + ", ";
+        temp += "Province: " + province + "]";
+        return temp;
+    }
 }

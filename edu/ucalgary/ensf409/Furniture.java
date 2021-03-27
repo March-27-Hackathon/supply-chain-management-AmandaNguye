@@ -63,4 +63,14 @@ public class Furniture
         this.type = type;
     }
 
+    //method to return a formatted string
+    public String toString(){
+        String temp = "Furniture Object consists of [";
+        temp += "ID: " + id + ", ";
+        temp += "ManuID: " + manuId + ", ";
+        temp += "Type: " + type + ", ";
+        temp += "Price: " + price + "]";
+        return temp;
+    }
+
 }

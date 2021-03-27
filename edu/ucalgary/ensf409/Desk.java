@@ -41,4 +41,16 @@ public class Desk extends Furniture {
        this.drawer = drawer;
    }
 
+   //method to return a formatted string
+   public String toString(){
+    String temp = "Desk Object consists of [";
+    temp += "Legs: " + legs + ", ";
+    temp += "Top: " + top + ", ";
+    temp += "Drawer: " + drawer + ", ";
+    temp += "ID: " + getId() + ", ";
+    temp += "ManuID: " + getManuId() + ", ";
+    temp += "Type: " + getType() + ", ";
+    temp += "Price: " + getPrice() + "]";
+    return temp;
+}
 }

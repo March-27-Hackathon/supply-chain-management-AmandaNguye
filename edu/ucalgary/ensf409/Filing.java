@@ -44,4 +44,17 @@ public class Filing extends Furniture {
     public void setCabinet(boolean cabinet) {
         this.cabinet = cabinet;
     }
+
+    //method to return a formatted string
+    public String toString(){
+        String temp = "Filing Object consists of [";
+        temp += "Rails: " + rails + ", ";
+        temp += "Drawers: " + drawers + ", ";
+        temp += "Cabinet: " + cabinet + ", ";
+        temp += "ID: " + getId() + ", ";
+        temp += "ManuID: " + getManuId() + ", ";
+        temp += "Type: " + getType() + ", ";
+        temp += "Price: " + getPrice() + "]";
+        return temp;
+    }
 }
