@@ -10,10 +10,6 @@ package edu.ucalgary.ensf409;
 
 public class InputOrder 
 {
-    private String facultyName;
-    private String contact;
-    private String date;
-    
     private String furType;
     private String furniture;
     private int quantity;
@@ -24,30 +20,6 @@ public class InputOrder
     }
 
     //Setter methods
-    /**
-     * Set the facultyName to param
-     * @param facultyName
-     */
-    public void setFacultyName(String facultyName) {
-        this.facultyName = facultyName;
-    }
-
-    /**
-     * Set the contact to param
-     * @param contact
-     */
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    /**
-     * Set the date to param
-     * @param date
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     /**
      * Set furType to param
      * @param furType
@@ -73,22 +45,6 @@ public class InputOrder
     }
 
     //Getters Methods
-    /**
-     * 
-     * @return faculty name of the order
-     */
-    public String getFacultyName() {
-        return facultyName;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
     public String getFurType() {
         return furType;
     }
