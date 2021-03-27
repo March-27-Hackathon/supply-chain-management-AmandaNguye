@@ -33,4 +33,16 @@ public class Lamp extends Furniture {
     public void setBase(boolean base) {
         this.base = base;
     }
+
+    //method to return a formatted string
+    public String toString(){
+        String temp = "Lamp Object consists of [";
+        temp += "Base: " + base + ", ";
+        temp += "Bulb: " + bulb + ", ";
+        temp += "ID: " + getId() + ", ";
+        temp += "ManuID: " + getManuId() + ", ";
+        temp += "Type: " + getType() + ", ";
+        temp += "Price: " + getPrice() + "]";
+        return temp;
+    }
 }

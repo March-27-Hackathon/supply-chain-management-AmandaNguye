@@ -51,4 +51,18 @@ public class Chair extends Furniture {
         this.seat = seat;
     }
 
+    //method to return a formatted string
+    public String toString(){
+        String temp = "Chair Object consists of [";
+        temp += "Legs: " + legs + ", ";
+        temp += "Arms: " + arms + ", ";
+        temp += "Seat: " + seat + ", ";
+        temp += "Cushion: " + cushion + ", ";
+        temp += "ID: " + getId() + ", ";
+        temp += "ManuID: " + getManuId() + ", ";
+        temp += "Type: " + getType() + ", ";
+        temp += "Price: " + getPrice() + "]";
+        return temp;
+    }
+
 }

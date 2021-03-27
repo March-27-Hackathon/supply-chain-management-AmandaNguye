@@ -24,6 +24,9 @@ public class FurnitureTest {
         assertEquals(false,test.getArms());
         assertEquals(false,test.getSeat());
         assertEquals(true,test.getCushion());
+
+        //test toString function
+        System.out.println(test);
     }
 
     //test for Desk class
@@ -40,6 +43,9 @@ public class FurnitureTest {
         assertEquals(true,test.getLegs());
         assertEquals(false,test.getTop());
         assertEquals(false,test.getDrawer());
+
+        //test toString funtion
+        System.out.println(test);
     }
 
      //test for Filing class
@@ -56,6 +62,8 @@ public class FurnitureTest {
          assertEquals(false,test.getRails());
          assertEquals(false,test.getDrawers());
          assertEquals(false,test.getCabinet());
+
+         System.out.println(test);
      }
 
     //test for Lamp class
@@ -70,6 +78,9 @@ public class FurnitureTest {
         //test getter functions
         assertEquals(true,test.getBase());
         assertEquals(true,test.getBulb());
+
+        //test for toString function
+        System.out.println(test);
     }
 
      //test for Furniture parent class
@@ -87,20 +98,43 @@ public class FurnitureTest {
          assertEquals("Swing arm",test.getType());
          assertEquals("003",test.getManuId());
          assertEquals(19,test.getPrice());
+        
+         //test toString function
+        System.out.println(test);
+
      }
     
      @Test
      public void testInputOrder(){
-     InputOrder test = new InputOrder();
-     
-     //testing the setter functions of InputOrder
-     test.setFurType("small");
-     test.setFurniture("filing");
-     test.setQuantity(19);
- 
-     //testing getter functions of InputOrder
-     assertEquals("small",test.getFurType());
-     assertEquals("filing",test.getFurniture());
-     assertEquals(19, test.getQuantity());
+        InputOrder test = new InputOrder();
+        
+        //testing the setter functions of InputOrder
+        test.setFurType("small");
+        test.setFurniture("filing");
+        test.setQuantity(19);
+    
+        //testing getter functions of InputOrder
+        assertEquals("small",test.getFurType());
+        assertEquals("filing",test.getFurniture());
+        assertEquals(19, test.getQuantity());
+     }
+
+     @Test
+     public void testManufacturer(){
+        //test constructor
+        Manufacturer test = new Manufacturer("001", "Academic Desks", "236-145-2542", "BC");
+
+        //testing setter functions
+        test.setManuId("019");
+        test.setPhone("1-800-267-2001");
+
+        //testing getter functions
+        assertEquals("019",test.getManuId());
+        assertEquals("Academic Desks",test.getName());
+        assertEquals("1-800-267-2001",test.getPhone());
+        assertEquals("BC",test.getProvince());
+
+        //testing toString function
+        System.out.println(test);
      }
 }
