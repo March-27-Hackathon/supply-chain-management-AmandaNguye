@@ -15,6 +15,9 @@ public class Lamp extends Furniture {
         super(id, type, manuId, price);
         setBase(base);
         setBulb(bulb);
+        setBase(base);
+        setBulb(bulb);
+
     }
     // class methods
 

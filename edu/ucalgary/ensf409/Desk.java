@@ -17,6 +17,9 @@ public class Desk extends Furniture {
         setLegs(legs);
         setTop(top);
         setDrawer(drawer); 
+        setLegs(legs);
+        setTop(top);
+        setDrawer(drawer);
     }
 
     // getter methods

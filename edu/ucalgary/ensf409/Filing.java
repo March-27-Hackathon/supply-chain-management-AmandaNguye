@@ -17,6 +17,9 @@ public class Filing extends Furniture {
         setRails(rails);
         setDrawers(drawers);
         setCabinet(cabinet);
+        setRails(rails);
+        setDrawers(drawers);
+        setCabinet(cabinet);
     }
 
     // class methods
