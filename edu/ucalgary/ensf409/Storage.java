@@ -10,13 +10,23 @@
  * hashmap and easily remove any element from each map and database
  */
 
+ /**
+  * Package Declaration
+  */
 package edu.ucalgary.ensf409;
 
+import java.nio.file.FileStore;
+/**
+ * Import Packages
+ */
 import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Storage {
+    /**
+     * Class fields
+     */
     private final String DBURL="jdbc:mysql://localhost/inventory";
     private final String USERNAME;
     private final String PASSWORD;
@@ -64,37 +74,52 @@ public class Storage {
             result = dbConnect.createStatement().executeQuery("SELECT * FROM "+tableName);
             while(result.next())
             {
-                Furniture obj = new Furniture(result.getString("ID"),result.getString("Type"),result.getString("ManuID"),result.getInt("Price"));
                 if(tableName == "chair")
                 {
-                    Chair chair = (Chair)obj;
-                    chair.setLegs(getBool(result.getString("Legs")));
-                    chair.setArms(getBool(result.getString("Arms")));
-                    chair.setSeat(getBool(result.getString("Seat")));
-                    chair.setCushion(getBool(result.getString("Cushion")));
+                    Chair chair = new Chair(
+                        getBool(result.getString("Legs")), 
+                        getBool(result.getString("Arms")), 
+                        getBool(result.getString("Seat")), 
+                        getBool(result.getString("Cushion")), 
+                        result.getString("ID"), 
+                        result.getString("Type"), 
+                        result.getString("ManuID"), 
+                        result.getInt("Price"));
                     arr.add(type.cast(chair));
                 }
                 else if(tableName == "desk")
                 {
-                    Desk desk = (Desk)obj;
-                    desk.setLegs(getBool(result.getString("Legs")));
-                    desk.setTop(getBool(result.getString("Top")));
-                    desk.setDrawer(getBool(result.getString("Drawer")));
+                    Desk desk = new Desk(
+                        getBool(result.getString("Legs")), 
+                        getBool(result.getString("Top")), 
+                        getBool(result.getString("Drawer")), 
+                        result.getString("ID"), 
+                        result.getString("Type"), 
+                        result.getString("ManuID"), 
+                        result.getInt("Price"));
                     arr.add(type.cast(desk));
                 }
                 else if(tableName == "filing")
                 {
-                    Filing filing = (Filing)obj;
-                    filing.setCabinet(getBool(result.getString("Cabinet")));
-                    filing.setDrawers(getBool(result.getString("Drawers")));
-                    filing.setRails(getBool(result.getString("Rails")));
+                    Filing filing = new Filing(
+                        getBool(result.getString("Rails")), 
+                        getBool(result.getString("Drawers")), 
+                        getBool(result.getString("Cabinet")), 
+                        result.getString("ID"), 
+                        result.getString("Type"), 
+                        result.getString("ManuID"), 
+                        result.getInt("Price"));
                     arr.add(type.cast(filing));
                 }
                 else if(tableName == "lamp")
                 {
-                    Lamp lamp = (Lamp)obj;
-                    lamp.setBase(getBool(result.getString("Base")));
-                    lamp.setBulb(getBool(result.getString("Bulb")));
+                    Lamp lamp = new Lamp(
+                        getBool(result.getString("Base")), 
+                        getBool(result.getString("Bulb")), 
+                        result.getString("ID"), 
+                        result.getString("Type"), 
+                        result.getString("ManuID"), 
+                        result.getInt("Price"));
                     arr.add(type.cast(lamp));
                 }
                 else 
@@ -139,14 +164,14 @@ public class Storage {
 
     private boolean getBool(String c)
     {
-        return c=="Y";
+        return c.equals("Y");
     }
 
     private void removeFromDatabase(String tableName, String key)
     {
         try
         {
-            dbConnect.createStatement().executeQuery("DELETE FROM "+tableName+" WHERE ID = "+key);
+            dbConnect.createStatement().execute("DELETE FROM "+tableName+" WHERE ID = "+key);
         }
         catch(SQLException e)
         {
@@ -179,82 +204,90 @@ public class Storage {
     public ArrayList<Chair> getChairStorage(String type)
     {
         ArrayList<Chair> arr = new ArrayList<>();
-        arr.addAll(chairStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        arr.addAll(chairStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
         return arr;
     }
 
     public ArrayList<Desk> getDeskStorage(String type)
     {
         ArrayList<Desk> arr = new ArrayList<>();
-        arr.addAll(deskStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        arr.addAll(deskStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
         return arr;
     }
 
     public ArrayList<Filing> getFilingStorage(String type)
     {
         ArrayList<Filing> arr = new ArrayList<>();
-        arr.addAll(filingStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        arr.addAll(filingStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
         return arr;
     }
 
     //--MUTATOR METHODS--
     public void removeFromStorage(String tableName, String id)
     {
-        if(tableName=="chair")
+        if(tableName.equals("chair"))
         {
-            for(int i = 0; i < chairStorage.size(); i++)
+            for(Chair chair: chairStorage)
             {
-                if(chairStorage.get(i).equals(id))
+                if(chair.getId().equals(id))
                 {
-                    chairStorage.remove(i);
-                    return;
-                }
-            }
-        }
-        else if(tableName=="desk")
-        {
-            for(int i = 0; i < deskStorage.size(); i++)
-            {
-                if(deskStorage.get(i).getId().equals(id))
-                {
-                    deskStorage.remove(i);
+                    chairStorage.remove(chair);
                     break;
                 }
             }
         }
-        else if(tableName == "filing")
+        else if(tableName.equals("desk"))
         {
-            for(int i = 0; i < filingStorage.size(); i++)
+            for(Desk desk: deskStorage)
             {
-                if(filingStorage.get(i).getId().equals(id))
+                if(desk.getId().equals(id))
                 {
-                    filingStorage.remove(i);
+                    deskStorage.remove(desk);
                     break;
                 }
             }
         }
-        else if(tableName == "lamp")
+        else if(tableName.equals("filing"))
         {
-            for(int i = 0; i < lampStorage.size(); i++)
+            for(Filing file: filingStorage)
             {
-                if(lampStorage.get(i).getId().equals(id))
+                if(file.getId().equals(id))
                 {
-                    lampStorage.remove(i);
+                    filingStorage.remove(file);
                     break;
                 }
             }
         }
-        else if(tableName == "manufacturer")
+        else if(tableName.equals("lamp"))
         {
-            for(int i = 0; i < manufacturerStorage.size(); i++)
+            for(Lamp lamp: lampStorage)
             {
-                if(manufacturerStorage.get(i).getManuId().equals(id))
+                if(lamp.getId().equals(id))
                 {
-                    manufacturerStorage.remove(i);
+                    lampStorage.remove(lamp);
                     break;
                 }
             }
         }
-        removeFromDatabase(tableName, id);
+        else if(tableName.equals("manufacturer"))
+        {
+            for(Manufacturer manufacturer: manufacturerStorage)
+            {
+                if(manufacturer.getManuId().equals(id))
+                {
+                    manufacturerStorage.remove(manufacturer);
+                    break;
+                }
+            }
+        }
+        //removeFromDatabase(tableName, id);
+    }
+
+    public static void main(String[] args) {
+        Storage stor = new Storage("tyler", "ensf409");
+        for(Chair chair: stor.getChairStorage("Task"))
+        {
+            System.out.println(chair.getId()+" Type: "+chair.getType()+" Legs: "+chair.getLegs()+" Arms: "+chair.getArms() );
+        }
     }
 }
