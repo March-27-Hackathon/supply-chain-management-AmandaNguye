@@ -11,7 +11,7 @@ public class Storage {
     private Connection dbConnect;
     private ResultSet result;
 
-    HashMap<String, Chair> chairStorage;
+    HashMap<String, Furniture> chairStorage;
 
     public Storage(String dbUrl, String username, String password)
     {
@@ -27,6 +27,8 @@ public class Storage {
             e.printStackTrace();
             System.exit(1);
         }
+
+        chairStorage = populateFurniture("chair");
     }
 
     public void initialize() throws SQLException
@@ -36,14 +38,15 @@ public class Storage {
 
     public HashMap<String, Furniture> populateFurniture(String tableName)
     {
-        HashMap<String, Furniture> temp = new HashMap<>();
+        HashMap<String, Furniture> tempHashSet = new HashMap<>();
         try
         {
             result = dbConnect.createStatement().executeQuery("SELECT * FROM "+tableName);
 
             while(result.next())
             {
-                temp.put(result.getString("ID"),new Chair())
+                //TODO ADD FULL CHAIR CONSTRUCTOR IMPLEMEMNTATION
+                tempHashSet.put(result.getString("ID"),new Chair());
             }
         }
         catch(SQLException e)
@@ -51,6 +54,7 @@ public class Storage {
             e.printStackTrace();
             System.exit(1);
         }
-        return null;
+
+        return tempHashSet;
     }
 }
