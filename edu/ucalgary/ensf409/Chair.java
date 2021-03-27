@@ -11,6 +11,16 @@ public class Chair extends Furniture {
     private boolean arms;
     private boolean seat;
     private boolean cushion;
+
+    // constructor
+    public Chair(boolean legs, boolean arms, boolean seat, boolean cushion, String id, String type, String manuId, int price){
+        super(id, type, manuId, price);
+        setArms(arms);
+        setCushion(cushion);
+        setId(id);
+        setLegs(legs);
+    }
+
     // class methods
 
     // getter methods
