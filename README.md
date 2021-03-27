@@ -1,2 +1,2 @@
-# supply-chain-management-AmandaNguye
-supply-chain-management-AmandaNguye created by GitHub Classroom
+# ENSF 409 Final Project: Supply Chain Management
+## Authors: Amanda Nguyen, Dat Lam, Tommy Tran, Tyler Tran
