@@ -1,6 +1,7 @@
 package edu.ucalgary.ensf409;
 
 import java.io.*;
+
 /**
  * Class to create and format the output file for scenarios
  */
@@ -11,9 +12,10 @@ public class Output {
     private String requestedCount;
     private String[] itemsOrdered;
     private int price;
-    
+
     /**
      * Constructor
+     * 
      * @param fileName
      * @param furniture
      * @param type
@@ -34,6 +36,7 @@ public class Output {
      * Method that formats and writes the output files of a scenario
      */
     public void writeFile() {
+          // Write out the file in formatted form
         FileWriter out = null;
         try {
             out = new FileWriter(fileName + ".txt");
@@ -46,9 +49,11 @@ public class Output {
             out.write("Total Price: $" + price);
 
         } catch (Exception e) {
-                System.err.println("I/O error writing to output file " + fileName + ".");
-                System.err.println(e.toString());
-                System.exit(1);        }
+            System.err.println("I/O error writing to output file " + fileName + ".");
+            System.err.println(e.toString());
+            System.exit(1);
+        }
+          // Try to close an output file, exit(1) if not possible
         if (out != null) {
             try {
                 out.close();
