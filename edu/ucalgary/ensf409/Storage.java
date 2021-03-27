@@ -1,6 +1,6 @@
 /**
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
- * @version 1.5
+ * @version 1.6
  * @since 1.0
 */
 
@@ -15,7 +15,6 @@
   */
 package edu.ucalgary.ensf409;
 
-import java.nio.file.FileStore;
 /**
  * Import Packages
  */
@@ -24,22 +23,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Storage {
-    /**
-     * Class fields
-     */
+
+     //--CLASS FIELDS--
+
+     // Constants
     private final String DBURL="jdbc:mysql://localhost/inventory";
     private final String USERNAME;
     private final String PASSWORD;
 
+    // SQL Variables
     private Connection dbConnect;
     private ResultSet result;
 
+    // Storage
     private ArrayList<Chair> chairStorage;
     private ArrayList<Desk> deskStorage;
     private ArrayList<Filing> filingStorage;
     private ArrayList<Lamp> lampStorage;
     private ArrayList<Manufacturer> manufacturerStorage;
 
+    //-- CLASS METHODS --
+    /**
+     * Constructor
+     * @param username username of SQL user
+     * @param password password of SQL user
+     */
     public Storage(String username, String password)
     {
         this.USERNAME = username;
@@ -61,11 +69,22 @@ public class Storage {
         manufacturerStorage = populateManufacturer();
     }
 
+    /**
+     * Intitialize attempts to connect to the SQL database
+     * @throws SQLException if connection fails
+     */
     public void initialize() throws SQLException
     {
         dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
     }
 
+    /**
+     * Populates a furniture type arrayList
+     * @param <T> generic subclass of Furniture
+     * @param tableName name of table
+     * @param type class type variable
+     * @return ArrayList of generic type
+     */
     public <T extends Furniture> ArrayList<T> populateFurniture(String tableName, Class<T> type)
     {
         ArrayList<T> arr = new ArrayList<>();
@@ -137,6 +156,10 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Populates the manufacturer ArrayList
+     * @return ArrayList of type manufacturer
+     */
     public ArrayList<Manufacturer> populateManufacturer()
     {
         ArrayList<Manufacturer> arr = new ArrayList<>();
@@ -162,11 +185,21 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Translates Y/N to boolean values
+     * @param c input "Y/N"
+     * @return true if Y, false if N
+     */
     private boolean getBool(String c)
     {
         return c.equals("Y");
     }
 
+    /**
+     * Removes a particular item from database
+     * @param tableName tablename
+     * @param key identifying key
+     */
     private void removeFromDatabase(String tableName, String key)
     {
         try
@@ -181,26 +214,51 @@ public class Storage {
     }
 
     //--GETTER METHODS--
+
+    /**
+     * Gets chairStorage ArrayList
+     * @return chairStorage
+     */
     public ArrayList<Chair>  getChairStorage() {
         return chairStorage;
     }
 
+    /**
+     * Gets deskStorage ArrayList
+     * @return deskStorage
+     */
     public ArrayList<Desk>  getDeskStorage() {
         return deskStorage;
     }
 
+    /**
+     * Gets filingStorage ArrayList
+     * @return filingStorage
+     */
     public ArrayList<Filing> getFilingStorage() {
         return filingStorage;
     }
 
+    /**
+     * Gets lampStorage ArrayList
+     * @return lampStorage
+     */
     public ArrayList<Lamp>  getLampStorage() {
         return lampStorage;
     }
 
+    /**
+     * gets manufacturerStorage ArrayList
+     * @return manufactureerStorage
+     */
     public ArrayList<Manufacturer> getManufacturerStorage() {
         return manufacturerStorage;
     }
 
+    /**
+     * Gets chairStorage ArrayList filtered by type
+     * @return filtered chairStorage
+     */
     public ArrayList<Chair> getChairStorage(String type)
     {
         ArrayList<Chair> arr = new ArrayList<>();
@@ -208,6 +266,10 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Gets deskStorage ArrayList filtered by type
+     * @return filtered deskStorage
+     */
     public ArrayList<Desk> getDeskStorage(String type)
     {
         ArrayList<Desk> arr = new ArrayList<>();
@@ -215,6 +277,10 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Gets filingStorage ArrayList filtered by type
+     * @return filtered filingStorage
+     */
     public ArrayList<Filing> getFilingStorage(String type)
     {
         ArrayList<Filing> arr = new ArrayList<>();
@@ -223,6 +289,12 @@ public class Storage {
     }
 
     //--MUTATOR METHODS--
+
+    /**
+     * Removes a specified item from storage and database
+     * @param tableName database table name
+     * @param id key of element
+     */
     public void removeFromStorage(String tableName, String id)
     {
         if(tableName.equals("chair"))
@@ -280,14 +352,14 @@ public class Storage {
                 }
             }
         }
-        //removeFromDatabase(tableName, id);
+        removeFromDatabase(tableName, id);
     }
 
     public static void main(String[] args) {
         Storage stor = new Storage("tyler", "ensf409");
         for(Chair chair: stor.getChairStorage("Task"))
         {
-            System.out.println(chair.getId()+" Type: "+chair.getType()+" Legs: "+chair.getLegs()+" Arms: "+chair.getArms() );
+            System.out.println(chair.getId()+" Type: "+chair.getType()+" Legs: "+chair.getLegs()+" Arms: "+chair.getArms());
         }
     }
 }
