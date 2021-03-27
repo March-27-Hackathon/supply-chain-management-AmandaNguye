@@ -14,11 +14,11 @@ public class Chair extends Furniture {
 
     // constructor
     public Chair(boolean legs, boolean arms, boolean seat, boolean cushion, String id, String type, String manuId, int price){
+        super(id, type, manuId, price);
         setArms(arms);
         setCushion(cushion);
         setId(id);
         setLegs(legs);
-        super(id, type, manuId, price);
     }
 
     // class methods

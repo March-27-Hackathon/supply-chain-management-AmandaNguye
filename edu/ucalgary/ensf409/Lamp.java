@@ -12,9 +12,9 @@ public class Lamp extends Furniture {
 
     // constructor
     public Lamp(boolean base, boolean bulb, String id, String type, String manuId, int price){
+        super(id, type, manuId, price);
         setBase(base);
         setBulb(bulb);
-        super(id, type, manuId, price);
     }
     // class methods
 

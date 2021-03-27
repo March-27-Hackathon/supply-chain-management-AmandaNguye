@@ -13,10 +13,10 @@ public class Filing extends Furniture {
     
     // constructor
     public Filing(boolean rails, boolean drawers, boolean cabinet, String id, String type, String manuId, int price){
+        super(id, type, manuId, price);
         setRails(rails);
         setDrawers(drawers);
         setCabinet(cabinet);
-        super(id, type, manuId, price);
     }
 
     // class methods
