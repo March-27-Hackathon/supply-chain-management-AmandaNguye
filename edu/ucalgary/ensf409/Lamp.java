@@ -9,6 +9,13 @@ public class Lamp extends Furniture {
     // class fields
     private boolean base;
     private boolean bulb;
+
+    // constructor
+    public Lamp(boolean base, boolean bulb, String id, String type, String manuId, int price){
+        setBase(base);
+        setBulb(bulb);
+        super(id, type, manuId, price);
+    }
     // class methods
 
     // getter methods

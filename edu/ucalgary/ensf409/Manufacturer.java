@@ -12,6 +12,14 @@ public class Manufacturer {
     private String phone;
     private String province;
 
+    //constructor
+    public Manufacturer(String manuId, String name, String phone, String province){
+        setManuId(manuId);
+        setName(name);
+        setPhone(phone);
+        setProvince(province);
+    }
+
     // getter methods
     public String getManuId() {
         return manuId;

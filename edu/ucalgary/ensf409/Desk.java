@@ -11,6 +11,14 @@ public class Desk extends Furniture {
     private boolean top;
     private boolean drawer;
 
+    // constructor
+    public Desk(boolean legs, boolean top, boolean drawer, String id, String type, String manuId, int price){
+        setLegs(legs);
+        setTop(top);
+        setDrawer(drawer);
+        super(id, type, manuId, price);
+    }
+
     // getter methods
     public boolean getLegs(){
         return legs;

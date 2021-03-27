@@ -10,7 +10,18 @@ public class Filing extends Furniture {
     private boolean rails;
     private boolean drawers;
     private boolean cabinet;
+    
+    // constructor
+    public Filing(boolean rails, boolean drawers, boolean cabinet, String id, String type, String manuId, int price){
+        setRails(rails);
+        setDrawers(drawers);
+        setCabinet(cabinet);
+        super(id, type, manuId, price);
+    }
+
     // class methods
+
+
 
     // getter methods
     public boolean getRails() {
