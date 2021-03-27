@@ -58,11 +58,10 @@ public class Output {
      */
     public static void writeFormattedTerminal(String furniture, String type, String count, String[] manufacturers) {
         System.out.println("User request: " + type + " " + furniture + ", " + count);
-        System.out.print("Output: Order cannot be fulfilled based on current inventory. Suggested manufacturer(s) are "
-                + manufacturers[0]);
-        for (int i = 1; i < manufacturers.length - 1; i++) {
-            System.out.print(", " + manufacturers[i]);
+        System.out.println("Output: Order cannot be fulfilled based on current inventory.");
+        System.out.println("SUGGESTED MANUFACTURER(S):");
+        for (int i = 0; i < manufacturers.length - 1; i++) {
+            System.out.println(manufacturers[i]);
         }
-        System.out.print(", and " + manufacturers[manufacturers.length]);
     }
 }
