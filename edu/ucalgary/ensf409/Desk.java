@@ -16,9 +16,6 @@ public class Desk extends Furniture {
         super(id, type, manuId, price);
         setLegs(legs);
         setTop(top);
-        setDrawer(drawer); 
-        setLegs(legs);
-        setTop(top);
         setDrawer(drawer);
     }
 
