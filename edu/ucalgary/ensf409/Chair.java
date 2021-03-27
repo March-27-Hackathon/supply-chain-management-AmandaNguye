@@ -17,7 +17,7 @@ public class Chair extends Furniture {
         super(id, type, manuId, price);
         setArms(arms);
         setCushion(cushion);
-        setId(id);
+        setSeat(seat);
         setLegs(legs);
     }
 
