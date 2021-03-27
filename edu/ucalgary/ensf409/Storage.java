@@ -1,10 +1,22 @@
+/**
+ * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
+ * @version 1.3
+ * @since 1.0
+*/
+
+/**
+ * Storage reads all tables in the SQL database and stores the data as objects into
+ * hashmaps which then can be easily used by other classes. Methods are provided to easily access each
+ * hashmap and easily remove any element from each map and database
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.sql.*;
 import java.util.*;
 
 public class Storage {
-    private final String DBURL;
+    private final String DBURL="jdbc:mysql://localhost/inventory";
     private final String USERNAME;
     private final String PASSWORD;
 
@@ -14,9 +26,8 @@ public class Storage {
     private HashMap<String, Furniture> chairStorage, deskStorage, filingStorage, lampStorage;
     private HashMap<String, Manufacturer> manufacturerStorage;
 
-    public Storage(String dbUrl, String username, String password)
+    public Storage(String username, String password)
     {
-        this.DBURL = dbUrl;
         this.USERNAME = username;
         this.PASSWORD = password;
         try
@@ -164,7 +175,26 @@ public class Storage {
     //--MUTATOR METHODS--
     public void removeFromStorage(String tableName, String id)
     {
-        chairStorage.remove(id);
-        removeFromDatabase("chair", id);
+        if(tableName=="chair")
+        {
+            chairStorage.remove(id);
+        }
+        else if(tableName=="desk")
+        {
+            deskStorage.remove(id);
+        }
+        else if(tableName=="filing")
+        {
+            filingStorage.remove(id);
+        }
+        else if(tableName=="lamp")
+        {
+            lampStorage.remove(id);
+        }
+        else if(tableName=="manufacturer")
+        {
+            manufacturerStorage.remove(id);
+        }
+        removeFromDatabase(tableName, id);
     }
 }
