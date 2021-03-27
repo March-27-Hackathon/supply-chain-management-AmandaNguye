@@ -10,7 +10,7 @@
  */
 package edu.ucalgary.ensf409;
 
-public abstract class Furniture
+public class Furniture
 {
     //--CLASS FIELDS--
     private String id;
