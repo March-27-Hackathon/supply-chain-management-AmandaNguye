@@ -33,7 +33,7 @@ public class Storage {
         deskStorage = populateFurniture("desk");
         filingStorage = populateFurniture("filing");
         lampStorage = populateFurniture("lamp");
-
+        manufacturerStorage = populateManufacturer();
     }
 
     public void initialize() throws SQLException
@@ -95,6 +95,31 @@ public class Storage {
         }
 
         return tempHashSet;
+    }
+
+    public HashMap<String, Manufacturer> populateManufacturer()
+    {
+        HashMap<String, Manufacturer> temp = new HashMap<>();
+        try
+        {
+            result = dbConnect.createStatement().executeQuery("SELECT * FROM manufacturer");
+
+            while(result.next())
+            {
+                temp.put(result.getString("ManuID"), new Manufacturer(
+                    result.getString("ManuID"), 
+                    result.getString("Name"), 
+                    result.getString("Name"), 
+                    result.getString("Province")));
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return temp;
     }
 
     private boolean getBool(String c)
