@@ -1,6 +1,6 @@
 /**
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
- * @version 1.3
+ * @version 1.5
  * @since 1.0
 */
 
@@ -14,6 +14,7 @@ package edu.ucalgary.ensf409;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Storage {
     private final String DBURL="jdbc:mysql://localhost/inventory";
@@ -23,8 +24,11 @@ public class Storage {
     private Connection dbConnect;
     private ResultSet result;
 
-    private HashMap<String, Furniture> chairStorage, deskStorage, filingStorage, lampStorage;
-    private HashMap<String, Manufacturer> manufacturerStorage;
+    private ArrayList<Chair> chairStorage;
+    private ArrayList<Desk> deskStorage;
+    private ArrayList<Filing> filingStorage;
+    private ArrayList<Lamp> lampStorage;
+    private ArrayList<Manufacturer> manufacturerStorage;
 
     public Storage(String username, String password)
     {
@@ -40,10 +44,10 @@ public class Storage {
             System.exit(1);
         }
 
-        chairStorage = populateFurniture("chair");
-        deskStorage = populateFurniture("desk");
-        filingStorage = populateFurniture("filing");
-        lampStorage = populateFurniture("lamp");
+        chairStorage = populateFurniture("chair",Chair.class);
+        deskStorage = populateFurniture("desk",Desk.class);
+        filingStorage = populateFurniture("filing",Filing.class);
+        lampStorage = populateFurniture("lamp",Lamp.class);
         manufacturerStorage = populateManufacturer();
     }
 
@@ -52,9 +56,9 @@ public class Storage {
         dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
     }
 
-    public HashMap<String, Furniture> populateFurniture(String tableName)
+    public <T extends Furniture> ArrayList<T> populateFurniture(String tableName, Class<T> type)
     {
-        HashMap<String, Furniture> tempHashSet = new HashMap<>();
+        ArrayList<T> arr = new ArrayList<>();
         try
         {
             result = dbConnect.createStatement().executeQuery("SELECT * FROM "+tableName);
@@ -68,7 +72,7 @@ public class Storage {
                     chair.setArms(getBool(result.getString("Arms")));
                     chair.setSeat(getBool(result.getString("Seat")));
                     chair.setCushion(getBool(result.getString("Cushion")));
-                    tempHashSet.put(result.getString("ID"),chair);
+                    arr.add(type.cast(chair));
                 }
                 else if(tableName == "desk")
                 {
@@ -76,7 +80,7 @@ public class Storage {
                     desk.setLegs(getBool(result.getString("Legs")));
                     desk.setTop(getBool(result.getString("Top")));
                     desk.setDrawer(getBool(result.getString("Drawer")));
-                    tempHashSet.put(result.getString("ID"),desk);
+                    arr.add(type.cast(desk));
                 }
                 else if(tableName == "filing")
                 {
@@ -84,14 +88,14 @@ public class Storage {
                     filing.setCabinet(getBool(result.getString("Cabinet")));
                     filing.setDrawers(getBool(result.getString("Drawers")));
                     filing.setRails(getBool(result.getString("Rails")));
-                    tempHashSet.put(result.getString("ID"),filing);
+                    arr.add(type.cast(filing));
                 }
                 else if(tableName == "lamp")
                 {
                     Lamp lamp = (Lamp)obj;
                     lamp.setBase(getBool(result.getString("Base")));
                     lamp.setBulb(getBool(result.getString("Bulb")));
-                    tempHashSet.put(result.getString("ID"), lamp);
+                    arr.add(type.cast(lamp));
                 }
                 else 
                 {
@@ -105,19 +109,19 @@ public class Storage {
             System.exit(1);
         }
 
-        return tempHashSet;
+        return arr;
     }
 
-    public HashMap<String, Manufacturer> populateManufacturer()
+    public ArrayList<Manufacturer> populateManufacturer()
     {
-        HashMap<String, Manufacturer> temp = new HashMap<>();
+        ArrayList<Manufacturer> arr = new ArrayList<>();
         try
         {
             result = dbConnect.createStatement().executeQuery("SELECT * FROM manufacturer");
 
             while(result.next())
             {
-                temp.put(result.getString("ManuID"), new Manufacturer(
+                arr.add(new Manufacturer(
                     result.getString("ManuID"), 
                     result.getString("Name"), 
                     result.getString("Name"), 
@@ -130,7 +134,7 @@ public class Storage {
             System.exit(1);
         }
 
-        return temp;
+        return arr;
     }
 
     private boolean getBool(String c)
@@ -152,24 +156,45 @@ public class Storage {
     }
 
     //--GETTER METHODS--
-    public HashMap<String, Furniture> getChairStorage() {
+    public ArrayList<Chair>  getChairStorage() {
         return chairStorage;
     }
 
-    public HashMap<String, Furniture> getDeskStorage() {
+    public ArrayList<Desk>  getDeskStorage() {
         return deskStorage;
     }
 
-    public HashMap<String, Furniture> getFilingStorage() {
+    public ArrayList<Filing> getFilingStorage() {
         return filingStorage;
     }
 
-    public HashMap<String, Furniture> getLampStorage() {
+    public ArrayList<Lamp>  getLampStorage() {
         return lampStorage;
     }
 
-    public HashMap<String, Manufacturer> getManufacturerStorage() {
+    public ArrayList<Manufacturer> getManufacturerStorage() {
         return manufacturerStorage;
+    }
+
+    public ArrayList<Chair> getChairStorage(String type)
+    {
+        ArrayList<Chair> arr = new ArrayList<>();
+        arr.addAll(chairStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        return arr;
+    }
+
+    public ArrayList<Desk> getDeskStorage(String type)
+    {
+        ArrayList<Desk> arr = new ArrayList<>();
+        arr.addAll(deskStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        return arr;
+    }
+
+    public ArrayList<Filing> getFilingStorage(String type)
+    {
+        ArrayList<Filing> arr = new ArrayList<>();
+        arr.addAll(filingStorage.stream().filter(c -> c.getType() == type).collect(Collectors.toList()));
+        return arr;
     }
 
     //--MUTATOR METHODS--
@@ -177,23 +202,58 @@ public class Storage {
     {
         if(tableName=="chair")
         {
-            chairStorage.remove(id);
+            for(int i = 0; i < chairStorage.size(); i++)
+            {
+                if(chairStorage.get(i).equals(id))
+                {
+                    chairStorage.remove(i);
+                    return;
+                }
+            }
         }
         else if(tableName=="desk")
         {
-            deskStorage.remove(id);
+            for(int i = 0; i < deskStorage.size(); i++)
+            {
+                if(deskStorage.get(i).getId().equals(id))
+                {
+                    deskStorage.remove(i);
+                    break;
+                }
+            }
         }
-        else if(tableName=="filing")
+        else if(tableName == "filing")
         {
-            filingStorage.remove(id);
+            for(int i = 0; i < filingStorage.size(); i++)
+            {
+                if(filingStorage.get(i).getId().equals(id))
+                {
+                    filingStorage.remove(i);
+                    break;
+                }
+            }
         }
-        else if(tableName=="lamp")
+        else if(tableName == "lamp")
         {
-            lampStorage.remove(id);
+            for(int i = 0; i < lampStorage.size(); i++)
+            {
+                if(lampStorage.get(i).getId().equals(id))
+                {
+                    lampStorage.remove(i);
+                    break;
+                }
+            }
         }
-        else if(tableName=="manufacturer")
+        else if(tableName == "manufacturer")
         {
-            manufacturerStorage.remove(id);
+            for(int i = 0; i < manufacturerStorage.size(); i++)
+            {
+                if(manufacturerStorage.get(i).getManuId().equals(id))
+                {
+                    manufacturerStorage.remove(i);
+                    break;
+                }
+            }
         }
         removeFromDatabase(tableName, id);
     }
