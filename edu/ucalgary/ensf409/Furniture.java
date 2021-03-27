@@ -1,6 +1,6 @@
 /**
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
- * @version 1.0
+ * @version 1.1
  * @since 1.0
 */
 
@@ -17,6 +17,15 @@ public abstract class Furniture
     private String type;
     private String manuId;
     private int price;
+
+    //--CLASS CONSTRUCTOR--
+    public Furniture(String id, String type, String manuId, int price)
+    {
+        setId(id);
+        setType(type);
+        setManuId(manuId);
+        setPrice(price);
+    }
 
     //--CLASS METHODS--
 
