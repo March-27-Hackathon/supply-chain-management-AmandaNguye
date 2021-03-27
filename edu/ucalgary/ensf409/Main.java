@@ -6,8 +6,6 @@
 
 package edu.ucalgary.ensf409;
 
-import java.time.LocalDate;
-
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -15,11 +13,6 @@ public class Main {
         
         //Creating the input object
         InputOrder input = new InputOrder();
-        //Calling a popup to input faculty name and contact info
-        input.setFacultyName(JOptionPane.showInputDialog("Please input your faculty name"));
-        input.setContact(JOptionPane.showInputDialog("Please input your contact info"));
-        //Setting the date to the local date
-        input.setDate(LocalDate.now().toString());
         
         /*Getting the furniture type by splitting the inputted furniture by spaces
         and setting the furniture as the last substring and everything as the
