@@ -1,7 +1,9 @@
 package edu.ucalgary.ensf409;
 
 import java.io.*;
-
+/**
+ * Class to create and format the output file for scenarios
+ */
 public class Output {
     private String fileName;
     private String requestedFurniture;
@@ -9,11 +11,28 @@ public class Output {
     private String requestedCount;
     private String[] itemsOrdered;
     private int price;
-
-    public Output(String furniture, String type, String count) {
-
+    
+    /**
+     * Constructor
+     * @param fileName
+     * @param furniture
+     * @param type
+     * @param count
+     * @param itemsOrdered
+     * @param price
+     */
+    public Output(String fileName, String furniture, String type, String count, String[] itemsOrdered, int price) {
+        this.fileName = fileName;
+        this.requestedFurniture = furniture;
+        this.requestedType = type;
+        this.requestedCount = count;
+        this.itemsOrdered = itemsOrdered;
+        this.price = price;
     }
 
+    /**
+     * Method that formats and writes the output files of a scenario
+     */
     public void writeFile() {
         FileWriter out = null;
         try {
