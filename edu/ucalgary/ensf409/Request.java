@@ -25,47 +25,19 @@ public class Request {
         {
             case "chair":
                 //List only contain chair of that type
-                ArrayList<Chair> chairList = new ArrayList<Chair>();
-                for(int i = 0; i < storage.getChairStorage().size(); i++)
-                {
-                    if(storage.getChairStorage().get(i).getType().equals(type))
-                    {
-                        chairList.add(storage.getChairStorage().get(i));
-                    }
-                }
+                ArrayList<Chair> chairList = storage.getChairStorage(type);
                 return requestChair(chairList);
             case "desk":
                 //List only contain desk of that type
-                ArrayList<Desk> deskList = new ArrayList<Desk>();
-                for(int i = 0; i < storage.getDeskStorage().size(); i++)
-                {
-                    if(storage.getDeskStorage().get(i).getType().equals(type))
-                    {
-                        deskList.add(storage.getDeskStorage().get(i));
-                    }
-                }
+                ArrayList<Desk> deskList = storage.getDeskStorage(type);
                 return requestDesk(deskList);
             case "filing":
                 //List only contain filing of that type
-                ArrayList<Filing> filingList = new ArrayList<Filing>();
-                for(int i = 0; i < storage.getFilingStorage().size(); i++)
-                {
-                    if(storage.getFilingStorage().get(i).getType().equals(type))
-                    {
-                        filingList.add(storage.getFilingStorage().get(i));
-                    }
-                }
+                ArrayList<Filing> filingList = storage.getFilingStorage(type);
                 return requestFiling(filingList);
             case "lamp":
                 //List only contain desk of that type
-                ArrayList<Lamp> lampList = new ArrayList<Lamp>();
-                for(int i = 0; i < storage.getLampStorage().size(); i++)
-                {
-                    if(storage.getLampStorage().get(i).getType().equals(type))
-                    {
-                        lampList.add(storage.getLampStorage().get(i));
-                    }
-                }
+                ArrayList<Lamp> lampList = storage.getLampStorage();
                 return requestLamp(lampList);
             default:
                 throw new IllegalArgumentException();
@@ -116,30 +88,37 @@ public class Request {
     public ArrayList<Chair> requestChair(ArrayList<Chair> list)
     {
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
-        ArrayList<Chair> temp;
+        ArrayList<Chair> temp1, temp2;
         for(int i = 0; i < list.size(); i ++)
         {
-            temp = new ArrayList<Chair>();
-            temp.add(list.get(i));
-            if(checkChairs(temp))
+            temp1 = new ArrayList<Chair>();
+            temp1.add(list.get(i));
+            if(checkChairs(temp1))
             {
-                if(temp instanceof ArrayList<Chair>)
-                    correctList.add((ArrayList<Chair>)temp.clone());
+                correctList.add((ArrayList<Chair>)temp1.clone());
             }
             for(int j = i+1; j < list.size(); j ++)
             {
-                temp.add(list.get(i));
-                if(checkChairs(temp))
+                temp2 = (ArrayList<Chair>)temp1.clone();
+                for(int n = 0; n+j < list.size(); n ++)
                 {
-                    correctList.add((ArrayList<Chair>)temp.clone());
-                    temp.remove(temp.size()-1);
+                    temp2.add(list.get(j+n));
+                    if(checkChairs(temp2))
+                    {
+                        correctList.add((ArrayList<Chair>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
+                    }
                 }
             }
         }
 
+        if(correctList.size() == 0)
+        {
+            return null;
+        }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Chair> lowestChairs = new ArrayList<Chair>();
-        for(int i = 1; i < list.size(); i++)
+        for(int i = 1; i < correctList.size(); i++)
         {
             if(lowest > priceOf(correctList.get(i)))
             {
@@ -180,26 +159,34 @@ public class Request {
     public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
     {
         ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
-        ArrayList<Desk> temp;
+        ArrayList<Desk> temp1, temp2;
         for(int i = 0; i < list.size(); i ++)
         {
-            temp = new ArrayList<Desk>();
-            temp.add(list.get(i));
-            if(checkDesks(temp))
+            temp1 = new ArrayList<Desk>();
+            temp1.add(list.get(i));
+            if(checkDesks(temp1))
             {
-                correctList.add((ArrayList<Desk>)temp.clone());
+                correctList.add((ArrayList<Desk>)temp1.clone());
             }
             for(int j = i+1; j < list.size(); j ++)
             {
-                temp.add(list.get(i));
-                if(checkDesks(temp))
+                temp2 = (ArrayList<Desk>)temp1.clone();
+                for(int n = 0; n + j < list.size(); n++)
                 {
-                    correctList.add((ArrayList<Desk>)temp.clone());
-                    temp.remove(temp.size()-1);
+                    temp2.add(list.get(j+n));
+                    if(checkDesks(temp2))
+                    {
+                        correctList.add((ArrayList<Desk>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
+                    }
                 }
             }
         }
 
+        if(correctList.size() == 0)
+        {
+            return null;
+        }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Desk> lowestDesks = new ArrayList<Desk>();
         for(int i = 1; i < list.size(); i++)
@@ -243,26 +230,34 @@ public class Request {
     public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
     {
         ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
-        ArrayList<Filing> temp;
+        ArrayList<Filing> temp1, temp2;
         for(int i = 0; i < list.size(); i ++)
         {
-            temp = new ArrayList<Filing>();
-            temp.add(list.get(i));
-            if(checkFilings(temp))
+            temp1 = new ArrayList<Filing>();
+            temp1.add(list.get(i));
+            if(checkFilings(temp1))
             {
-                correctList.add((ArrayList<Filing>)temp.clone());
+                correctList.add((ArrayList<Filing>)temp1.clone());
             }
             for(int j = i+1; j < list.size(); j ++)
             {
-                temp.add(list.get(i));
-                if(checkFilings(temp))
+                temp2 = (ArrayList<Filing>)temp1.clone();
+                for(int n = 0; n + j < list.size(); n++)
                 {
-                    correctList.add((ArrayList<Filing>)temp.clone());
-                    temp.remove(temp.size()-1);
+                    temp2.add(list.get(j+n));
+                    if(checkFilings(temp2))
+                    {
+                        correctList.add((ArrayList<Filing>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
+                    }
                 }
             }
         }
 
+        if(correctList.size() == 0)
+        {
+            return null;
+        }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Filing> lowestFilings = new ArrayList<Filing>();
         for(int i = 1; i < list.size(); i++)
@@ -306,26 +301,34 @@ public class Request {
     public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
     {
         ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
-        ArrayList<Lamp> temp;
+        ArrayList<Lamp> temp1, temp2;
         for(int i = 0; i < list.size(); i ++)
         {
-            temp = new ArrayList<Lamp>();
-            temp.add(list.get(i));
-            if(checkLamps(temp))
+            temp1 = new ArrayList<Lamp>();
+            temp1.add(list.get(i));
+            if(checkLamps(temp1))
             {
-                correctList.add((ArrayList<Lamp>)temp.clone());
+                correctList.add((ArrayList<Lamp>)temp1.clone());
             }
             for(int j = i+1; j < list.size(); j ++)
             {
-                temp.add(list.get(i));
-                if(checkLamps(temp))
+                temp2 = (ArrayList<Lamp>)temp1.clone();
+                for(int n = 0; n+j< list.size(); n++)
                 {
-                    correctList.add((ArrayList<Lamp>)temp.clone());
-                    temp.remove(temp.size()-1);
+                    temp2.add(list.get(j+n));
+                    if(checkLamps(temp2))
+                    {
+                        correctList.add((ArrayList<Lamp>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
+                    }
                 }
             }
         }
 
+        if(correctList.size() == 0)
+        {
+            return null;
+        }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Lamp> lowestLamps = new ArrayList<Lamp>();
         for(int i = 1; i < list.size(); i++)
