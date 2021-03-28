@@ -1,6 +1,6 @@
 /**
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
- * @version 1.6
+ * @version 1.9
  * @since 1.0
 */
 
@@ -248,6 +248,15 @@ public class Storage {
     }
 
     /**
+     * Gets manufacturerStorage ArrayList
+     * @return manufacturerStorage
+     */
+    public ArrayList<Manufacturer> getManufacturerStorage()
+    {
+        return manufacturerStorage;
+    }
+
+    /**
      * Gets chairStorage ArrayList filtered by type
      * @return filtered chairStorage
      */
@@ -380,6 +389,6 @@ public class Storage {
                 }
             }
         }
-        //removeFromDatabase(tableName, id);
+        removeFromDatabase(tableName, id);
     }
 }
