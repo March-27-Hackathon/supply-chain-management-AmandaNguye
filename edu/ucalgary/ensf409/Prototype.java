@@ -18,6 +18,12 @@ public class Prototype {
         {
             ArrayList<Chair> tmp = new ArrayList<>();
             tmp.add(arr.get(i));
+            if(checkCombination(tmp))
+            {
+                possibleCombinations.add((ArrayList<Chair>)tmp.clone());
+                tmp.remove(tmp.size()-1);
+                i++;
+            }
             for(int j = i+1; j < arr.size(); j++)
             {
                 tmp.add(arr.get(j));

@@ -10,9 +10,12 @@ import javax.swing.JOptionPane;
 
 public class Main extends Output{
     public static void main(String[] args) {
-        
+        String username = "";
+        String password ="";
         //Creating the input object
         InputOrder input = new InputOrder();
+        // Storage storage = new Storage(username,password);
+        // Request rq = new Request(storage);
         
         /*Getting the furniture type by splitting the inputted furniture by spaces
         and setting the furniture as the last substring and everything as the
@@ -30,7 +33,7 @@ public class Main extends Output{
         }
         input.setFurType(furType);
 
-        //Creating a loop to ensure that the inputted quantity is always an interger
+        //Creating a loop to ensure that the inputted quantity is always an integer
         String quantity;
         do 
         {
@@ -40,9 +43,11 @@ public class Main extends Output{
                 input.setQuantity(Integer.parseInt(quantity));
             } else 
             {
-                JOptionPane.showMessageDialog(null, "Please input an interger");
+                JOptionPane.showMessageDialog(null, "Please input an integer");
             }
 
         } while(!quantity.matches("^[0-9]+$"));
+
+
     }
 }
