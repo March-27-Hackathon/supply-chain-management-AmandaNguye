@@ -10,6 +10,8 @@ public class OutputRequest {
 
     private Connection dbConnect;
     private ResultSet result;
+    LinkedList<LinkedList<Integer>> validScenarios;
+    LinkedList<String> scenarioIds;
 
     public OutputRequest(String dbUrl, String username, String password) {
         this.DBURL = dbUrl;
@@ -27,31 +29,50 @@ public class OutputRequest {
         dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
     }
 
-    public OutputRequest find(InputOrder orderInfo) throws SQLException {
+    public LinkedList<Integer> find(InputOrder orderInfo) throws SQLException {
         result = dbConnect.createStatement().executeQuery(
                 "SELECT COUNT(*) FROM " + orderInfo.getFurniture() + " WHERE Type='" + orderInfo.getFurType());
         // + "' ORDER BY ID LIMIT 1 OFFSET ?"
         result.beforeFirst();
-        findValid(1);
-        return null;
+        LinkedList<Integer> stagedIndices = new LinkedList<Integer>();
+        testAdd(1, stagedIndices);
+        return findLowest(validScenarios);
     }
 
-    private void findValid(int index) throws SQLException {
-        LinkedList<Integer> stagedIndices = new LinkedList<Integer>();
+    private LinkedList<Integer> findLowest(LinkedList<LinkedList<Integer>> validScenarios) throws SQLException {
+        LinkedList<Integer> lowestPrice = validScenarios.get(0);
+        for (LinkedList<Integer> eIntegers : validScenarios) {
+            if (priceOf(eIntegers) < priceOf(lowestPrice)) {
+                lowestPrice = eIntegers;
+            }
+        }
+        return lowestPrice;
+
+    }
+
+    private int priceOf(LinkedList<Integer> scenario) throws SQLException {
+        int price = 0;
+        for (int j = 0; j < scenario.size(); j++) {
+            result.absolute(scenario.get(j));
+            price += result.getInt("Price");
+        }
+        return price;
+    }
+
+    private void testAdd(int index, LinkedList<Integer> stagedIndices) throws SQLException {
         result.absolute(index);
         stagedIndices.add(result.getRow());
         if (result.isAfterLast()) {
             stagedIndices.remove();
+            stagedIndices.remove();
             return;
         }
         if (stagedIsValid(stagedIndices)) {
-            return;
-        } else {
-            for (int i = 0; i < array.length; i++) {
-                
-            }
-            findValid(index + 1);
+            validScenarios.add(new LinkedList<Integer>(stagedIndices));
+            stagedIndices.remove();
+            testAdd(index++, stagedIndices);
         }
+        testAdd(index++, stagedIndices);
     }
 
     private boolean stagedIsValid(LinkedList<Integer> stagedIndices) throws SQLException {
