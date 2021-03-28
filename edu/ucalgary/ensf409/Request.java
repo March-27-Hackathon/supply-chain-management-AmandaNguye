@@ -19,6 +19,13 @@ public class Request {
         this.storage = storage;
     }
 
+    /**
+     * Calculate posible combination of furniture that would make a complete
+     * furniture of the type, then return the array list of those furnitures.
+     * @param furniture
+     * @param type
+     * @return Array list of type object that extend from furniture
+     */
     public ArrayList<? extends Furniture> request(String furniture, String type)
     {
         switch(furniture.toLowerCase())
