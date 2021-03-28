@@ -288,6 +288,17 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Gets lampStorage ArrayList filtered by type
+     * @return filtered lampStorage
+     */
+    public ArrayList<Lamp> getLampStorage(String type)
+    {
+        ArrayList<Lamp> arr = new ArrayList<>();
+        arr.addAll(lampStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        return arr;
+    }
+
     //--MUTATOR METHODS--
 
     /**

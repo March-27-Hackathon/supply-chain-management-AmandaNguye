@@ -70,12 +70,12 @@ public class Output {
      * @param itemsOrdered
      * @param price
      */
-    public static void writeFormattedTerminal(String furniture, String type, String count, String[] manufacturers) {
+    public static void writeFormattedTerminal(String furniture, String type, String count, ArrayList<Manufacturer> arr) {
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Output: Order cannot be fulfilled based on current inventory.");
         System.out.println("SUGGESTED MANUFACTURER(S):");
-        for (int i = 0; i < manufacturers.length - 1; i++) {
-            System.out.println(manufacturers[i]);
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getName());
         }
     }
 }
