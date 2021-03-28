@@ -17,7 +17,7 @@ public class Output {
      * @param count
      * @param arr
      */
-    public static void writeFormattedFile(String fileName, String furniture, String type, String count, ArrayList<? extends Furniture> arr) {
+    public static void writeFormattedFile(String fileName, String furniture, String type, String count, ArrayList<Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
