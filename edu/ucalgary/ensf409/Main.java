@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Main extends Output{
     public static void main(String[] args) {
         String username = "";
-        String password ="";
+        String password = "";
         //Creating the input object
         InputOrder input = new InputOrder();
         Storage storage = new Storage(username,password);
@@ -54,6 +54,7 @@ public class Main extends Output{
 
         arr = rq.request(input.getFurniture(), input.getFurType());
         Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),quantity,arr);
+        Output.writeFormattedTerminal(input.getFurniture(),input.getFurType(),quantity,storage.getManufacturerStorage(input.getFurniture()));
 
     }
 }
