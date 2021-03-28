@@ -24,9 +24,9 @@ public class Output {
             out = new FileWriter(fileName + ".txt");
             out.write("Furniture Order Form\n\nFaculty Name:\nContact:\nDate:\n");
             out.write("OriginalRequest: " + type + " " + furniture + ", " + count);
-            out.write("\nItems Ordered");
-            for (int i = 0; i < arr.size() - 1; i++) {
-                out.write("ID: " + arr.get(i).getId());
+            out.write("\nItems Ordered\n");
+            for (int i = 0; i < arr.size(); i++) {
+                out.write("ID: " + arr.get(i).getId()+"\n");
             }
             out.write("Total Price: $" + getPrice(arr));
         } catch (Exception e) {

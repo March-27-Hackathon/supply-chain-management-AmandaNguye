@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 
 public class Main extends Output{
     public static void main(String[] args) {
-        String username = "tyler";
-        String password ="ensf409";
+        String username = "";
+        String password ="";
         //Creating the input object
         InputOrder input = new InputOrder();
         Storage storage = new Storage(username,password);
@@ -53,7 +53,7 @@ public class Main extends Output{
         } while(!quantity.matches("^[0-9]+$"));
 
         arr = rq.request(input.getFurniture(), input.getFurType());
-        Output.writeFormattedFile("orderform.txt",input.getFurniture(),input.getFurType(),quantity,arr);
+        Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),quantity,arr);
 
     }
 }
