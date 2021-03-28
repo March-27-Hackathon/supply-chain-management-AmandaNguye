@@ -9,7 +9,6 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import java.util.ArrayList;
 
 public class Main extends Output{
     public static void main(String[] args) {
