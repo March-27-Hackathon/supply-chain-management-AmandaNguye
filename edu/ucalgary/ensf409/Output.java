@@ -1,6 +1,7 @@
 package edu.ucalgary.ensf409;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Class to create and format the output file for scenarios
@@ -14,22 +15,20 @@ public class Output {
      * @param furniture
      * @param type
      * @param count
-     * @param itemsOrdered
-     * @param price
+     * @param arr
      */
-    public static void writeFormattedFile(String fileName, String furniture, String type, String count,
-            String[] itemsOrdered, int price) {
+    public static void writeFormattedFile(String fileName, String furniture, String type, String count, ArrayList<? extends Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
             out = new FileWriter(fileName + ".txt");
             out.write("Furniture Order Form\n\nFaculty Name:\nContact:\nDate:\n");
             out.write("OriginalRequest: " + type + " " + furniture + ", " + count);
-            out.write("\nItems Ordered");
-            for (int i = 0; i < itemsOrdered.length - 1; i++) {
-                out.write("ID: " + itemsOrdered[i]);
+            out.write("\nItems Ordered\n");
+            for (int i = 0; i < arr.size(); i++) {
+                out.write("ID: " + arr.get(i).getId()+"\n");
             }
-            out.write("Total Price: $" + price);
+            out.write("Total Price: $" + getPrice(arr));
         } catch (Exception e) {
             System.err.println("I/O error writing to output file " + fileName + ".");
             System.err.println(e.toString());
@@ -45,6 +44,21 @@ public class Output {
                 System.exit(1);
             }
         }
+    }
+
+    /**
+     * Returns the price of all elements in the arraylist
+     * @param arr
+     * @return lowest price
+     */
+    private static int getPrice(ArrayList<? extends Furniture> arr)
+    {
+        int sum = 0;
+        for(Furniture obj: arr)
+        {
+            sum += obj.getPrice();
+        }
+        return sum;
     }
 
     /**
