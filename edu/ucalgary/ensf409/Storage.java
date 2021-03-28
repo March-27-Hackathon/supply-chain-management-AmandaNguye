@@ -248,14 +248,6 @@ public class Storage {
     }
 
     /**
-     * gets manufacturerStorage ArrayList
-     * @return manufactureerStorage
-     */
-    public ArrayList<Manufacturer> getManufacturerStorage() {
-        return manufacturerStorage;
-    }
-
-    /**
      * Gets chairStorage ArrayList filtered by type
      * @return filtered chairStorage
      */
@@ -286,6 +278,42 @@ public class Storage {
         ArrayList<Filing> arr = new ArrayList<>();
         arr.addAll(filingStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
         return arr;
+    }
+
+    /**
+     * Gets lampStorage ArrayList filtered by type
+     * @return filtered lampStorage
+     */
+    public ArrayList<Lamp> getLampStorage(String type)
+    {
+        ArrayList<Lamp> arr = new ArrayList<>();
+        arr.addAll(lampStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        return arr;
+    }
+    
+    public ArrayList<Manufacturer> getManufacturerStorage(String furniture)
+    {
+        ArrayList<Manufacturer> tmp = new ArrayList<>();
+        try
+        {
+            result = dbConnect.createStatement().executeQuery("SELECT ManuID FROM "+furniture);
+            while(result.next())
+            {
+                for(Manufacturer manufacturer : manufacturerStorage)
+                {
+                    if(!tmp.contains(manufacturer) && manufacturer.getManuId().equals(result.getString("ManuID")))
+                    {
+                        tmp.add(manufacturer);
+                    }
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return tmp;
     }
 
     //--MUTATOR METHODS--

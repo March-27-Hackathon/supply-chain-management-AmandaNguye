@@ -13,8 +13,9 @@ import java.util.ArrayList;
 
 public class Main extends Output{
     public static void main(String[] args) {
-        String username = "dat";
-        String password ="ensf409";
+        String username = "";
+        String password = "";
+
         //Creating the input object
         InputOrder input = new InputOrder();
         Storage storage = new Storage(username,password);
@@ -64,6 +65,8 @@ public class Main extends Output{
             input.setQuantity(input.getQuantity() -1);
         }
         Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),quantity,furnitures);
+        Output.writeFormattedTerminal(input.getFurniture(),input.getFurType(),quantity,storage.getManufacturerStorage(input.getFurniture()));
+
 
     }
 }
