@@ -123,7 +123,8 @@ public class Request {
             temp.add(list.get(i));
             if(checkChairs(temp))
             {
-                correctList.add((ArrayList<Chair>)temp.clone());
+                if(temp instanceof ArrayList<Chair>)
+                    correctList.add((ArrayList<Chair>)temp.clone());
             }
             for(int j = i+1; j < list.size(); j ++)
             {
