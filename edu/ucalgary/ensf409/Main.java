@@ -4,6 +4,16 @@
  * @since 1.0
 */
 
+// TODO
+/**
+ * If output is null, print manufacturer
+ * Output to console even when sucessful
+ * Remove from database (if sucessful)
+ * JUnit test
+ * Finishing UML
+ * WebDev
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
