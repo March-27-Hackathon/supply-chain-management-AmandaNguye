@@ -14,8 +14,8 @@ public class Main extends Output{
         String password ="";
         //Creating the input object
         InputOrder input = new InputOrder();
-        // Storage storage = new Storage(username,password);
-        // Request rq = new Request(storage);
+        Storage storage = new Storage(username,password);
+        Request rq = new Request(storage);
         
         /*Getting the furniture type by splitting the inputted furniture by spaces
         and setting the furniture as the last substring and everything as the
@@ -48,6 +48,7 @@ public class Main extends Output{
 
         } while(!quantity.matches("^[0-9]+$"));
 
+        rq.request(input.getFurniture(), input.getFurType());
 
     }
 }
