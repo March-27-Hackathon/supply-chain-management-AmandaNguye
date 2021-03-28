@@ -63,7 +63,7 @@ public class Main extends Output{
             }
             input.setQuantity(input.getQuantity() -1);
         }
-        Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),quantity,furnitures.toArray());
+        Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),quantity,furnitures);
 
     }
 }
