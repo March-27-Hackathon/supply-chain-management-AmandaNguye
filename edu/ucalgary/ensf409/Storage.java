@@ -354,12 +354,4 @@ public class Storage {
         }
         removeFromDatabase(tableName, id);
     }
-
-    public static void main(String[] args) {
-        Storage stor = new Storage("tyler", "ensf409");
-        for(Chair chair: stor.getChairStorage("Task"))
-        {
-            System.out.println(chair.getId()+" Type: "+chair.getType()+" Legs: "+chair.getLegs()+" Arms: "+chair.getArms());
-        }
-    }
 }
