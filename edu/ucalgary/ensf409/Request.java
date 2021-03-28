@@ -124,7 +124,7 @@ public class Request {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
-        ArrayList<Chair> lowestChairs = new ArrayList<Chair>();
+        ArrayList<Chair> lowestChairs = correctList.get(0);
         for(int i = 1; i < correctList.size(); i++)
         {
             if(lowest > priceOf(correctList.get(i)))
@@ -195,7 +195,7 @@ public class Request {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
-        ArrayList<Desk> lowestDesks = new ArrayList<Desk>();
+        ArrayList<Desk> lowestDesks = correctList.get(0);
         for(int i = 1; i < list.size(); i++)
         {
             if(lowest > priceOf(correctList.get(i)))
@@ -266,7 +266,7 @@ public class Request {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
-        ArrayList<Filing> lowestFilings = new ArrayList<Filing>();
+        ArrayList<Filing> lowestFilings = correctList.get(0);
         for(int i = 1; i < list.size(); i++)
         {
             if(lowest > priceOf(correctList.get(i)))
@@ -337,7 +337,7 @@ public class Request {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
-        ArrayList<Lamp> lowestLamps = new ArrayList<Lamp>();
+        ArrayList<Lamp> lowestLamps = correctList.get(0);
         for(int i = 1; i < list.size(); i++)
         {
             if(lowest > priceOf(correctList.get(i)))
