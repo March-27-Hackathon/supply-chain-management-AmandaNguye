@@ -10,8 +10,10 @@ public class OutputRequest {
 
     private Connection dbConnect;
     private ResultSet result;
-    LinkedList<LinkedList<Integer>> validScenarios;
-    LinkedList<String> scenarioIds;
+    LinkedList<LinkedList<Integer>> validScenarios = new LinkedList<LinkedList<Integer>>();
+    LinkedList<String> scenarioIds = new LinkedList<String>();
+    LinkedList<String> manufacturerNames = new LinkedList<String>();
+    int resultPrice;
 
     public OutputRequest(String dbUrl, String username, String password) {
         this.DBURL = dbUrl;
@@ -30,8 +32,8 @@ public class OutputRequest {
     }
 
     public LinkedList<Integer> find(InputOrder orderInfo) throws SQLException {
-        result = dbConnect.createStatement().executeQuery(
-                "SELECT COUNT(*) FROM " + orderInfo.getFurniture() + " WHERE Type='" + orderInfo.getFurType());
+        result = dbConnect.createStatement()
+                .executeQuery("SELECT * FROM " + orderInfo.getFurniture() + " WHERE Type='" + orderInfo.getFurType());
         // + "' ORDER BY ID LIMIT 1 OFFSET ?"
         result.beforeFirst();
         LinkedList<Integer> stagedIndices = new LinkedList<Integer>();
@@ -46,8 +48,9 @@ public class OutputRequest {
                 lowestPrice = eIntegers;
             }
         }
+        resultPrice = priceOf(lowestPrice);
         return lowestPrice;
-
+        
     }
 
     private int priceOf(LinkedList<Integer> scenario) throws SQLException {
@@ -95,4 +98,19 @@ public class OutputRequest {
         return true;
     }
 
+    public LinkedList<String> getManufacturers(InputOrder orderInfo) throws SQLException {
+        LinkedList<String> manufacturerIds = new LinkedList<String>();
+        result = dbConnect.createStatement()
+                .executeQuery("SELECT * FROM " + orderInfo.getFurniture() + " WHERE Type='" + orderInfo.getFurType());
+        while (result.next()) {
+            manufacturerIds.add(result.getString("ManuID"));
+        }
+        result = dbConnect.createStatement().executeQuery("SELECT * FROM manufacturer");
+        while (result.next()) {
+            if (manufacturerIds.contains(result.getString("ManuID"))) {
+                manufacturerNames.add(result.getString("Name"));
+            }
+        }
+        return manufacturerNames;
+    }
 }
