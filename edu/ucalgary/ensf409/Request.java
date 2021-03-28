@@ -1,3 +1,11 @@
+/**
+ * @author Dat Lam
+ *         <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
+ * @version 1.2
+ * @since 1.1
+ * 
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
