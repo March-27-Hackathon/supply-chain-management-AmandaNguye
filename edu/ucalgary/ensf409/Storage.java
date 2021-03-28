@@ -352,6 +352,6 @@ public class Storage {
                 }
             }
         }
-        removeFromDatabase(tableName, id);
+        //removeFromDatabase(tableName, id);
     }
 }

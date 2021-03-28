@@ -46,6 +46,11 @@ public class Output {
         }
     }
 
+    /**
+     * Returns the price of all elements in the arraylist
+     * @param arr
+     * @return lowest price
+     */
     private static int getPrice(ArrayList<? extends Furniture> arr)
     {
         int sum = 0;
