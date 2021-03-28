@@ -2,19 +2,16 @@ package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
 
-import org.hamcrest.CoreMatchers;
-
 public class Request {
 
     private Storage storage;
-    private int lowestPrice;
 
     public Request(Storage storage)
     {
         this.storage = storage;
     }
 
-    public int request(String furniture, String type)
+    public ArrayList<? extends Furniture> request(String furniture, String type)
     {
         switch(furniture.toLowerCase())
         {
@@ -28,8 +25,7 @@ public class Request {
                         chairList.add(storage.getChairStorage().get(i));
                     }
                 }
-                requestChair(chairList);
-                break;
+                return requestChair(chairList);
             case "desk":
                 //List only contain desk of that type
                 ArrayList<Desk> deskList = new ArrayList<Desk>();
@@ -40,8 +36,7 @@ public class Request {
                         deskList.add(storage.getDeskStorage().get(i));
                     }
                 }
-                requestDesk(deskList);
-                break;
+                return requestDesk(deskList);
             case "filing":
                 //List only contain filing of that type
                 ArrayList<Filing> filingList = new ArrayList<Filing>();
@@ -52,8 +47,7 @@ public class Request {
                         filingList.add(storage.getFilingStorage().get(i));
                     }
                 }
-                requestFiling(filingList);
-                break;
+                return requestFiling(filingList);
             case "lamp":
                 //List only contain desk of that type
                 ArrayList<Lamp> lampList = new ArrayList<Lamp>();
@@ -64,13 +58,10 @@ public class Request {
                         lampList.add(storage.getLampStorage().get(i));
                     }
                 }
-                requestLamp(lampList);
-                break;
+                return requestLamp(lampList);
             default:
                 throw new IllegalArgumentException();
         }
-
-        return lowestPrice;
     }
 
     /**
@@ -114,7 +105,7 @@ public class Request {
      * variables lowestPrice to it.
      * @param list
      */
-    public void requestChair(ArrayList<Chair> list)
+    public ArrayList<Chair> requestChair(ArrayList<Chair> list)
     {
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
         ArrayList<Chair> temp;
@@ -147,12 +138,7 @@ public class Request {
                 lowestChairs = correctList.get(i);
             }   
         }
-
-        for(Chair i: lowestChairs)
-        {
-            storage.removeFromStorage("chair", i.getId());
-        }
-        lowestPrice = lowest;
+        return lowestChairs;
     }
 
 
@@ -182,7 +168,7 @@ public class Request {
      * variables lowestPrice to it.
      * @param list
      */
-    public void requestDesk(ArrayList<Desk> list)
+    public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
     {
         ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
         ArrayList<Desk> temp;
@@ -216,12 +202,7 @@ public class Request {
             }   
         }
 
-        for(Desk i: lowestDesks)
-        {
-            storage.removeFromStorage("desk", i.getId());
-        }
-
-        lowestPrice = lowest;
+        return lowestDesks;
     }
 
     /**
@@ -250,7 +231,7 @@ public class Request {
      * variables lowestPrice to it.
      * @param list
      */
-    public void requestFiling(ArrayList<Filing> list)
+    public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
     {
         ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
         ArrayList<Filing> temp;
@@ -285,12 +266,7 @@ public class Request {
 
         }
 
-        for(Filing i: lowestFilings)
-        {
-            storage.removeFromStorage("filing", i.getId());
-        }
-
-        lowestPrice = lowest;
+        return lowestFilings;
 
     }
     
@@ -318,7 +294,7 @@ public class Request {
      * variables lowestPrice to it.
      * @param list
      */
-    public void requestLamp(ArrayList<Lamp> list)
+    public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
     {
         ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
         ArrayList<Lamp> temp;
@@ -352,11 +328,6 @@ public class Request {
             }   
         }
 
-        for(Lamp i: lowestLamps)
-        {
-            storage.removeFromStorage("lamp", i.getId());
-        }
-
-        lowestPrice = lowest;
+        return lowestLamps;
     }
 }
