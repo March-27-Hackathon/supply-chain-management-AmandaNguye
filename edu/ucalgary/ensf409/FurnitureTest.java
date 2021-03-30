@@ -1,3 +1,9 @@
+/** @author Tommy Tran <a 
+ * href="mailto:tommy.tran3@ucalgary.ca">tommy.tran3@ucalgary.ca</a>
+ * @version  1.2
+ * @since    1.0 
+ */
+
 /**
  * Unit tests for all of the furniture classes + manufacturer classes + ImportOrder
  */

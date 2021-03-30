@@ -1,3 +1,9 @@
+/** @author Tommy Tran <a 
+ * href="mailto:tommy.tran3@ucalgary.ca">tommy.tran3@ucalgary.ca</a>
+ * @version  1.1
+ * @since    1.0 
+ */
+
 /**
  * Manufacturer is a class which implements the manufacturer table
  * from the inventory database
