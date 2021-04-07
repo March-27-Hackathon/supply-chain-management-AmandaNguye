@@ -14,20 +14,18 @@ public class Request {
 
     private Storage storage;
 
-    public Request(Storage storage) {
+    public Request(Storage storage)
+    {
         this.storage = storage;
     }
 
     /**
      * Calculate posible combination of furniture that would make a complete
      * furniture of the type, then return the array list of those furnitures.
-     * 
-     * @param furniture String
-     * @param type      String
-     * @param quantity  int
+     * @param furniture
+     * @param type
      * @return Array list of type object that extend from furniture
      */
-<<<<<<< Updated upstream
     public ArrayList<? extends Furniture> request(String furniture, String type)
     {
         switch(furniture.toLowerCase())
@@ -50,92 +48,19 @@ public class Request {
                 return requestLamp(lampList);
             default:
                 throw new IllegalArgumentException();
-=======
-    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) {
-        switch (furniture.toLowerCase()) {
-        case "chair":
-            // List only contain chair of that type
-            ArrayList<Chair> chairList = storage.getChairStorage(type);
-            ArrayList<Chair> returnChair = new ArrayList<Chair>();
-            while (quantity != 0) {
-                ArrayList<Chair> arr = requestChair(chairList);
-                if (arr == null) {
-                    return null;
-                } else {
-                    for (Chair chair : arr) {
-                        returnChair.add(chair);
-                        chairList.remove(chair);
-                    }
-                }
-                quantity--;
-            }
-            return returnChair;
-        case "desk":
-            // List only contain desk of that type
-            ArrayList<Desk> deskList = storage.getDeskStorage(type);
-            ArrayList<Desk> returnDesk = new ArrayList<Desk>();
-            while (quantity != 0) {
-                ArrayList<Desk> arr = requestDesk(deskList);
-                if (arr == null) {
-                    return null;
-                } else {
-                    for (Desk desk : arr) {
-                        returnDesk.add(desk);
-                        deskList.remove(desk);
-                    }
-                }
-                quantity--;
-            }
-            return returnDesk;
-        case "filing":
-            // List only contain filing of that type
-            ArrayList<Filing> filingList = storage.getFilingStorage(type);
-            ArrayList<Filing> returnFiling = new ArrayList<Filing>();
-            while (quantity != 0) {
-                ArrayList<Filing> arr = requestFiling(filingList);
-                if (arr == null) {
-                    return null;
-                } else {
-                    for (Filing filing : arr) {
-                        returnFiling.add(filing);
-                        filingList.remove(filing);
-                    }
-                }
-                quantity--;
-            }
-            return returnFiling;
-        case "lamp":
-            // List only contain desk of that type
-            ArrayList<Lamp> lampList = storage.getLampStorage();
-            ArrayList<Lamp> returnLamp = new ArrayList<Lamp>();
-            while (quantity != 0) {
-                ArrayList<Lamp> arr = requestLamp(lampList);
-                if (arr == null) {
-                    return null;
-                } else {
-                    for (Lamp lamp : arr) {
-                        returnLamp.add(lamp);
-                        lampList.remove(lamp);
-                    }
-                }
-                quantity--;
-            }
-            return returnLamp;
-        default:
-            throw new IllegalArgumentException();
->>>>>>> Stashed changes
         }
     }
 
     /**
      * Calculate and returnt the combined price of the items in the paramater
-     * 
-     * @param furnitures ArrayList<? extends Furniture>
+     * @param furnitures
      * @return price of all the item in the ArrayList
      */
-    private static int priceOf(ArrayList<? extends Furniture> furnitures) {
+    private static int priceOf(ArrayList<? extends Furniture> furnitures)
+    {
         int total = 0;
-        for (Furniture c : furnitures) {
+        for(Furniture c: furnitures)
+        {
             total += c.getPrice();
         }
         return total;
@@ -143,13 +68,15 @@ public class Request {
 
     /**
      * Check wether or not the combination of chair will make a valid chair
-     * 
-     * @param chairs ArrayList<Chair>
+     * @param chairs
      * @return if the combination of chair can make a valid chair
      */
-    private boolean checkChairs(ArrayList<Chair> chairs) {
-        boolean legs = false, arms = false, seat = false, cushion = false;
-        for (Chair c : chairs) {
+    private boolean checkChairs(ArrayList<Chair> chairs)
+    {
+        boolean legs = false, arms = false, 
+            seat = false, cushion = false;
+        for(Chair c: chairs)
+        {
             legs = legs || c.getLegs();
             arms = arms || c.getArms();
             cushion = cushion || c.getCushion();
@@ -158,9 +85,8 @@ public class Request {
 
         return legs && arms && seat && cushion;
     }
-
+    
     /**
-<<<<<<< Updated upstream
      * Make a a request for the lowest price combination of chairs
      * using the list of chairs provided. Then setting the class 
      * variables lowestPrice to it.
@@ -168,61 +94,61 @@ public class Request {
      */
     public ArrayList<Chair> requestChair(ArrayList<Chair> list)
     {
-=======
-     * Make a a request for the lowest price combination of chairs using the list of
-     * chairs provided.
-     * 
-     * @param list ArrayList<Chair>
-     * @return ArrayList of combination of chair that would make a new chair at the
-     *         lowest price. null if request cannont be fulfill
-     */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Chair> requestChair(ArrayList<Chair> list) {
->>>>>>> Stashed changes
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
         ArrayList<Chair> temp1, temp2;
-        for (int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i ++)
+        {
             temp1 = new ArrayList<Chair>();
             temp1.add(list.get(i));
-            if (checkChairs(temp1)) {
-                correctList.add((ArrayList<Chair>) temp1.clone());
+            if(checkChairs(temp1))
+            {
+                correctList.add((ArrayList<Chair>)temp1.clone());
             }
-            for (int j = i + 1; j < list.size(); j++) {
-                temp2 = (ArrayList<Chair>) temp1.clone();
-                for (int n = 0; n + j < list.size(); n++) {
-                    temp2.add(list.get(j + n));
-                    if (checkChairs(temp2)) {
-                        correctList.add((ArrayList<Chair>) temp2.clone());
-                        temp2.remove(temp2.size() - 1);
+            for(int j = i+1; j < list.size(); j ++)
+            {
+                temp2 = (ArrayList<Chair>)temp1.clone();
+                for(int n = 0; n+j < list.size(); n ++)
+                {
+                    temp2.add(list.get(j+n));
+                    if(checkChairs(temp2))
+                    {
+                        correctList.add((ArrayList<Chair>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
                     }
                 }
             }
         }
 
-        if (correctList.size() == 0) {
+        if(correctList.size() == 0)
+        {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Chair> lowestChairs = correctList.get(0);
-        for (int i = 1; i < correctList.size(); i++) {
-            if (lowest > priceOf(correctList.get(i))) {
+        for(int i = 1; i < correctList.size(); i++)
+        {
+            if(lowest > priceOf(correctList.get(i)))
+            {
                 lowest = priceOf(correctList.get(i));
                 lowestChairs = correctList.get(i);
-            }
+            }   
         }
         return lowestChairs;
     }
 
+
     /**
-     * Check wether the combination of desk in param desks can be combine into a new
-     * desk.
-     * 
-     * @param desks ArrayList<Desk>
+     * Check wether the combination of desk in param desks
+     * can be combine into a new desk.
+     * @param desks
      * @return if the desks in list "desks" can make a complete desk.
      */
-    private boolean checkDesks(ArrayList<Desk> desks) {
-        boolean legs = false, top = false, drawer = false;
-        for (Desk d : desks) {
+    private boolean checkDesks(ArrayList<Desk> desks)
+    {
+        boolean legs = false, top = false, 
+            drawer = false;
+        for(Desk d: desks)
+        {
             legs = legs || d.getLegs();
             top = top || d.getTop();
             drawer = drawer || d.getDrawer();
@@ -232,7 +158,6 @@ public class Request {
     }
 
     /**
-<<<<<<< Updated upstream
      * Make a a request for the lowest price combination of desks
      * using the list of desks provided. Then setting the class 
      * variables lowestPrice to it.
@@ -240,62 +165,61 @@ public class Request {
      */
     public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
     {
-=======
-     * Make a a request for the lowest price combination of desks using the list of
-     * desks provided. return array list of desk.
-     * 
-     * @param list ArrayList<Desk>
-     * @return ArrayList of combination of desk with the lowest price that would
-     *         make a new desk. null if request cannont be fulfill
-     */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Desk> requestDesk(ArrayList<Desk> list) {
->>>>>>> Stashed changes
         ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
         ArrayList<Desk> temp1, temp2;
-        for (int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i ++)
+        {
             temp1 = new ArrayList<Desk>();
             temp1.add(list.get(i));
-            if (checkDesks(temp1)) {
-                correctList.add((ArrayList<Desk>) temp1.clone());
+            if(checkDesks(temp1))
+            {
+                correctList.add((ArrayList<Desk>)temp1.clone());
             }
-            for (int j = i + 1; j < list.size(); j++) {
-                temp2 = (ArrayList<Desk>) temp1.clone();
-                for (int n = 0; n + j < list.size(); n++) {
-                    temp2.add(list.get(j + n));
-                    if (checkDesks(temp2)) {
-                        correctList.add((ArrayList<Desk>) temp2.clone());
-                        temp2.remove(temp2.size() - 1);
+            for(int j = i+1; j < list.size(); j ++)
+            {
+                temp2 = (ArrayList<Desk>)temp1.clone();
+                for(int n = 0; n + j < list.size(); n++)
+                {
+                    temp2.add(list.get(j+n));
+                    if(checkDesks(temp2))
+                    {
+                        correctList.add((ArrayList<Desk>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
                     }
                 }
             }
         }
 
-        if (correctList.size() == 0) {
+        if(correctList.size() == 0)
+        {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Desk> lowestDesks = correctList.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (lowest > priceOf(correctList.get(i))) {
+        for(int i = 1; i < list.size(); i++)
+        {
+            if(lowest > priceOf(correctList.get(i)))
+            {
                 lowest = priceOf(correctList.get(i));
                 lowestDesks = correctList.get(i);
-            }
+            }   
         }
 
         return lowestDesks;
     }
 
     /**
-     * Check wether the combination of desk in param filings can be combine into a
-     * new filing.
-     * 
-     * @param filings ArrayList<Filing>
-     * @return if the filings in list "filings" can make a complete filing.
+     * Check wether the combination of desk in param filings
+     * can be combine into a new filing.
+     * @param filings
+     * @return if the filings in  list "filings" can make a complete filing.
      */
-    private boolean checkFilings(ArrayList<Filing> filings) {
-        boolean rails = false, drawers = false, cabinet = false;
-        for (Filing f : filings) {
+    private boolean checkFilings(ArrayList<Filing> filings)
+    {
+        boolean rails = false, drawers = false, 
+            cabinet = false;
+        for(Filing f: filings)
+        {
             rails = rails || f.getRails();
             cabinet = cabinet || f.getCabinet();
             drawers = drawers || f.getDrawers();
@@ -305,7 +229,6 @@ public class Request {
     }
 
     /**
-<<<<<<< Updated upstream
      * Make a a request for the lowest price combination of filings
      * using the list of filings provided. Then setting the class 
      * variables lowestPrice to it.
@@ -313,64 +236,62 @@ public class Request {
      */
     public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
     {
-=======
-     * Make a a request for the lowest price combination of filings using the list
-     * of filings provided.
-     * 
-     * @param list ArrayList<Filing>
-     * @return ArrayList of combination of filing with the lowest price that would
-     *         make a new filing. null if request cannont be fulfill
-     */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Filing> requestFiling(ArrayList<Filing> list) {
->>>>>>> Stashed changes
         ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
         ArrayList<Filing> temp1, temp2;
-        for (int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i ++)
+        {
             temp1 = new ArrayList<Filing>();
             temp1.add(list.get(i));
-            if (checkFilings(temp1)) {
-                correctList.add((ArrayList<Filing>) temp1.clone());
+            if(checkFilings(temp1))
+            {
+                correctList.add((ArrayList<Filing>)temp1.clone());
             }
-            for (int j = i + 1; j < list.size(); j++) {
-                temp2 = (ArrayList<Filing>) temp1.clone();
-                for (int n = 0; n + j < list.size(); n++) {
-                    temp2.add(list.get(j + n));
-                    if (checkFilings(temp2)) {
-                        correctList.add((ArrayList<Filing>) temp2.clone());
-                        temp2.remove(temp2.size() - 1);
+            for(int j = i+1; j < list.size(); j ++)
+            {
+                temp2 = (ArrayList<Filing>)temp1.clone();
+                for(int n = 0; n + j < list.size(); n++)
+                {
+                    temp2.add(list.get(j+n));
+                    if(checkFilings(temp2))
+                    {
+                        correctList.add((ArrayList<Filing>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
                     }
                 }
             }
         }
 
-        if (correctList.size() == 0) {
+        if(correctList.size() == 0)
+        {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Filing> lowestFilings = correctList.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (lowest > priceOf(correctList.get(i))) {
+        for(int i = 1; i < list.size(); i++)
+        {
+            if(lowest > priceOf(correctList.get(i)))
+            {
                 lowest = priceOf(correctList.get(i));
                 lowestFilings = correctList.get(i);
-            }
+            }   
 
         }
 
         return lowestFilings;
 
     }
-
+    
     /**
-     * Check wether the combination of desk in param lamps can be combine into a new
-     * lamps.
-     * 
-     * @param lamps ArrayList<Lamp>
-     * @return if the lamps in list "lamps" can make a complete lamp.
+     * Check wether the combination of desk in param lamps
+     * can be combine into a new lamps.
+     * @param lamps
+     * @return if the lamps in  list "lamps" can make a complete lamp.
      */
-    private boolean checkLamps(ArrayList<Lamp> lamps) {
+    private boolean checkLamps(ArrayList<Lamp> lamps)
+    {
         boolean base = false, bulb = false;
-        for (Lamp l : lamps) {
+        for(Lamp l: lamps)
+        {
             base = base || l.getBase();
             bulb = bulb || l.getBulb();
         }
@@ -379,7 +300,6 @@ public class Request {
     }
 
     /**
-<<<<<<< Updated upstream
      * Make a a request for the lowest price combination of lamps
      * using the list of lamps provided. Then setting the class 
      * variables lowestPrice to it.
@@ -387,47 +307,44 @@ public class Request {
      */
     public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
     {
-=======
-     * Make a a request for the lowest price combination of lamps using the list of
-     * lamps provided.
-     * 
-     * @param list Array<Lamp>
-     * @return ArrayList of combination of lamp with the lowest price that would
-     *         make a new lamp null if request cannont be fulfill
-     */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list) {
->>>>>>> Stashed changes
         ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
         ArrayList<Lamp> temp1, temp2;
-        for (int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i ++)
+        {
             temp1 = new ArrayList<Lamp>();
             temp1.add(list.get(i));
-            if (checkLamps(temp1)) {
-                correctList.add((ArrayList<Lamp>) temp1.clone());
+            if(checkLamps(temp1))
+            {
+                correctList.add((ArrayList<Lamp>)temp1.clone());
             }
-            for (int j = i + 1; j < list.size(); j++) {
-                temp2 = (ArrayList<Lamp>) temp1.clone();
-                for (int n = 0; n + j < list.size(); n++) {
-                    temp2.add(list.get(j + n));
-                    if (checkLamps(temp2)) {
-                        correctList.add((ArrayList<Lamp>) temp2.clone());
-                        temp2.remove(temp2.size() - 1);
+            for(int j = i+1; j < list.size(); j ++)
+            {
+                temp2 = (ArrayList<Lamp>)temp1.clone();
+                for(int n = 0; n+j< list.size(); n++)
+                {
+                    temp2.add(list.get(j+n));
+                    if(checkLamps(temp2))
+                    {
+                        correctList.add((ArrayList<Lamp>)temp2.clone());
+                        temp2.remove(temp2.size()-1);
                     }
                 }
             }
         }
 
-        if (correctList.size() == 0) {
+        if(correctList.size() == 0)
+        {
             return null;
         }
         int lowest = priceOf(correctList.get(0));
         ArrayList<Lamp> lowestLamps = correctList.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (lowest > priceOf(correctList.get(i))) {
+        for(int i = 1; i < list.size(); i++)
+        {
+            if(lowest > priceOf(correctList.get(i)))
+            {
                 lowest = priceOf(correctList.get(i));
                 lowestLamps = correctList.get(i);
-            }
+            }   
         }
 
         return lowestLamps;
