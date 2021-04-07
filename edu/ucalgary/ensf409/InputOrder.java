@@ -28,7 +28,7 @@ public class InputOrder {
     /**
      * Method that sets the furniture type of the order request.
      * 
-     * @param furType
+     * @param furType String
      */
     public void setFurType(String furType) {
         this.furType = furType;
@@ -37,7 +37,7 @@ public class InputOrder {
     /**
      * Method that sets the furniture category of the order request.
      * 
-     * @param furniture
+     * @param furniture String
      */
     public void setFurniture(String furniture) {
         this.furniture = furniture;
@@ -46,7 +46,7 @@ public class InputOrder {
     /**
      * Method that sets the furniture quantity of the order request.
      * 
-     * @param quantity
+     * @param quantity int
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;

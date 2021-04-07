@@ -4,13 +4,12 @@
  * @since    1.0 
  */
 
-/**
- * Manufacturer is a class which implements the manufacturer table
- * from the inventory database
- */
-
 package edu.ucalgary.ensf409;
 
+/**
+ * Manufacturer is a class which implements the manufacturer table from the
+ * inventory database
+ */
 public class Manufacturer {
     // class fields
     private String manuId;
@@ -18,44 +17,103 @@ public class Manufacturer {
     private String phone;
     private String province;
 
-    //constructor
-    public Manufacturer(String manuId, String name, String phone, String province){
+    /**
+     * Manufacturer's constructor, takes in their ID, name, phone number, and
+     * province.
+     * 
+     * @param manuId
+     * @param name
+     * @param phone
+     * @param province
+     */
+    public Manufacturer(String manuId, String name, String phone, String province) {
         setManuId(manuId);
         setName(name);
         setPhone(phone);
         setProvince(province);
     }
 
-    // getter methods
+    // GETTER METHODS
+    /**
+     * Method that returns the Manufacturer's ID.
+     * 
+     * @return String of ID
+     */
     public String getManuId() {
         return manuId;
     }
+    
+    /**
+     * Method that returns the Manufacturer's name.
+     * 
+     * @return String of name
+     */
     public String getName() {
         return name;
     }
+    
+    /**
+     * Method that returns the Manufacturer's phone number.
+     * 
+     * @return String of phone number
+     */
     public String getPhone() {
         return phone;
     }
+    
+    /**
+     * Method that returns the Manufacturer's province.
+     * 
+     * @return String of province
+     */
     public String getProvince() {
         return province;
     }
 
-    // setter methods
+    // SETTER METHODS
+    /**
+     * Method that sets the ID of the Manufacturer.
+     * 
+     * @param manuId
+     */
     public void setManuId(String manuId) {
         this.manuId = manuId;
     }
+
+    /**
+     * Method that sets the ID of the Manufacturer.
+     * 
+     * @param name String
+     */
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Method that sets the phone of the Manufacturer.
+     * 
+     * @param phone String
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    /**
+     * Method that sets the province of the Manufacturer.
+     * 
+     * @param province String
+     */
     public void setProvince(String province) {
         this.province = province;
     }
 
-    //method to return a formatted string
-    public String toString(){
+    /**
+     * Method that returns a Manufacturer Object and its variables and information to a
+     * formatted String.
+     * 
+     * @return String of formatted Manufacturer output
+     */
+    public String toString() {
         String temp = "Manufacturer Object consists of [";
         temp += "ManuID: " + manuId + ", ";
         temp += "Name: " + name + ", ";

@@ -100,7 +100,7 @@ public class Furniture {
     /**
      * Method that sets the type of the furniture.
      * 
-     * @param type 
+     * @param type String
      */
     public void setType(String type) {
         this.type = type;
