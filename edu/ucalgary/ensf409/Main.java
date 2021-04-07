@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 
 public class Main extends Output{
     public static void main(String[] args) {
-        String username = "tyler";
-        String password = "ensf409";
+        String username = "";
+        String password = "";
 
         //Creating the input object
         InputOrder input = new InputOrder();
