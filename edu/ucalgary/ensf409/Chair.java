@@ -18,9 +18,8 @@ public class Chair extends Furniture {
     private boolean seat;
     private boolean cushion;
 
-    // constructor
     /**
-     * Chair Constructor, takes in boolean of its usable parts, its id, type,
+     * Chair constructor, takes in boolean of its usable parts, its id, type,
      * manufactuer's ID, and price.
      * 
      * @param legs    boolean

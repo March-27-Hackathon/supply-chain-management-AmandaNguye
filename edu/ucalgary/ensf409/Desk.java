@@ -18,7 +18,7 @@ public class Desk extends Furniture {
     private boolean drawer;
 
     /**
-     * Desk Constructor, takes in boolean of its usable parts, its id, type,
+     * Desk constructor, takes in boolean of its usable parts, its id, type,
      * manufactuer's ID, and price.
      * 
      * @param legs   boolean
