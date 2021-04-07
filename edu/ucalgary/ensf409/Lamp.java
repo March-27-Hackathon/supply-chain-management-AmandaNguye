@@ -1,3 +1,9 @@
+/** @author Tommy Tran <a 
+ * href="mailto:tommy.tran3@ucalgary.ca">tommy.tran3@ucalgary.ca</a>
+ * @version  1.1
+ * @since    1.0 
+ */
+
 /**
  * Lamp class is a class which contains fields unique to the Lamp class after 
  * inheriting from the Furniture abstract class.
