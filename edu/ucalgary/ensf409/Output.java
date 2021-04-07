@@ -1,3 +1,8 @@
+/** @author Amanda Nguyen <a href="mailto:amanda.nguyen1@ucalgary.ca">amanda.nguyen1@ucalgary.ca</a>
+ * @version  1.1
+ * @since    1.0 
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.io.*;
@@ -11,13 +16,14 @@ public class Output {
      * Method that formats and writes the output files of a scenario if the case is
      * possible.
      *
-     * @param fileName
-     * @param furniture
-     * @param type
-     * @param count
-     * @param arr
+     * @param fileName  String
+     * @param furniture String
+     * @param type      String
+     * @param count     String
+     * @param arr       ArrayList<Furniture>
      */
-    public static void successfulInput(String fileName, String furniture, String type, String count, ArrayList<Furniture> arr) {
+    public static void successfulInput(String fileName, String furniture, String type, String count,
+            ArrayList<Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
@@ -26,7 +32,7 @@ public class Output {
             out.write("OriginalRequest: " + type + " " + furniture + ", " + count);
             out.write("\nItems Ordered\n");
             for (int i = 0; i < arr.size(); i++) {
-                out.write("ID: " + arr.get(i).getId()+"\n");
+                out.write("ID: " + arr.get(i).getId() + "\n");
             }
             out.write("Total Price: $" + getPrice(arr));
         } catch (Exception e) {
@@ -44,6 +50,7 @@ public class Output {
                 System.exit(1);
             }
         }
+        // Terminal Output
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Purchased: ");
         for (int i = 0; i < arr.size(); i++) {
@@ -54,14 +61,13 @@ public class Output {
 
     /**
      * Returns the price of all elements in the arraylist
-     * @param arr
-     * @return lowest price
+     * 
+     * @param arr ArrayList<Furniture>
+     * @return int of lowest price
      */
-    private static int getPrice(ArrayList<? extends Furniture> arr)
-    {
+    private static int getPrice(ArrayList<? extends Furniture> arr) {
         int sum = 0;
-        for(Furniture obj: arr)
-        {
+        for (Furniture obj : arr) {
             sum += obj.getPrice();
         }
         return sum;
@@ -71,12 +77,13 @@ public class Output {
      * Method that formats and outputs a scenario to the terminal if the case cannot
      * be possible.
      * 
-     * @param type
-     * @param count
-     * @param itemsOrdered
-     * @param price
+     * @param furniture    String
+     * @param type         String
+     * @param count        String
+     * @param itemsOrdered ArrayList<Furniture>
      */
     public static void unsuccessfulOutput(String furniture, String type, String count, ArrayList<Manufacturer> arr) {
+        // Terminal Output
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Output: Order cannot be fulfilled based on current inventory.");
         System.out.println("SUGGESTED MANUFACTURER(S):");
