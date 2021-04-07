@@ -7,21 +7,23 @@
  */
 package edu.ucalgary.ensf409;
 
-
-public class InputOrder 
-{
+public class InputOrder {
+    // class variables
     private String furType;
     private String furniture;
     private int quantity;
 
-    
-    public InputOrder()
-    {
+    /**
+     * InputOrder cnstructor, takes in no params. Sets variables to default values.
+     * 
+     */
+    public InputOrder() {
     }
 
-    //Setter methods
+    // Setter methods
     /**
-     * Set furType to param
+     * Method that sets the furniture type of the order request.
+     * 
      * @param furType
      */
     public void setFurType(String furType) {
@@ -29,7 +31,8 @@ public class InputOrder
     }
 
     /**
-     * Set furniture to param
+     * Method that sets the furniture category of the order request.
+     * 
      * @param furniture
      */
     public void setFurniture(String furniture) {
@@ -37,22 +40,38 @@ public class InputOrder
     }
 
     /**
-     * Set quantity to param
+     * Method that sets the furniture quantity of the order request.
+     * 
      * @param quantity
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    //Getters Methods
+    // GETTER METHODS
+    /**
+     * Method that returns the furniture type of the order request.
+     * 
+     * @return String of furniture type
+     */
     public String getFurType() {
         return furType;
     }
 
+    /**
+     * Method that returns the furniture category of the order request.
+     * 
+     * @return String of furniture category
+     */
     public String getFurniture() {
         return furniture;
     }
 
+    /**
+     * Method that returns the quantity of the order request.
+     * 
+     * @return int of the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
