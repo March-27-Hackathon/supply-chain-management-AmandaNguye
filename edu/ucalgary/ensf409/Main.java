@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+@SuppressWarnings("unchecked")
 public class Main extends Output{
     public static void main(String[] args) {
-        String username = "";
-        String password = "";
+        String username = args[0];
+        String password = args[1];
 
         //Creating the input object
         InputOrder input = new InputOrder();
@@ -82,6 +83,5 @@ public class Main extends Output{
             }
             repeat = JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION);
         }while(repeat==JOptionPane.YES_OPTION);
-
     }
 }
