@@ -3,7 +3,7 @@ Furniture Order Form
 Faculty Name:
 Contact:
 Date:
-OriginalRequest: Ergonomic chair, 1
+OriginalRequest: Ergonomic Chair, 1
 Items Ordered
 ID: C4839
 ID: C5409
