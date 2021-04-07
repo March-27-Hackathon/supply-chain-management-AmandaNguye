@@ -10,9 +10,8 @@
  */
 package edu.ucalgary.ensf409;
 
-public class Furniture
-{
-    //--CLASS FIELDS--
+public class Furniture {
+    // --CLASS FIELDS--
     private String id;
     private String type;
     private String manuId;
@@ -21,20 +20,17 @@ public class Furniture
     /**
      * Furniture constructor, takes in its ID, type, manufactuer's ID, and price.
      * 
-     * @param id
-     * @param type
-     * @param manuId
-     * @param price
+     * @param id     String
+     * @param type   String
+     * @param manuId String
+     * @param price  int
      */
-    public Furniture(String id, String type, String manuId, int price)
-    {
+    public Furniture(String id, String type, String manuId, int price) {
         setId(id);
         setType(type);
         setManuId(manuId);
         setPrice(price);
     }
-
-    //--CLASS METHODS--
 
     // GETTER METHODS
     /**
@@ -74,11 +70,10 @@ public class Furniture
     }
 
     // SETTER METHODS
-
     /**
      * Method that sets the ID of the furniture.
      * 
-     * @param id
+     * @param id String
      */
     public void setId(String id) {
         this.id = id;
@@ -87,16 +82,16 @@ public class Furniture
     /**
      * Method that sets the price of the furniture.
      * 
-     * @param price
+     * @param price String
      */
     public void setPrice(int price) {
         this.price = price;
     }
-    
+
     /**
      * Method that sets the manufacturer's ID of the .
      * 
-     * @param manuId
+     * @param manuId String
      */
     public void setManuId(String manuId) {
         this.manuId = manuId;
@@ -112,12 +107,12 @@ public class Furniture
     }
 
     /**
-     * Method that returns a Furniture Object and its variables and information to
-     * a formatted String.
+     * Method that returns a Furniture Object and its variables and information to a
+     * formatted String.
      * 
      * @return String of formatted Furniture output
      */
-    public String toString(){
+    public String toString() {
         String temp = "Furniture Object consists of [";
         temp += "ID: " + id + ", ";
         temp += "ManuID: " + manuId + ", ";

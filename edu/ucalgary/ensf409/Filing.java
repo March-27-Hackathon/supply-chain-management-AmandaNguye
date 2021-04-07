@@ -15,20 +15,20 @@ public class Filing extends Furniture {
     private boolean rails;
     private boolean drawers;
     private boolean cabinet;
-    
+
     /**
      * Filing constructor, takes in boolean of its usable parts, its ID, type,
      * manufactuer's ID, and price.
      * 
-     * @param rails boolean
+     * @param rails   boolean
      * @param drawers boolean
      * @param cabinet boolean
-     * @param id String
-     * @param type String
-     * @param manuId String
-     * @param price int
+     * @param id      String
+     * @param type    String
+     * @param manuId  String
+     * @param price   int
      */
-    public Filing(boolean rails, boolean drawers, boolean cabinet, String id, String type, String manuId, int price){
+    public Filing(boolean rails, boolean drawers, boolean cabinet, String id, String type, String manuId, int price) {
         super(id, type, manuId, price);
         setRails(rails);
         setDrawers(drawers);
@@ -36,8 +36,6 @@ public class Filing extends Furniture {
     }
 
     // class methods
-
-
 
     // GETTER METHODS
     /**
@@ -48,6 +46,7 @@ public class Filing extends Furniture {
     public boolean getRails() {
         return rails;
     }
+
     /**
      * Method that indicates whether the Filing has usable drawers.
      * 
@@ -56,6 +55,7 @@ public class Filing extends Furniture {
     public boolean getDrawers() {
         return drawers;
     }
+
     /**
      * Method that indicates whether the Filing has a usable cabinet.
      * 
@@ -67,8 +67,7 @@ public class Filing extends Furniture {
 
     // SETTER METHODS
     /**
-     * /**
-     * Method that sets the usuability of the desk's rails.
+     * /** Method that sets the usuability of the desk's rails.
      * 
      * @param rails boolean to set the rails variable
      */
@@ -100,7 +99,7 @@ public class Filing extends Furniture {
      * 
      * @return String of formatted Filing Object
      */
-    public String toString(){
+    public String toString() {
         String temp = "Filing Object consists of [";
         temp += "Rails: " + rails + ", ";
         temp += "Drawers: " + drawers + ", ";
