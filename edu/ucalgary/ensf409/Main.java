@@ -1,13 +1,13 @@
 /**
  * @author Amanda <a href="mailto:amanda.nguyen1@ucalgary.ca"> amanda.nguyen1@ucalgary.ca</a>
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
- * @version 1.0
+ * @author Dat Lam <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
+ * @version 1.6
  * @since 1.0
 */
 
 // TODO
 /**
- * If output is null, print manufacturer
  * Output to console even when sucessful
  * Remove from database (if sucessful)
  * JUnit test
@@ -17,11 +17,7 @@
 
 package edu.ucalgary.ensf409;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
-
-import javax.lang.model.util.ElementScanner14;
 import javax.swing.JOptionPane;
 
 public class Main extends Output{
@@ -73,7 +69,7 @@ public class Main extends Output{
             arr = rq.request(input.getFurniture(), input.getFurType(),input.getQuantity());
             if(arr==null)
             {
-                Output.writeFormattedTerminal(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
+                Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 
             {

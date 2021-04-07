@@ -1,7 +1,6 @@
 /**
- * @author Dat Lam
- *         <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
- * @version 1.2
+ * @author Dat Lam <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
+ * @version 1.4
  * @since 1.1
  * 
  */
