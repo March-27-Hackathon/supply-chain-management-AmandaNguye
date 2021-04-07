@@ -4,11 +4,10 @@
  * @since    1.0 
  */
 
-
 package edu.ucalgary.ensf409;
 
 /**
- * Chair class is a class which contains fields unique to the chair class after 
+ * Chair class is a class which contains fields unique to the chair class after
  * inheriting from the Furniture abstract class.
  */
 public class Chair extends Furniture {
@@ -122,7 +121,7 @@ public class Chair extends Furniture {
      * 
      * @return String of formatted Chair Object
      */
-        public String toString() {
+    public String toString() {
         String temp = "Chair Object consists of [";
         temp += "Legs: " + legs + ", ";
         temp += "Arms: " + arms + ", ";

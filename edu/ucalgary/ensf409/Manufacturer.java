@@ -11,7 +11,7 @@ package edu.ucalgary.ensf409;
  * inventory database
  */
 public class Manufacturer {
-    // class fields
+    // CLASS FIELDS
     private String manuId;
     private String name;
     private String phone;
@@ -42,7 +42,7 @@ public class Manufacturer {
     public String getManuId() {
         return manuId;
     }
-    
+
     /**
      * Method that returns the Manufacturer's name.
      * 
@@ -51,7 +51,7 @@ public class Manufacturer {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Method that returns the Manufacturer's phone number.
      * 
@@ -60,7 +60,7 @@ public class Manufacturer {
     public String getPhone() {
         return phone;
     }
-    
+
     /**
      * Method that returns the Manufacturer's province.
      * 
@@ -74,16 +74,16 @@ public class Manufacturer {
     /**
      * Method that sets the ID of the Manufacturer.
      * 
-     * @param manuId
+     * @param manuId String of Manufacturer's ID
      */
     public void setManuId(String manuId) {
         this.manuId = manuId;
     }
 
     /**
-     * Method that sets the ID of the Manufacturer.
+     * Method that sets the name of the Manufacturer.
      * 
-     * @param name String
+     * @param name String of Manufacturer's name
      */
     public void setName(String name) {
         this.name = name;
@@ -92,7 +92,7 @@ public class Manufacturer {
     /**
      * Method that sets the phone of the Manufacturer.
      * 
-     * @param phone String
+     * @param phone String of Manufacturer's phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -101,15 +101,15 @@ public class Manufacturer {
     /**
      * Method that sets the province of the Manufacturer.
      * 
-     * @param province String
+     * @param province String of Manufacturer's province
      */
     public void setProvince(String province) {
         this.province = province;
     }
 
     /**
-     * Method that returns a Manufacturer Object and its variables and information to a
-     * formatted String.
+     * Method that returns a Manufacturer Object and its variables and information
+     * to a formatted String.
      * 
      * @return String of formatted Manufacturer output
      */

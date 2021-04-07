@@ -7,8 +7,8 @@
 package edu.ucalgary.ensf409;
 
 /**
- * Furniture class is an abstract class which contains fields and methods relevant
- * to all specific child furniture classes.
+ * Furniture class is an abstract class which contains fields and methods
+ * relevant to all specific child furniture classes.
  */
 public class Furniture {
     // CLASS FIELDS
@@ -73,7 +73,7 @@ public class Furniture {
     /**
      * Method that sets the ID of the furniture.
      * 
-     * @param id String
+     * @param id String to set the ID
      */
     public void setId(String id) {
         this.id = id;
@@ -82,7 +82,7 @@ public class Furniture {
     /**
      * Method that sets the price of the furniture.
      * 
-     * @param price String
+     * @param price String to set the price
      */
     public void setPrice(int price) {
         this.price = price;
@@ -91,7 +91,7 @@ public class Furniture {
     /**
      * Method that sets the manufacturer's ID of the furniture.
      * 
-     * @param manuId String
+     * @param manuId String to set the manufacturer's ID
      */
     public void setManuId(String manuId) {
         this.manuId = manuId;

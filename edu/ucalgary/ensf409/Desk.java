@@ -4,11 +4,10 @@
  * @since    1.0 
  */
 
-
 package edu.ucalgary.ensf409;
 
 /**
- * Desk class is a class which contains fields unique to the desk class after 
+ * Desk class is a class which contains fields unique to the desk class after
  * inheriting from the Furniture abstract class.
  */
 public class Desk extends Furniture {
@@ -68,7 +67,7 @@ public class Desk extends Furniture {
     /**
      * Method that sets the usuability of the Desk's legs.
      * 
-     * @param legs boolean to set the legs' usability 
+     * @param legs boolean to set the legs' usability
      */
     public void setLegs(boolean legs) {
         this.legs = legs;
