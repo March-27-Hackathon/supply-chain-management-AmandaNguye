@@ -17,7 +17,8 @@ public class Output {
      * @param count
      * @param arr
      */
-    public static void writeFormattedFile(String fileName, String furniture, String type, String count, ArrayList<Furniture> arr) {
+  
+    public static void writeFormattedFile(String fileName, String furniture, String type, int count, ArrayList<Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
@@ -44,6 +45,12 @@ public class Output {
                 System.exit(1);
             }
         }
+        System.out.println("User request: " + type + " " + furniture + ", " + count);
+        System.out.println("Purchased: ");
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println("\t" + arr.get(i).getId());
+        }
+        System.out.println("Total Price: $" + getPrice(arr));
     }
 
     /**
@@ -70,7 +77,8 @@ public class Output {
      * @param itemsOrdered
      * @param price
      */
-    public static void writeFormattedTerminal(String furniture, String type, String count, ArrayList<Manufacturer> arr) {
+
+    public static void unsuccessfulOutput(String furniture, String type, int count, ArrayList<Manufacturer> arr) {
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Output: Order cannot be fulfilled based on current inventory.");
         System.out.println("SUGGESTED MANUFACTURER(S):");
