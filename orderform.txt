@@ -3,8 +3,8 @@ Furniture Order Form
 Faculty Name:
 Contact:
 Date:
-OriginalRequest: Ergonomic Chair, 1
+OriginalRequest: Mesh chair, 1
 Items Ordered
-ID: C4839
-ID: C5409
-Total Price: $250
+ID: C0942
+ID: C9890
+Total Price: $150

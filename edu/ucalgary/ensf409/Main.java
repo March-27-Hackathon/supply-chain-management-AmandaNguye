@@ -8,16 +8,16 @@
 
 // TODO
 /**
- * Output to console even when sucessful
- * Remove from database (if sucessful)
  * JUnit test
  * Finishing UML
- * WebDev
+ * Youtube
  */
 
 package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Main extends Output{
@@ -31,8 +31,7 @@ public class Main extends Output{
         Request rq = new Request(storage);
 
         ArrayList<? extends Furniture> arr = new ArrayList<>();
-        boolean repeat = true;
-        
+        int repeat;
         do
         {
             /*Getting the furniture type by splitting the inputted furniture by spaces
@@ -66,21 +65,23 @@ public class Main extends Output{
 
             } while(!quantity.matches("^[0-9]+$"));
 
-            arr = rq.request(input.getFurniture(), input.getFurType(),input.getQuantity());
+            arr = rq.request(input.getFurniture(), input.getFurType(), input.getQuantity());
             if(arr==null)
             {
+                JOptionPane.showMessageDialog(new JFrame(),"Order cannot be processed");
                 Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 
             {
+                JOptionPane.showMessageDialog(new JFrame(),"order complete!");
                 Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
                 for(Furniture item: arr)
                 {
-                    storage.removeFromStorage(input.getFurType(), item.getId());
+                    storage.removeFromStorage(input.getFurniture(), item.getId());
                 }
             }
-
-        }while(repeat);
+            repeat = JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION);
+        }while(repeat==JOptionPane.YES_OPTION);
 
     }
 }

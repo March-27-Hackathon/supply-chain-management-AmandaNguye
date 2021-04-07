@@ -204,7 +204,10 @@ public class Storage {
     {
         try
         {
-            dbConnect.createStatement().execute("DELETE FROM "+tableName+" WHERE ID = "+key);
+            PreparedStatement stmt = dbConnect.prepareStatement("DELETE FROM "+tableName+" WHERE ID = ?");
+            stmt.setString(1, key);
+            stmt.execute();
+            stmt.close();
         }
         catch(SQLException e)
         {
