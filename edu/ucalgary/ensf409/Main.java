@@ -8,11 +8,9 @@
 
 // TODO
 /**
- * Output to console even when sucessful
- * Remove from database (if sucessful)
  * JUnit test
  * Finishing UML
- * WebDev
+ * Youtube
  */
 
 package edu.ucalgary.ensf409;
@@ -33,8 +31,7 @@ public class Main extends Output{
         Request rq = new Request(storage);
 
         ArrayList<? extends Furniture> arr = new ArrayList<>();
-        boolean repeat = true;
-        
+        int repeat;
         do
         {
             /*Getting the furniture type by splitting the inputted furniture by spaces
@@ -80,11 +77,11 @@ public class Main extends Output{
                 Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
                 for(Furniture item: arr)
                 {
-                    storage.removeFromStorage(input.getFurType(), item.getId());
+                    storage.removeFromStorage(input.getFurniture(), item.getId());
                 }
             }
-
-        }while(repeat);
+            repeat = JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION);
+        }while(repeat==JOptionPane.YES_OPTION);
 
     }
 }
