@@ -7,8 +7,12 @@
  */
 package edu.ucalgary.ensf409;
 
+/**
+ * InputOrder class is an class which contains fields and methods relevant to
+ * the user input order furniture type, category, and quantity.
+ */
 public class InputOrder {
-    // class variables
+    // CLASS FIELDS
     private String furType;
     private String furniture;
     private int quantity;
@@ -20,7 +24,7 @@ public class InputOrder {
     public InputOrder() {
     }
 
-    // Setter methods
+    // SETTER METHODS
     /**
      * Method that sets the furniture type of the order request.
      * 

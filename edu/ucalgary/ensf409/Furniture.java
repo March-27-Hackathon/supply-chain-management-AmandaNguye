@@ -4,14 +4,14 @@
  * @since 1.0
 */
 
-/**
- * Furniture class is an abstract class which contains fields and methods relavant
- * to all specific child furniture classes.
- */
 package edu.ucalgary.ensf409;
 
+/**
+ * Furniture class is an abstract class which contains fields and methods relevant
+ * to all specific child furniture classes.
+ */
 public class Furniture {
-    // --CLASS FIELDS--
+    // CLASS FIELDS
     private String id;
     private String type;
     private String manuId;

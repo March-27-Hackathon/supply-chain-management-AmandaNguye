@@ -3,15 +3,15 @@
  * @since    1.0 
  */
 
+
+package edu.ucalgary.ensf409;
+
 /**
  * Filing class is a class which contains fields unique to the filing class after 
  * inheriting from the Furniture abstract class.
  */
-
-package edu.ucalgary.ensf409;
-
 public class Filing extends Furniture {
-    // class fields
+    // CLASS FIELDS
     private boolean rails;
     private boolean drawers;
     private boolean cabinet;

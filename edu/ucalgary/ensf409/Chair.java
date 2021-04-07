@@ -4,15 +4,15 @@
  * @since    1.0 
  */
 
+
+package edu.ucalgary.ensf409;
+
 /**
  * Chair class is a class which contains fields unique to the chair class after 
  * inheriting from the Furniture abstract class.
  */
-
-package edu.ucalgary.ensf409;
-
 public class Chair extends Furniture {
-    // class fields
+    // CLASS FIELDS
     private boolean legs;
     private boolean arms;
     private boolean seat;
