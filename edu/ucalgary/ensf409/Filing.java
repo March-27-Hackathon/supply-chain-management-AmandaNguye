@@ -17,7 +17,7 @@ public class Filing extends Furniture {
     private boolean cabinet;
     
     /**
-     * Filing constructor, takes in boolean of its usable parts, its id, type,
+     * Filing constructor, takes in boolean of its usable parts, its ID, type,
      * manufactuer's ID, and price.
      * 
      * @param rails boolean
