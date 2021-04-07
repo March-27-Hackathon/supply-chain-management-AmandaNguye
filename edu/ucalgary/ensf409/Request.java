@@ -1,7 +1,6 @@
 /**
- * @author Dat Lam
- *         <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
- * @version 1.2
+ * @author Dat Lam <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
+ * @version 1.4
  * @since 1.1
  * 
  */
@@ -26,26 +25,98 @@ public class Request {
      * @param type
      * @return Array list of type object that extend from furniture
      */
-    public ArrayList<? extends Furniture> request(String furniture, String type)
+    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity)
     {
         switch(furniture.toLowerCase())
         {
             case "chair":
                 //List only contain chair of that type
                 ArrayList<Chair> chairList = storage.getChairStorage(type);
-                return requestChair(chairList);
+                ArrayList<Chair> returnChair = new ArrayList<Chair>();
+                while(quantity != 0)
+                {
+                    ArrayList<Chair> arr = requestChair(chairList);
+                    if(arr == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        for(Chair chair : arr)
+                        {
+                            returnChair.add(chair);
+                            chairList.remove(chair);
+                        }
+                    }
+                    quantity --;
+                }
+                return returnChair;
             case "desk":
                 //List only contain desk of that type
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
-                return requestDesk(deskList);
+                ArrayList<Desk> returnDesk = new ArrayList<Desk>();
+                while(quantity != 0)
+                {
+                    ArrayList<Desk> arr = requestDesk(deskList);
+                    if(arr == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        for(Desk desk : arr)
+                        {
+                            returnDesk.add(desk);
+                            deskList.remove(desk);
+                        }
+                    }
+                    quantity --;
+                }
+                return returnDesk;
             case "filing":
                 //List only contain filing of that type
                 ArrayList<Filing> filingList = storage.getFilingStorage(type);
-                return requestFiling(filingList);
+                ArrayList<Filing> returnFiling = new ArrayList<Filing>();
+                while(quantity != 0)
+                {
+                    ArrayList<Filing> arr = requestFiling(filingList);
+                    if(arr == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        for(Filing filing : arr)
+                        {
+                            returnFiling.add(filing);
+                            filingList.remove(filing);
+                        }
+                    }
+                    quantity --;
+                }
+                return returnFiling;
             case "lamp":
                 //List only contain desk of that type
                 ArrayList<Lamp> lampList = storage.getLampStorage();
-                return requestLamp(lampList);
+                ArrayList<Lamp> returnLamp = new ArrayList<Lamp>();
+                while(quantity != 0)
+                {
+                    ArrayList<Lamp> arr = requestLamp(lampList);
+                    if(arr == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        for(Lamp lamp : arr)
+                        {
+                            returnLamp.add(lamp);
+                            lampList.remove(lamp);
+                        }
+                    }
+                    quantity --;
+                }
+                return returnLamp;
             default:
                 throw new IllegalArgumentException();
         }
@@ -88,10 +159,12 @@ public class Request {
     
     /**
      * Make a a request for the lowest price combination of chairs
-     * using the list of chairs provided. Then setting the class 
-     * variables lowestPrice to it.
+     * using the list of chairs provided. 
      * @param list
+     * @return ArrayList of combination of chair that would make a new
+     * chair at the lowest price. null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Chair> requestChair(ArrayList<Chair> list)
     {
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
@@ -159,10 +232,13 @@ public class Request {
 
     /**
      * Make a a request for the lowest price combination of desks
-     * using the list of desks provided. Then setting the class 
-     * variables lowestPrice to it.
+     * using the list of desks provided. return array list of
+     * desk.
      * @param list
+     * @return ArrayList of combination of desk with the lowest price that would make a new desk.
+     * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
     {
         ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
@@ -230,10 +306,12 @@ public class Request {
 
     /**
      * Make a a request for the lowest price combination of filings
-     * using the list of filings provided. Then setting the class 
-     * variables lowestPrice to it.
+     * using the list of filings provided. 
      * @param list
+     * @return ArrayList of combination of filing with the lowest price that would make a new filing.
+     * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
     {
         ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
@@ -301,10 +379,12 @@ public class Request {
 
     /**
      * Make a a request for the lowest price combination of lamps
-     * using the list of lamps provided. Then setting the class 
-     * variables lowestPrice to it.
+     * using the list of lamps provided. 
      * @param list
+     * @return ArrayList of combination of lamp with the lowest price that would make a new lamp
+     * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
     {
         ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
