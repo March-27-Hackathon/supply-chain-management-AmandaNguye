@@ -74,8 +74,8 @@ public class Main extends Output{
             }
             else 
             {
-                JOptionPane.showMessageDialog(new JFrame(),"order complete!");
-                Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
+                JOptionPane.showMessageDialog(new JFrame(),"Order complete!");
+                Output.successfulInput("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
                 for(Furniture item: arr)
                 {
                     storage.removeFromStorage(input.getFurniture(), item.getId());

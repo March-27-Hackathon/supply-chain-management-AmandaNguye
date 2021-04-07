@@ -73,7 +73,7 @@ public class Storage {
      * Intitialize attempts to connect to the SQL database
      * @throws SQLException if connection fails
      */
-    public void initialize() throws SQLException
+    private void initialize() throws SQLException
     {
         dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
     }
@@ -85,7 +85,7 @@ public class Storage {
      * @param type class type variable
      * @return ArrayList of generic type
      */
-    public <T extends Furniture> ArrayList<T> populateFurniture(String tableName, Class<T> type)
+    private <T extends Furniture> ArrayList<T> populateFurniture(String tableName, Class<T> type)
     {
         ArrayList<T> arr = new ArrayList<>();
         try
@@ -160,7 +160,7 @@ public class Storage {
      * Populates the manufacturer ArrayList
      * @return ArrayList of type manufacturer
      */
-    public ArrayList<Manufacturer> populateManufacturer()
+    private ArrayList<Manufacturer> populateManufacturer()
     {
         ArrayList<Manufacturer> arr = new ArrayList<>();
         try

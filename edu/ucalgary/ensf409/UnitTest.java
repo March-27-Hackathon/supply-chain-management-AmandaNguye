@@ -12,11 +12,15 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 
-public class FurnitureTest {
+
+public class UnitTest {
     
-    @Test
+    //--FURNITURE TEST--
+
     //test for Chair class
+    @Test
     public void testChair(){
         //test constructor
         Chair test = new Chair(false, true, false, true, "C0194", "Mesh", "002", 50);
@@ -35,8 +39,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-    @Test
     //test for Desk class
+    @Test
     public void testDesk(){
         //test constructor
         Desk test = new Desk(false, false, true, "D0890", "Traditional", "002", 25);
@@ -54,8 +58,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-    @Test
-    //test for Filing class
+     //test for Filing class
+     @Test
      public void testFiling(){
          //test constructor
          Filing test = new Filing(true, true, false, "F001", "Small", "005", 50);
@@ -72,8 +76,8 @@ public class FurnitureTest {
          System.out.println(test);
      }
 
-     @Test
-     //test for Lamp class
+    //test for Lamp class
+    @Test
     public void testLamp(){
         //test constructor
         Lamp test = new Lamp(true, false, "L013", "Desk", "004", 18);
@@ -89,8 +93,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-    @Test
-    //test for Furniture parent class
+     //test for Furniture parent class
+     @Test
      public void testFurniture(){
          //test constructor
          Furniture test = new Furniture("L013", "Swing arm", "003", 15);
@@ -143,4 +147,49 @@ public class FurnitureTest {
         //testing toString function
         System.out.println(test);
      }
+
+     //--STORAGE TEST--
+     @Test
+     public void testStorageChairInitialization()
+     {
+         //MUST BE EDITED BEFORE UNIT TESTING
+         String username = "tyler";
+         String password = "ensf409";
+
+         assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage()!=null);
+     }
+
+     @Test
+     public void testStorageDeskInitialization()
+     {
+         //MUST BE EDITED BEFORE UNIT TESTING
+         String username = "tyler";
+         String password = "ensf409";
+
+         assertTrue("Desk not initialzied", new Storage(username, password).getDeskStorage()!=null);
+     }
+
+     @Test
+     public void testStorageFilingInitialization()
+     {
+         //MUST BE EDITED BEFORE UNIT TESTING
+         String username = "tyler";
+         String password = "ensf409";
+
+         assertTrue("Filing not initialzied", new Storage(username, password).getFilingStorage()!=null);
+     }
+
+     @Test
+     public void testStorageLampInitialization()
+     {
+         //MUST BE EDITED BEFORE UNIT TESTING
+         String username = "tyler";
+         String password = "ensf409";
+
+         assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage()!=null);
+     }
+
+     
+     
+    
 }
