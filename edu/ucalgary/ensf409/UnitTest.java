@@ -188,6 +188,8 @@ public class UnitTest {
 
          assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage()!=null);
      }
+
+     
      
     
 }

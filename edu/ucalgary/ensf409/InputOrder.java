@@ -7,52 +7,75 @@
  */
 package edu.ucalgary.ensf409;
 
-
-public class InputOrder 
-{
+/**
+ * InputOrder class is an class which contains fields and methods relevant to
+ * the user input order furniture type, category, and quantity.
+ */
+public class InputOrder {
+    // CLASS FIELDS
     private String furType;
     private String furniture;
     private int quantity;
 
-    
-    public InputOrder()
-    {
+    /**
+     * InputOrder cnstructor, takes in no params. Sets variables to default values.
+     * 
+     */
+    public InputOrder() {
     }
 
-    //Setter methods
+    // SETTER METHODS
     /**
-     * Set furType to param
-     * @param furType
+     * Method that sets the furniture type of the order request.
+     * 
+     * @param furType String of furniture type
      */
     public void setFurType(String furType) {
         this.furType = furType;
     }
 
     /**
-     * Set furniture to param
-     * @param furniture
+     * Method that sets the furniture category of the order request.
+     * 
+     * @param furniture String of furniture category
      */
     public void setFurniture(String furniture) {
         this.furniture = furniture;
     }
 
     /**
-     * Set quantity to param
-     * @param quantity
+     * Method that sets the furniture quantity of the order request.
+     * 
+     * @param quantity int of furniture quantity
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    //Getters Methods
+    // GETTER METHODS
+    /**
+     * Method that returns the furniture type of the order request.
+     * 
+     * @return String of furniture type
+     */
     public String getFurType() {
         return furType;
     }
 
+    /**
+     * Method that returns the furniture category of the order request.
+     * 
+     * @return String of furniture category
+     */
     public String getFurniture() {
         return furniture;
     }
 
+    /**
+     * Method that returns the quantity of the order request.
+     * 
+     * @return int of the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
