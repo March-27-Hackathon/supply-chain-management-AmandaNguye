@@ -82,7 +82,8 @@ public class Chair extends Furniture {
     // SETTER METHODS
     /**
      * Method that sets the usuability of the Chair's arms.
-     * @param arms
+     * 
+     * @param arms boolean to set the arms' usability
      */
     public void setArms(boolean arms) {
         this.arms = arms;
@@ -91,7 +92,7 @@ public class Chair extends Furniture {
     /**
      * Method that sets the usuability of the Chair's cushion.
      * 
-     * @param cushion
+     * @param cushion boolean to set the cushion's usability
      */
     public void setCushion(boolean cushion) {
         this.cushion = cushion;
@@ -100,7 +101,7 @@ public class Chair extends Furniture {
     /**
      * Method that sets the usuability of the Chair's legs.
      * 
-     * @param legs
+     * @param legs boolean to set the leg's usability
      */
     public void setLegs(boolean legs) {
         this.legs = legs;
@@ -109,7 +110,7 @@ public class Chair extends Furniture {
     /**
      * Method that sets the usuability of the Chair's seat.
      * 
-     * @param seat
+     * @param seat boolean to set the seat's usability
      */
     public void setSeat(boolean seat) {
         this.seat = seat;

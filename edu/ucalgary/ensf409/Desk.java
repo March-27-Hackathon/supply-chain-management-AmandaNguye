@@ -68,7 +68,7 @@ public class Desk extends Furniture {
     /**
      * Method that sets the usuability of the Desk's legs.
      * 
-     * @param legs boolean to set the legs variable
+     * @param legs boolean to set the legs' usability 
      */
     public void setLegs(boolean legs) {
         this.legs = legs;
@@ -77,7 +77,7 @@ public class Desk extends Furniture {
     /**
      * Method that sets the usuability of the Desk's top.
      * 
-     * @param top boolean to set the top
+     * @param top boolean to set the top' usability
      */
     public void setTop(boolean top) {
         this.top = top;
@@ -86,7 +86,7 @@ public class Desk extends Furniture {
     /**
      * Method that sets the usuability of the Desk's drawer.
      * 
-     * @param drawer boolean to set the drawer
+     * @param drawer boolean to set the drawer' usability
      */
     public void setDrawer(boolean drawer) {
         this.drawer = drawer;

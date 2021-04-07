@@ -89,7 +89,7 @@ public class Furniture {
     }
 
     /**
-     * Method that sets the manufacturer's ID of the .
+     * Method that sets the manufacturer's ID of the furniture.
      * 
      * @param manuId String
      */
@@ -100,7 +100,7 @@ public class Furniture {
     /**
      * Method that sets the type of the furniture.
      * 
-     * @param type
+     * @param type 
      */
     public void setType(String type) {
         this.type = type;

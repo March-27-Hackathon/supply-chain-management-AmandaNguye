@@ -67,7 +67,7 @@ public class Filing extends Furniture {
 
     // SETTER METHODS
     /**
-     * /** Method that sets the usuability of the desk's rails.
+     * Method that sets the usuability of the desk's rails.
      * 
      * @param rails boolean to set the rails variable
      */
@@ -76,7 +76,7 @@ public class Filing extends Furniture {
     }
 
     /**
-     * /** Method that sets the usuability of the desk's drawers.
+     * Method that sets the usuability of the desk's drawers.
      * 
      * @param rails boolean to set the drawers variable
      */
@@ -85,7 +85,7 @@ public class Filing extends Furniture {
     }
 
     /**
-     * /** Method that sets the usuability of the desk's cabinet.
+     * Method that sets the usuability of the desk's cabinet.
      * 
      * @param rails boolean to set the cabinet variable
      */
