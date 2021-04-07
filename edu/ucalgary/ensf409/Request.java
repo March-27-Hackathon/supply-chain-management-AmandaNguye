@@ -164,6 +164,7 @@ public class Request {
      * @return ArrayList of combination of chair that would make a new
      * chair at the lowest price. null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Chair> requestChair(ArrayList<Chair> list)
     {
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
@@ -237,6 +238,7 @@ public class Request {
      * @return ArrayList of combination of desk with the lowest price that would make a new desk.
      * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
     {
         ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
@@ -309,6 +311,7 @@ public class Request {
      * @return ArrayList of combination of filing with the lowest price that would make a new filing.
      * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
     {
         ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
@@ -381,6 +384,7 @@ public class Request {
      * @return ArrayList of combination of lamp with the lowest price that would make a new lamp
      * null if request cannont be fulfill
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
     {
         ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
