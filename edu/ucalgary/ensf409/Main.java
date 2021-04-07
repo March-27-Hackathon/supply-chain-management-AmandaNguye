@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import javax.lang.model.util.ElementScanner14;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Main extends Output{
@@ -70,13 +70,15 @@ public class Main extends Output{
 
             } while(!quantity.matches("^[0-9]+$"));
 
-            arr = rq.request(input.getFurniture(), input.getFurType(),input.getQuantity());
+            arr = rq.request(input.getFurniture(), input.getFurType());
             if(arr==null)
             {
-                Output.writeFormattedTerminal(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
+                JOptionPane.showMessageDialog(new JFrame(),"Order cannot be processed");
+                Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 
             {
+                JOptionPane.showMessageDialog(new JFrame(),"order complete!");
                 Output.writeFormattedFile("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
                 for(Furniture item: arr)
                 {
