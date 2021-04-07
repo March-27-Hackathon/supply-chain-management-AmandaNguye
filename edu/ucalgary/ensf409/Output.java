@@ -17,7 +17,8 @@ public class Output {
      * @param count
      * @param arr
      */
-    public static void successfulInput(String fileName, String furniture, String type, String count, ArrayList<Furniture> arr) {
+  
+    public static void writeFormattedFile(String fileName, String furniture, String type, int count, ArrayList<Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
@@ -76,7 +77,8 @@ public class Output {
      * @param itemsOrdered
      * @param price
      */
-    public static void unsuccessfulOutput(String furniture, String type, String count, ArrayList<Manufacturer> arr) {
+
+    public static void unsuccessfulOutput(String furniture, String type, int count, ArrayList<Manufacturer> arr) {
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Output: Order cannot be fulfilled based on current inventory.");
         System.out.println("SUGGESTED MANUFACTURER(S):");
