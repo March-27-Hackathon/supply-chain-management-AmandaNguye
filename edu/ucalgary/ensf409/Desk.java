@@ -19,7 +19,7 @@ public class Desk extends Furniture {
 
     /**
      * Desk Constructor, takes in boolean of its usable parts, its id, type,
-     * manufactuer's ID, and its price.
+     * manufactuer's ID, and price.
      * 
      * @param legs   boolean
      * @param top    boolean
@@ -38,27 +38,27 @@ public class Desk extends Furniture {
 
     // GETTER METHODS
     /**
-     * Getter method for the legs. Indicates whether the desk has usable legs.
+     * Method that indicates whether the Desk has usable legs.
      * 
-     * @return boolean legs
+     * @return boolean of legs' usuability
      */
     public boolean getLegs() {
         return legs;
     }
 
     /**
-     * Getter method for the top. Indicates whether the desk has a usable top.
+     * Method that indicates whether the Desk has a usable top.
      * 
-     * @return boolean top
+     * @return boolean of top's usuability
      */
     public boolean getTop() {
         return top;
     }
 
     /**
-     * Getter method for drawer. Indicates whether the desk has a usable drawer.
+     * Method that indicates whether the Desk has a usable drawer.
      * 
-     * @return boolean drawer
+     * @return boolean of drawer's usuability
      */
     public boolean getDrawer() {
         return drawer;
@@ -66,7 +66,7 @@ public class Desk extends Furniture {
 
     // SETTER METHODS
     /**
-     * Setter method for legs' usability boolean.
+     * Method that sets the usuability of the Desk's legs.
      * 
      * @param legs boolean to set the legs variable
      */
@@ -75,7 +75,7 @@ public class Desk extends Furniture {
     }
 
     /**
-     * Setter method for top's usability boolean.
+     * Method that sets the usuability of the Desk's top.
      * 
      * @param top boolean to set the top
      */
@@ -84,7 +84,7 @@ public class Desk extends Furniture {
     }
 
     /**
-     * Setter method for drawer's usability boolean.
+     * Method that sets the usuability of the Desk's drawer.
      * 
      * @param drawer boolean to set the drawer
      */
@@ -93,10 +93,10 @@ public class Desk extends Furniture {
     }
 
     /**
-     * Method that returns a desk Object and its variables and information to a
+     * Method that returns a Desk Object and its variables and information to a
      * formatted String.
      * 
-     * @return String of formatted desk Object
+     * @return String of formatted Desk Object
      */
     public String toString() {
         String temp = "Desk Object consists of [";
