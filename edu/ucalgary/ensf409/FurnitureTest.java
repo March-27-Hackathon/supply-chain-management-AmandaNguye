@@ -15,8 +15,8 @@ import static org.junit.Assert.*;
 
 public class FurnitureTest {
     
-    //test for Chair class
     @Test
+    //test for Chair class
     public void testChair(){
         //test constructor
         Chair test = new Chair(false, true, false, true, "C0194", "Mesh", "002", 50);
@@ -35,8 +35,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-    //test for Desk class
     @Test
+    //test for Desk class
     public void testDesk(){
         //test constructor
         Desk test = new Desk(false, false, true, "D0890", "Traditional", "002", 25);
@@ -54,8 +54,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-     //test for Filing class
-     @Test
+    @Test
+    //test for Filing class
      public void testFiling(){
          //test constructor
          Filing test = new Filing(true, true, false, "F001", "Small", "005", 50);
@@ -72,8 +72,8 @@ public class FurnitureTest {
          System.out.println(test);
      }
 
-    //test for Lamp class
-    @Test
+     @Test
+     //test for Lamp class
     public void testLamp(){
         //test constructor
         Lamp test = new Lamp(true, false, "L013", "Desk", "004", 18);
@@ -89,8 +89,8 @@ public class FurnitureTest {
         System.out.println(test);
     }
 
-     //test for Furniture parent class
-     @Test
+    @Test
+    //test for Furniture parent class
      public void testFurniture(){
          //test constructor
          Furniture test = new Furniture("L013", "Swing arm", "003", 15);
