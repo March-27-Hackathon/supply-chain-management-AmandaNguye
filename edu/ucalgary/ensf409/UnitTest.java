@@ -16,6 +16,9 @@ import java.sql.SQLException;
 
 
 public class UnitTest {
+    //MUST BE EDITED BEFORE UNIT TESTING
+    String username = "tyler";
+    String password = "ensf409";
     
     //--FURNITURE TEST--
 
@@ -152,40 +155,24 @@ public class UnitTest {
      @Test
      public void testStorageChairInitialization()
      {
-         //MUST BE EDITED BEFORE UNIT TESTING
-         String username = "tyler";
-         String password = "ensf409";
-
          assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage()!=null);
      }
 
      @Test
      public void testStorageDeskInitialization()
      {
-         //MUST BE EDITED BEFORE UNIT TESTING
-         String username = "tyler";
-         String password = "ensf409";
-
          assertTrue("Desk not initialzied", new Storage(username, password).getDeskStorage()!=null);
      }
 
      @Test
      public void testStorageFilingInitialization()
      {
-         //MUST BE EDITED BEFORE UNIT TESTING
-         String username = "tyler";
-         String password = "ensf409";
-
          assertTrue("Filing not initialzied", new Storage(username, password).getFilingStorage()!=null);
      }
 
      @Test
      public void testStorageLampInitialization()
      {
-         //MUST BE EDITED BEFORE UNIT TESTING
-         String username = "tyler";
-         String password = "ensf409";
-
          assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage()!=null);
      }
 
