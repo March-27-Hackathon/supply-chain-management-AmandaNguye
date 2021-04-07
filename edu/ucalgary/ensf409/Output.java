@@ -19,10 +19,10 @@ public class Output {
      * @param fileName  String
      * @param furniture String
      * @param type      String
-     * @param count     String
+     * @param count     int
      * @param arr       ArrayList<Furniture>
      */
-    public static void successfulInput(String fileName, String furniture, String type, String count,
+    public static void successfulInput(String fileName, String furniture, String type, int count,
             ArrayList<Furniture> arr) {
         // Write out the file in formatted form
         FileWriter out = null;
@@ -79,10 +79,10 @@ public class Output {
      * 
      * @param furniture    String
      * @param type         String
-     * @param count        String
+     * @param count        int
      * @param itemsOrdered ArrayList<Furniture>
      */
-    public static void unsuccessfulOutput(String furniture, String type, String count, ArrayList<Manufacturer> arr) {
+    public static void unsuccessfulOutput(String furniture, String type, int count, ArrayList<Manufacturer> arr) {
         // Terminal Output
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Output: Order cannot be fulfilled based on current inventory.");
