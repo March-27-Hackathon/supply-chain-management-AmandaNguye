@@ -4,59 +4,108 @@
  * @since    1.0 
  */
 
-/**
- * Desk class is a class which contains fields unique to the desk class after 
- * inheriting from the Furniture abstract class.
- */
-
 package edu.ucalgary.ensf409;
 
+/**
+ * Desk class is a class which contains fields unique to the desk class after
+ * inheriting from the Furniture abstract class.
+ */
 public class Desk extends Furniture {
-    // class fields
+    // CLASS FIELDS
     private boolean legs;
     private boolean top;
     private boolean drawer;
 
-    // constructor
-    public Desk(boolean legs, boolean top, boolean drawer, String id, String type, String manuId, int price){
+    /**
+     * Desk constructor, takes in boolean of its usable parts, its ID, type,
+     * manufactuer's ID, and price.
+     * 
+     * @param legs   boolean
+     * @param top    boolean
+     * @param drawer boolean
+     * @param id     String
+     * @param type   String
+     * @param manuId String
+     * @param price  int
+     */
+    public Desk(boolean legs, boolean top, boolean drawer, String id, String type, String manuId, int price) {
         super(id, type, manuId, price);
         setLegs(legs);
         setTop(top);
         setDrawer(drawer);
     }
 
-    // getter methods
-    public boolean getLegs(){
+    // GETTER METHODS
+    /**
+     * Method that indicates whether the Desk has usable legs.
+     * 
+     * @return boolean of legs' usuability
+     */
+    public boolean getLegs() {
         return legs;
     }
-    public boolean getTop(){
+
+    /**
+     * Method that indicates whether the Desk has a usable top.
+     * 
+     * @return boolean of top's usuability
+     */
+    public boolean getTop() {
         return top;
     }
-   public boolean getDrawer(){
-       return drawer;
-   }
 
-   // setter methods
-   public void setLegs(boolean legs){
-       this.legs = legs;
-   }
-   public void setTop(boolean top){
-       this.top = top;
-   }
-   public void setDrawer(boolean drawer){
-       this.drawer = drawer;
-   }
+    /**
+     * Method that indicates whether the Desk has a usable drawer.
+     * 
+     * @return boolean of drawer's usuability
+     */
+    public boolean getDrawer() {
+        return drawer;
+    }
 
-   //method to return a formatted string
-   public String toString(){
-    String temp = "Desk Object consists of [";
-    temp += "Legs: " + legs + ", ";
-    temp += "Top: " + top + ", ";
-    temp += "Drawer: " + drawer + ", ";
-    temp += "ID: " + getId() + ", ";
-    temp += "ManuID: " + getManuId() + ", ";
-    temp += "Type: " + getType() + ", ";
-    temp += "Price: " + getPrice() + "]";
-    return temp;
-}
+    // SETTER METHODS
+    /**
+     * Method that sets the usuability of the Desk's legs.
+     * 
+     * @param legs boolean to set the legs' usability
+     */
+    public void setLegs(boolean legs) {
+        this.legs = legs;
+    }
+
+    /**
+     * Method that sets the usuability of the Desk's top.
+     * 
+     * @param top boolean to set the top' usability
+     */
+    public void setTop(boolean top) {
+        this.top = top;
+    }
+
+    /**
+     * Method that sets the usuability of the Desk's drawer.
+     * 
+     * @param drawer boolean to set the drawer' usability
+     */
+    public void setDrawer(boolean drawer) {
+        this.drawer = drawer;
+    }
+
+    /**
+     * Method that returns a Desk Object and its variables and information to a
+     * formatted String.
+     * 
+     * @return String of formatted Desk Object
+     */
+    public String toString() {
+        String temp = "Desk Object consists of [";
+        temp += "Legs: " + legs + ", ";
+        temp += "Top: " + top + ", ";
+        temp += "Drawer: " + drawer + ", ";
+        temp += "ID: " + getId() + ", ";
+        temp += "ManuID: " + getManuId() + ", ";
+        temp += "Type: " + getType() + ", ";
+        temp += "Price: " + getPrice() + "]";
+        return temp;
+    }
 }
