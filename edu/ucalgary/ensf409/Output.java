@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Class to create and format the output file for scenarios
  */
 public class Output {
+    private static int orderId = 0;
     /**
      * Method that formats and writes the output files of a scenario if the case is
      * possible.
@@ -27,7 +28,7 @@ public class Output {
         // Write out the file in formatted form
         FileWriter out = null;
         try {
-            out = new FileWriter(fileName + ".txt");
+            out = new FileWriter(fileName + String.format("%03d.txt",orderId++));
             out.write("Furniture Order Form\n\nFaculty Name:\nContact:\nDate:\n");
             out.write("OriginalRequest: " + type + " " + furniture + ", " + count);
             out.write("\nItems Ordered\n");
