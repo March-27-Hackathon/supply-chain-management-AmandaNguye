@@ -38,6 +38,7 @@ public class Request {
             ArrayList<Chair> returnChair = findLowestChairCombo(validCombinations);
             return returnChair;
         }
+        return null;
     }
 
     private void findValidChairCombos(ArrayList<Chair> list, ArrayList<ArrayList<Chair>> valids) {
