@@ -34,13 +34,21 @@ public class Request {
     public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) {
         count = quantity;
         switch (furniture.toLowerCase()) {
-        case "chair":
-            // List only contain chair of that type
-            ArrayList<Chair> chairList = storage.getChairStorage(type);
-            ArrayList<ArrayList<Chair>> validCombinations = new ArrayList<ArrayList<Chair>>();
-            findValidChairCombos(chairList, validCombinations);
-            ArrayList<Chair> returnChair = findLowestChairCombo(validCombinations);
-            return returnChair;
+            case "chair":
+                // List only contain chair of that type
+                ArrayList<Chair> chairList = storage.getChairStorage(type);
+                ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
+                findValidChairCombos(chairList, validChairCombinations);
+                ArrayList<Chair> returnChair = findLowestChairCombo(validChairCombinations);
+                return returnChair;
+            case "desk":
+                // List only contain chair of that type
+                ArrayList<Desk> deskList = storage.getDeskStorage(type);
+                ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
+                findValidDeskCombos(deskList, validDeskCombinations);
+                ArrayList<Chair> returnDesk = findLowestDeskCombo(validDeskCombinations);
+                return returnDesk;
+            
         }
         return null;
     }
@@ -130,6 +138,96 @@ public class Request {
         }
         ArrayList<Chair> temp = valids.get(0);
         for (ArrayList<Chair> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
+        }
+        return temp;
+    }
+
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * chair by calling its recursive function.
+     * 
+     * @param list
+     * @param valids
+     */
+    private void findValidDeskCombos(ArrayList<Desk> list, ArrayList<ArrayList<Desk>> valids) {
+        ArrayList<Desk> staged = new ArrayList<Desk>();
+        testDeskCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * chair and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Chair> raw list of typed chair
+     * @param staged ArrayList<Chair> Chair combination to be tested
+     * @param valids ArrayList<ArrayList<Chair>> list of valid Chair combinations
+     */
+    private void testDeskCombos(int index, ArrayList<Desk> list, ArrayList<Desk> staged,
+            ArrayList<ArrayList<Desk>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testDeskCombos(temp + 1, list, staged, valids);
+            }
+        } else {
+            staged.add(list.get(index));
+            if (isValidDeskCombo(staged)) {
+                valids.add(new ArrayList<Desk>(staged));
+            }
+            testDeskCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Chair combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Chair> Chair combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidDeskCombo(ArrayList<Desk> staged) {
+        int[] partsToFill = new int[] { 0, 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getLegs()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getTop()) {
+                partsToFill[1]++;
+            }
+            if (staged.get(i).getDrawer()) {
+                partsToFill[2]++;
+            }
+        }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Method that returns the lowest priced Chair combination in a list of Chair
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Chair>>
+     * @return ArrayList<Chair> lowest priced Chair combination
+     */
+    private ArrayList<Desk> findLowestDeskCombo(ArrayList<ArrayList<Desk>> valids) {
+        if (valids == null) {
+            return null;
+        }
+        ArrayList<Desk> temp = valids.get(0);
+        for (ArrayList<Desk> combo : valids) {
             if (priceOf(combo) < priceOf(temp)) {
                 temp = combo;
             }
