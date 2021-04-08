@@ -83,5 +83,6 @@ public class Main extends Output{
             }
             repeat = JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION);
         }while(repeat==JOptionPane.YES_OPTION);
+        System.exit(0);
     }
 }
