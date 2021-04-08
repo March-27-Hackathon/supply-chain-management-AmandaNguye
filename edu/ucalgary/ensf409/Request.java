@@ -16,7 +16,8 @@ public class Request {
     private int count;
 
     /**
-     * Constructor of a Request, takes in the storage, an ArrayList of the inventory.
+     * Constructor of a Request, takes in the storage, an ArrayList of the
+     * inventory.
      */
     public Request(Storage storage) {
         this.storage = storage;
@@ -84,8 +85,8 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * chair by calling its recursive function.
+     * Method that tests all of the possible combinations of a certain type of chair
+     * by calling its recursive function.
      * 
      * @param list
      * @param valids
@@ -96,8 +97,8 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * chair and adds valid combinations to a list.
+     * Method that tests all of the possible combinations of a certain type of chair
+     * and adds valid combinations to a list.
      * 
      * @param index  int of list to be added next
      * @param list   ArrayList<Chair> raw list of typed chair
@@ -176,8 +177,8 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * desk by calling its recursive function.
+     * Method that tests all of the possible combinations of a certain type of Desk
+     * by calling its recursive function.
      * 
      * @param list
      * @param valids
@@ -188,11 +189,11 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * desk and adds valid combinations to a list.
+     * Method that tests all of the possible combinations of a certain type of Desk
+     * and adds valid combinations to a list.
      * 
      * @param index  int of list to be added next
-     * @param list   ArrayList<Desk> raw list of typed desk
+     * @param list   ArrayList<Desk> raw list of typed Desk
      * @param staged ArrayList<Desk> Desk combination to be tested
      * @param valids ArrayList<ArrayList<Desk>> list of valid Desk combinations
      */
@@ -226,13 +227,13 @@ public class Request {
     private boolean isValidDeskCombo(ArrayList<Desk> staged) {
         int[] partsToFill = new int[] { 0, 0, 0 };
         for (int i = 0; i < staged.size(); i++) {
-            if (staged.get(i).getLegs()) {
+            if (staged.get(i).getDrawer()) {
                 partsToFill[0]++;
             }
-            if (staged.get(i).getTop()) {
+            if (staged.get(i).getLegs()) {
                 partsToFill[1]++;
             }
-            if (staged.get(i).getDrawer()) {
+            if (staged.get(i).getTop()) {
                 partsToFill[2]++;
             }
         }
@@ -266,7 +267,7 @@ public class Request {
 
     /**
      * Method that tests all of the possible combinations of a certain type of
-     * filing by calling its recursive function.
+     * Filing by calling its recursive function.
      * 
      * @param list
      * @param valids
@@ -315,13 +316,13 @@ public class Request {
     private boolean isValidFilingCombo(ArrayList<Filing> staged) {
         int[] partsToFill = new int[] { 0, 0, 0 };
         for (int i = 0; i < staged.size(); i++) {
-            if (staged.get(i).getRails()) {
+            if (staged.get(i).getCabinet()) {
                 partsToFill[0]++;
             }
             if (staged.get(i).getDrawers()) {
                 partsToFill[1]++;
             }
-            if (staged.get(i).getCabinet()) {
+            if (staged.get(i).getRails()) {
                 partsToFill[2]++;
             }
         }
@@ -354,8 +355,8 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * lamp by calling its recursive function.
+     * Method that tests all of the possible combinations of a certain type of Lamp
+     * by calling its recursive function.
      * 
      * @param list
      * @param valids
@@ -366,8 +367,8 @@ public class Request {
     }
 
     /**
-     * Method that tests all of the possible combinations of a certain type of
-     * Lamp and adds valid combinations to a list.
+     * Method that tests all of the possible combinations of a certain type of Lamp
+     * and adds valid combinations to a list.
      * 
      * @param index  int of list to be added next
      * @param list   ArrayList<Lamp> raw list of typed Lamp
