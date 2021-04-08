@@ -59,7 +59,7 @@ public class Request {
         } else {
             staged.add(list.get(index));
             if (isValidChairCombo(staged)) {
-                valids.add(staged);
+                valids.add(new ArrayList<Chair>(staged));
                 staged.remove(staged.size() - 1);
                 findCombos(index + 1, list, staged, valids);
             } else {

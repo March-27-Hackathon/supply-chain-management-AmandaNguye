@@ -7,4 +7,6 @@ OriginalRequest: Task chair, 2
 Items Ordered
 ID: C0914
 ID: C1148
-Total Price: $175
+ID: C2696
+ID: C3405
+Total Price: $300
