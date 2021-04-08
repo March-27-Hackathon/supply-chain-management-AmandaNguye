@@ -46,7 +46,7 @@ public class Request {
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
                 ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
                 findValidDeskCombos(deskList, validDeskCombinations);
-                ArrayList<Chair> returnDesk = findLowestDeskCombo(validDeskCombinations);
+                ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
                 return returnDesk;
             
         }
@@ -148,7 +148,7 @@ public class Request {
 
     /**
      * Method that tests all of the possible combinations of a certain type of
-     * chair by calling its recursive function.
+     * desk by calling its recursive function.
      * 
      * @param list
      * @param valids
@@ -160,12 +160,12 @@ public class Request {
 
     /**
      * Method that tests all of the possible combinations of a certain type of
-     * chair and adds valid combinations to a list.
+     * desk and adds valid combinations to a list.
      * 
      * @param index  int of list to be added next
-     * @param list   ArrayList<Chair> raw list of typed chair
-     * @param staged ArrayList<Chair> Chair combination to be tested
-     * @param valids ArrayList<ArrayList<Chair>> list of valid Chair combinations
+     * @param list   ArrayList<Desk> raw list of typed desk
+     * @param staged ArrayList<Desk> Desk combination to be tested
+     * @param valids ArrayList<ArrayList<Desk>> list of valid Desk combinations
      */
     private void testDeskCombos(int index, ArrayList<Desk> list, ArrayList<Desk> staged,
             ArrayList<ArrayList<Desk>> valids) {
@@ -188,10 +188,10 @@ public class Request {
     }
 
     /**
-     * Method that returns true if the input Chair combination fills the input
+     * Method that returns true if the input Desk combination fills the input
      * request.
      * 
-     * @param staged ArrayList<Chair> Chair combination to be tested
+     * @param staged ArrayList<Desk> Desk combination to be tested
      * @return boolean of combincation validity
      */
     private boolean isValidDeskCombo(ArrayList<Desk> staged) {
@@ -216,11 +216,11 @@ public class Request {
     }
 
     /**
-     * Method that returns the lowest priced Chair combination in a list of Chair
+     * Method that returns the lowest priced Desk combination in a list of Desk
      * combinations.
      * 
-     * @param valids ArrayList<ArrayList<Chair>>
-     * @return ArrayList<Chair> lowest priced Chair combination
+     * @param valids ArrayList<ArrayList<Desk>>
+     * @return ArrayList<Desk> lowest priced Desk combination
      */
     private ArrayList<Desk> findLowestDeskCombo(ArrayList<ArrayList<Desk>> valids) {
         if (valids == null) {
