@@ -35,34 +35,51 @@ public class Request {
     public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) {
         count = quantity;
         switch (furniture.toLowerCase()) {
-        case "chair":
-            // List only contain chair of that type
-            ArrayList<Chair> chairList = storage.getChairStorage(type);
-            ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
-            findValidChairCombos(chairList, validChairCombinations);
-            ArrayList<Chair> returnChair = findLowestChairCombo(validChairCombinations);
-            return returnChair;
-        case "desk":
-            // List only contain chair of that type
-            ArrayList<Desk> deskList = storage.getDeskStorage(type);
-            ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
-            findValidDeskCombos(deskList, validDeskCombinations);
-            ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
-            return returnDesk;
-        case "filing":
-            // List only contain chair of that type
-            ArrayList<Filing> filingList = storage.getFilingStorage(type);
-            ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
-            findValidFilingCombos(filingList, validFilingCombinations);
-            ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
-            return returnFiling;
-        case "lamp":
-            // List only contain chair of that type
-            ArrayList<Lamp> lampList = storage.getLampStorage(type);
-            ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
-            findValidLampCombos(lampList, validLampCombinations);
-            ArrayList<Lamp> returnLamp = findLowestLampCombo(validLampCombinations);
-            return returnLamp;
+            case "chair":
+                // List only contain chair of that type
+                ArrayList<Chair> chairList = storage.getChairStorage(type);
+                if(chairList == null || chairList.isEmpty())
+                {
+                    return null;
+                }
+                ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
+                findValidChairCombos(chairList, validChairCombinations);
+                ArrayList<Chair> returnChair = findLowestChairCombo(validChairCombinations);
+                return returnChair;
+            case "desk":
+                // List only contain chair of that type
+                ArrayList<Desk> deskList = storage.getDeskStorage(type);
+                if(deskList == null || deskList.isEmpty())
+                {
+                    return null;
+                }
+                ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
+                findValidDeskCombos(deskList, validDeskCombinations);
+                ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
+                return returnDesk;
+            case "filing":
+                // List only contain filing of that type
+                ArrayList<Filing> filingList = storage.getFilingStorage(type);
+                if(filingList == null || filingList.isEmpty())
+                {
+                    return null;
+                }
+                ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
+                findValidFilingCombos(filingList, validFilingCombinations);
+                ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
+                return returnFiling;
+            case "lamp":
+                // List only contain lamp of that type
+                ArrayList<Lamp> lampList = storage.getLampStorage(type);
+                if(lampList == null || lampList.isEmpty())
+                {
+                    return null;
+                }
+                ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
+                findValidLampCombos(lampList, validLampCombinations);
+                ArrayList<Lamp> returnLamp = findLowestLampCombo(validLampCombinations);
+                return returnLamp;
+            
         }
         return null;
     }
@@ -147,7 +164,7 @@ public class Request {
      * @return ArrayList<Chair> lowest priced Chair combination
      */
     private ArrayList<Chair> findLowestChairCombo(ArrayList<ArrayList<Chair>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Chair> temp = valids.get(0);
@@ -236,7 +253,7 @@ public class Request {
      * @return ArrayList<Desk> lowest priced Desk combination
      */
     private ArrayList<Desk> findLowestDeskCombo(ArrayList<ArrayList<Desk>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Desk> temp = valids.get(0);
@@ -325,7 +342,7 @@ public class Request {
      * @return ArrayList<Filing> lowest priced Filing combination
      */
     private ArrayList<Filing> findLowestFilingCombo(ArrayList<ArrayList<Filing>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Filing> temp = valids.get(0);
@@ -411,7 +428,7 @@ public class Request {
      * @return ArrayList<Lamp> lowest priced Lamp combination
      */
     private ArrayList<Lamp> findLowestLampCombo(ArrayList<ArrayList<Lamp>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Lamp> temp = valids.get(0);
