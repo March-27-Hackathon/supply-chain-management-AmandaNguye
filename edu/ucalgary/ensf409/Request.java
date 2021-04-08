@@ -43,10 +43,10 @@ public class Request {
 
     private void findValidChairCombos(ArrayList<Chair> list, ArrayList<ArrayList<Chair>> valids) {
         ArrayList<Chair> staged = new ArrayList<Chair>();
-        findChairCombos(0, list, staged, valids);
+        findCombos(0, list, staged, valids);
     }
 
-    private void findChairCombos(int index, ArrayList<Chair> list, ArrayList<Chair> staged,
+    private void findCombos(int index, ArrayList<Chair> list, ArrayList<Chair> staged,
             ArrayList<ArrayList<Chair>> valids) {
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
@@ -103,14 +103,9 @@ public class Request {
         return temp;
     }
 
-    /**
-     * 
-     * @param list
-     * @return 
-     */
-    private int priceOf(ArrayList<? extends Furniture> list) {
+    private int priceOf(ArrayList<Chair> list) {
         int price = 0;
-        for (Furniture item : list) {
+        for (Chair item : list) {
             price += item.getPrice();
         }
         return price;
