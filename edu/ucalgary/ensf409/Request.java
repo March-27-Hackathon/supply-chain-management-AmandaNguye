@@ -43,7 +43,7 @@ public class Request {
 
     private void findValidChairCombos(ArrayList<Chair> list, ArrayList<ArrayList<Chair>> valids) {
         ArrayList<Chair> staged = new ArrayList<Chair>();
-        findCombos(1, list, staged, valids);
+        findCombos(0, list, staged, valids);
     }
 
     private void findCombos(int index, ArrayList<Chair> list, ArrayList<Chair> staged,
