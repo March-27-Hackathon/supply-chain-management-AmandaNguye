@@ -50,33 +50,37 @@ public class Request {
             ArrayList<ArrayList<Chair>> valids) {
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
-            return;
-        }
-        staged.add(list.get(index));
-        if (isValidChairCombo(staged)) {
-            valids.add(staged);
-            staged.remove(staged.size() - 1);
-            findCombos(index+1, list, staged, valids);
-        }
-        else 
-        {
-            findCombos(index+1, list, staged, valids);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                staged.remove(staged.size() - 1);
+                findCombos(index - 1, list, staged, valids);
+            }
+        } else {
+            staged.add(list.get(index));
+            if (isValidChairCombo(staged)) {
+                valids.add(staged);
+                staged.remove(staged.size() - 1);
+                findCombos(index + 1, list, staged, valids);
+            } else {
+                findCombos(index + 1, list, staged, valids);
+            }
         }
     }
 
     private boolean isValidChairCombo(ArrayList<Chair> staged) {
-        int[] partsToFill = new int[4];
+        int[] partsToFill = new int[] { 0, 0, 0, 0 };
         for (int i = 0; i < staged.size(); i++) {
-            if (staged.get(i).getArms() == true) {
+            if (staged.get(i).getArms()) {
                 partsToFill[0]++;
             }
-            if (staged.get(i).getCushion() == true) {
+            if (staged.get(i).getCushion()) {
                 partsToFill[1]++;
             }
-            if (staged.get(i).getLegs() == true) {
+            if (staged.get(i).getLegs()) {
                 partsToFill[2]++;
             }
-            if (staged.get(i).getSeat() == true) {
+            if (staged.get(i).getSeat()) {
                 partsToFill[3]++;
             }
         }
@@ -89,8 +93,7 @@ public class Request {
     }
 
     private ArrayList<Chair> findLowestChairCombo(ArrayList<ArrayList<Chair>> valids) {
-        if(valids==null)
-        {
+        if (valids == null) {
             return null;
         }
         ArrayList<Chair> temp = valids.get(0);
