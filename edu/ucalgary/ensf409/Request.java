@@ -53,18 +53,16 @@ public class Request {
             if (staged.size() == 0) {
                 return;
             } else {
+                int temp = list.indexOf(staged.get(staged.size() -1));
                 staged.remove(staged.size() - 1);
-                findCombos(index - 1, list, staged, valids);
+                findCombos(temp + 1, list, staged, valids);
             }
         } else {
             staged.add(list.get(index));
             if (isValidChairCombo(staged)) {
                 valids.add(new ArrayList<Chair>(staged));
-                staged.remove(staged.size() - 1);
-                findCombos(index + 1, list, staged, valids);
-            } else {
-                findCombos(index + 1, list, staged, valids);
-            }
+            } 
+            findCombos(index + 1, list, staged, valids);
         }
     }
 
