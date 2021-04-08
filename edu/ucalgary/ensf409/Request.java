@@ -48,6 +48,13 @@ public class Request {
                 findValidDeskCombos(deskList, validDeskCombinations);
                 ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
                 return returnDesk;
+            case "filing":
+                // List only contain filing of that type
+                ArrayList<Filing> filingList = storage.getFilingStorage(type);
+                ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
+                findValidFilingCombos(filingList, validFilingCombinations);
+                ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
+                return returnFiling;
             
         }
         return null;
@@ -145,7 +152,6 @@ public class Request {
         return temp;
     }
 
-
     /**
      * Method that tests all of the possible combinations of a certain type of
      * desk by calling its recursive function.
@@ -228,6 +234,95 @@ public class Request {
         }
         ArrayList<Desk> temp = valids.get(0);
         for (ArrayList<Desk> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * filing by calling its recursive function.
+     * 
+     * @param list
+     * @param valids
+     */
+    private void findValidFilingCombos(ArrayList<Filing> list, ArrayList<ArrayList<Filing>> valids) {
+        ArrayList<Filing> staged = new ArrayList<Filing>();
+        testFilingCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * Filing and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Filing> raw list of typed Filing
+     * @param staged ArrayList<Filing> Filing combination to be tested
+     * @param valids ArrayList<ArrayList<Filing>> list of valid Filing combinations
+     */
+    private void testFilingCombos(int index, ArrayList<Filing> list, ArrayList<Filing> staged,
+            ArrayList<ArrayList<Filing>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testFilingCombos(temp + 1, list, staged, valids);
+            }
+        } else {
+            staged.add(list.get(index));
+            if (isValidFilingCombo(staged)) {
+                valids.add(new ArrayList<Filing>(staged));
+            }
+            testFilingCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Filing combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Filing> Filing combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidFilingCombo(ArrayList<Filing> staged) {
+        int[] partsToFill = new int[] { 0, 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getRails()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getDrawers()) {
+                partsToFill[1]++;
+            }
+            if (staged.get(i).getCabinet()) {
+                partsToFill[2]++;
+            }
+        }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Method that returns the lowest priced Filing combination in a list of Filing
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Filing>>
+     * @return ArrayList<Filing> lowest priced Filing combination
+     */
+    private ArrayList<Filing> findLowestFilingCombo(ArrayList<ArrayList<Filing>> valids) {
+        if (valids == null) {
+            return null;
+        }
+        ArrayList<Filing> temp = valids.get(0);
+        for (ArrayList<Filing> combo : valids) {
             if (priceOf(combo) < priceOf(temp)) {
                 temp = combo;
             }
