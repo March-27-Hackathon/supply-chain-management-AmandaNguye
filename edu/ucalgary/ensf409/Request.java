@@ -37,7 +37,7 @@ public class Request {
             case "chair":
                 // List only contain chair of that type
                 ArrayList<Chair> chairList = storage.getChairStorage(type);
-                if(chairList.isEmpty())
+                if(chairList == null || chairList.isEmpty())
                 {
                     return null;
                 }
@@ -48,7 +48,7 @@ public class Request {
             case "desk":
                 // List only contain chair of that type
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
-                if(deskList.isEmpty())
+                if(deskList == null || deskList.isEmpty())
                 {
                     return null;
                 }
@@ -59,7 +59,7 @@ public class Request {
             case "filing":
                 // List only contain filing of that type
                 ArrayList<Filing> filingList = storage.getFilingStorage(type);
-                if(filingList.isEmpty())
+                if(filingList == null || filingList.isEmpty())
                 {
                     return null;
                 }
@@ -70,7 +70,7 @@ public class Request {
             case "lamp":
                 // List only contain lamp of that type
                 ArrayList<Lamp> lampList = storage.getLampStorage(type);
-                if(lampList.isEmpty())
+                if(lampList == null || lampList.isEmpty())
                 {
                     return null;
                 }
@@ -163,7 +163,7 @@ public class Request {
      * @return ArrayList<Chair> lowest priced Chair combination
      */
     private ArrayList<Chair> findLowestChairCombo(ArrayList<ArrayList<Chair>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Chair> temp = valids.get(0);
@@ -252,7 +252,7 @@ public class Request {
      * @return ArrayList<Desk> lowest priced Desk combination
      */
     private ArrayList<Desk> findLowestDeskCombo(ArrayList<ArrayList<Desk>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Desk> temp = valids.get(0);
@@ -341,7 +341,7 @@ public class Request {
      * @return ArrayList<Filing> lowest priced Filing combination
      */
     private ArrayList<Filing> findLowestFilingCombo(ArrayList<ArrayList<Filing>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Filing> temp = valids.get(0);
@@ -427,7 +427,7 @@ public class Request {
      * @return ArrayList<Lamp> lowest priced Lamp combination
      */
     private ArrayList<Lamp> findLowestLampCombo(ArrayList<ArrayList<Lamp>> valids) {
-        if (valids == null) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
         ArrayList<Lamp> temp = valids.get(0);
