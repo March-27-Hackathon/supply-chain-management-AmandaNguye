@@ -31,26 +31,7 @@ public class Request {
         {
             case "chair":
                 //List only contain chair of that type
-                ArrayList<Chair> chairList = storage.getChairStorage(type);
-                ArrayList<Chair> returnChair = new ArrayList<Chair>();
-                while(quantity != 0)
-                {
-                    ArrayList<Chair> arr = requestChair(chairList);
-                    if(arr == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        for(Chair chair : arr)
-                        {
-                            returnChair.add(chair);
-                            chairList.remove(chair);
-                        }
-                    }
-                    quantity --;
-                }
-                return returnChair;
+                return requestChair(storage.getChairStorage(type), quantity);
             case "desk":
                 //List only contain desk of that type
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
@@ -156,6 +137,62 @@ public class Request {
 
         return legs && arms && seat && cushion;
     }
+
+    private void extraChairParts(ArrayList<Chair> toReturn, ArrayList<Chair> pool)
+    {
+        boolean hasCushion = false, hasLegs = false, hasSeat = false, hasArms = false;
+        for(Chair chair : toReturn)
+        {
+            if(chair.getLegs())
+            {
+                if(hasLegs)
+                {
+                    pool.add(new Chair(true, false, false, false, "remove", chair.getType(), "", 0));
+                }
+                else
+                {
+                    hasLegs = true;
+                }
+            }
+
+            if(chair.getArms())
+            {
+                if(hasArms)
+                {
+                    pool.add(new Chair(false, true, false, false, "remove", chair.getType(), "", 0));
+                }
+                else
+                {
+                    hasArms = true;
+                }
+            }
+
+            if(chair.getSeat())
+            {
+                if(hasSeat)
+                {
+                    pool.add(new Chair(false, false, true, false, "remove", chair.getType(), "", 0));
+                }
+                else
+                {
+                    hasSeat = true;
+                }
+            }
+
+            if(chair.getCushion())
+            {
+                if(hasCushion)
+                {
+                    pool.add(new Chair(false, false, false, true, "remove", chair.getType(), "", 0));
+                }
+                else
+                {
+                    hasCushion = true;
+                }
+            }
+        }
+
+    }
     
     /**
      * Make a a request for the lowest price combination of chairs
@@ -165,7 +202,7 @@ public class Request {
      * chair at the lowest price. null if request cannont be fulfill
      */
     @SuppressWarnings("unchecked")
-    public ArrayList<Chair> requestChair(ArrayList<Chair> list)
+    public ArrayList<Chair> requestChair(ArrayList<Chair> list, int quantity)
     {
         ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
         ArrayList<Chair> temp1, temp2;
