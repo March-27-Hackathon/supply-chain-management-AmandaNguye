@@ -50,12 +50,13 @@ public class Request {
             ArrayList<ArrayList<Chair>> valids) {
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
-            staged.remove(staged.size() - 1);
             return;
         }
         staged.add(list.get(index));
         if (isValidChairCombo(staged)) {
             valids.add(staged);
+            staged.remove(staged.size() - 1);
+            findCombos(index++, list, staged, valids);
         }
         findCombos(index++, list, staged, valids);
     }
@@ -86,17 +87,17 @@ public class Request {
 
     private ArrayList<Chair> findLowestChairCombo(ArrayList<ArrayList<Chair>> valids) {
         ArrayList<Chair> temp = valids.get(0);
-        for(ArrayList<Chair> combo : valids){
-            if(priceOf(combo) < priceOf(temp)){
+        for (ArrayList<Chair> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
                 temp = combo;
             }
         }
         return temp;
     }
 
-    private int priceOf(ArrayList<Chair> list){
+    private int priceOf(ArrayList<Chair> list) {
         int price = 0;
-        for(Chair item : list){
+        for (Chair item : list) {
             price += item.getPrice();
         }
         return price;
