@@ -3,8 +3,8 @@ Furniture Order Form
 Faculty Name:
 Contact:
 Date:
-OriginalRequest: Mesh chair, 1
+OriginalRequest: Task chair, 2
 Items Ordered
-ID: C0942
-ID: C9890
-Total Price: $150
+ID: C0914
+ID: C1148
+Total Price: $175

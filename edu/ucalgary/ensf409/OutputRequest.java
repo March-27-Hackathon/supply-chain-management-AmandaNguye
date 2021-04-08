@@ -17,7 +17,7 @@ public class OutputRequest {
         System.out.println("Enter your furniture count:");
         order.setQuantity(Integer.parseInt(reader.readLine()));
         reader.close();
-        OutputRequest dburl = new OutputRequest("jdbc:mysql://localhost/inventory","amanda","ensf409");
+        OutputRequest dburl = new OutputRequest("jdbc:mysql://localhost/inventory","tyler","ensf409");
         LinkedList<Integer> results = dburl.find(order);
         for(Integer s:results){
             System.out.println(s);
