@@ -30,6 +30,7 @@ public class Main extends Output{
         InputOrder input = new InputOrder();
         Storage storage = new Storage(username,password);
         Request rq = new Request(storage);
+        Boolean invalidChairInput = false;
 
         ArrayList<? extends Furniture> arr = new ArrayList<>();
         int repeat;
@@ -59,17 +60,38 @@ public class Main extends Output{
                 if(quantity.matches("^[0-9]+$"))
                 {
                     input.setQuantity(Integer.parseInt(quantity));
-                } else 
+                } 
+                else 
                 {
                     JOptionPane.showMessageDialog(null, "Please input an integer");
                 }
 
             } while(!quantity.matches("^[0-9]+$"));
 
-            arr = rq.request(input.getFurniture(), input.getFurType(), input.getQuantity());
-            if(arr==null)
+            /**
+             * Attempts to fetch the furniture based off the prompts
+             */
+            try
             {
-                JOptionPane.showMessageDialog(new JFrame(),"Order cannot be processed");
+                arr = rq.request(input.getFurniture(), input.getFurType(), input.getQuantity());
+            }
+            catch(IllegalArgumentException e)
+            {
+                invalidChairInput = true;
+            }
+
+            /**
+             * If request throws and IllgalArgumentException, display "Furniture input is invalid"
+             * If returned array is null, display "No available chairs to match the critera"
+             * Otherwise order is filled and display the messages appropriately
+             */
+            if(invalidChairInput)
+            {
+                JOptionPane.showMessageDialog(new JFrame(),"Furniture input is invalid");
+            }
+            else if(arr==null)
+            {
+                JOptionPane.showMessageDialog(new JFrame(),"No available chairs to match the critera");
                 Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 
