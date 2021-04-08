@@ -55,6 +55,13 @@ public class Request {
                 findValidFilingCombos(filingList, validFilingCombinations);
                 ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
                 return returnFiling;
+            case "lamp":
+                // List only contain lamp of that type
+                ArrayList<Lamp> lampList = storage.getLampStorage(type);
+                ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
+                findValidLampCombos(lampList, validLampCombinations);
+                ArrayList<Lamp> returnLamp = findLowestLampCombo(validLampCombinations);
+                return returnLamp;
             
         }
         return null;
@@ -323,6 +330,92 @@ public class Request {
         }
         ArrayList<Filing> temp = valids.get(0);
         for (ArrayList<Filing> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * lamp by calling its recursive function.
+     * 
+     * @param list
+     * @param valids
+     */
+    private void findValidLampCombos(ArrayList<Lamp> list, ArrayList<ArrayList<Lamp>> valids) {
+        ArrayList<Lamp> staged = new ArrayList<Lamp>();
+        testLampCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * Lamp and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Lamp> raw list of typed Lamp
+     * @param staged ArrayList<Lamp> Lamp combination to be tested
+     * @param valids ArrayList<ArrayList<Lamp>> list of valid Lamp combinations
+     */
+    private void testLampCombos(int index, ArrayList<Lamp> list, ArrayList<Lamp> staged,
+            ArrayList<ArrayList<Lamp>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testLampCombos(temp + 1, list, staged, valids);
+            }
+        } else {
+            staged.add(list.get(index));
+            if (isValidLampCombo(staged)) {
+                valids.add(new ArrayList<Lamp>(staged));
+            }
+            testLampCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Lamp combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Lamp> Lamp combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidLampCombo(ArrayList<Lamp> staged) {
+        int[] partsToFill = new int[] { 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getBase()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getBulb()) {
+                partsToFill[1]++;
+            }
+        }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Method that returns the lowest priced Lamp combination in a list of Lamp
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Lamp>>
+     * @return ArrayList<Lamp> lowest priced Lamp combination
+     */
+    private ArrayList<Lamp> findLowestLampCombo(ArrayList<ArrayList<Lamp>> valids) {
+        if (valids == null) {
+            return null;
+        }
+        ArrayList<Lamp> temp = valids.get(0);
+        for (ArrayList<Lamp> combo : valids) {
             if (priceOf(combo) < priceOf(temp)) {
                 temp = combo;
             }
