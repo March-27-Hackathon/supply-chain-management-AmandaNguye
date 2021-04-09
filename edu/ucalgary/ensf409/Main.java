@@ -15,25 +15,44 @@
 
 package edu.ucalgary.ensf409;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 @SuppressWarnings("unchecked")
 public class Main extends Output{
     public static void main(String[] args) {
-        String username = args[0];
-        String password = args[1];
+
+        /**
+         * Attempts to intialize storage based on credentials
+         * Will loop until storage is intialized or user decides to stop
+         */
+        Storage storage = null;
+        do
+        {
+            String username = JOptionPane.showInputDialog("Please Enter a Username");
+            String password = JOptionPane.showInputDialog("Please Enter a Password");
+            try
+            {
+                storage = new Storage(username,password);
+                break;
+            }
+            catch(SQLException e)
+            {
+                if(JOptionPane.showConfirmDialog(null, "Invalid Username or Password, Try Again?", "Repeat", JOptionPane.YES_OPTION)==JOptionPane.NO_OPTION)
+                {
+                    System.exit(0);
+                }
+            }
+        }while(true);
 
         //Creating the input object
         InputOrder input = new InputOrder();
-        Storage storage = new Storage(username,password);
         Request rq = new Request(storage);
         Boolean invalidChairInput = false;
 
         ArrayList<? extends Furniture> arr = new ArrayList<>();
-        int repeat;
         do
         {
             /*Getting the furniture type by splitting the inputted furniture by spaces
@@ -87,24 +106,23 @@ public class Main extends Output{
              */
             if(invalidChairInput)
             {
-                JOptionPane.showMessageDialog(new JFrame(),"Furniture input is invalid");
+                JOptionPane.showMessageDialog(null,"Furniture input is invalid");
             }
-            else if(arr==null)
+            else if(arr == null || arr.isEmpty())
             {
-                JOptionPane.showMessageDialog(new JFrame(),"No available chairs to match the critera");
+                JOptionPane.showMessageDialog(null,"No available " + input.getFurniture() + " to match the critera");
                 Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 
             {
-                JOptionPane.showMessageDialog(new JFrame(),"Order complete!");
+                JOptionPane.showMessageDialog(null,"Order complete!");
                 Output.successfulInput("orderform",input.getFurniture(),input.getFurType(),input.getQuantity(),(ArrayList<Furniture>)arr);
                 for(Furniture item: arr)
                 {
                     storage.removeFromStorage(input.getFurniture(), item.getId());
                 }
             }
-            repeat = JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION);
-        }while(repeat==JOptionPane.YES_OPTION);
+        }while(JOptionPane.showConfirmDialog(null, "Continue?", "Please Select", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION);
         System.exit(0);
     }
 }

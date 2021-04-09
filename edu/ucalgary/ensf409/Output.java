@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Class to create and format the output file for scenarios
  */
 public class Output {
-    private static int orderId = 0;
+    private static int orderId = 1;
     /**
      * Method that formats and writes the output files of a scenario if the case is
      * possible.
@@ -33,7 +33,7 @@ public class Output {
             out.write("OriginalRequest: " + type + " " + furniture + ", " + count);
             out.write("\nItems Ordered\n");
             for (int i = 0; i < arr.size(); i++) {
-                out.write("ID: " + arr.get(i).getId() + "\n");
+                out.write("ID: " + arr.get(i).getId() + " $" + arr.get(i).getPrice() + "\n");
             }
             out.write("Total Price: $" + getPrice(arr));
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class Output {
         System.out.println("User request: " + type + " " + furniture + ", " + count);
         System.out.println("Purchased: ");
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println("\t" + arr.get(i).getId());
+            System.out.println("\t" + arr.get(i).getId() + " $" + arr.get(i).getPrice());
         }
         System.out.println("Total Price: $" + getPrice(arr));
     }
