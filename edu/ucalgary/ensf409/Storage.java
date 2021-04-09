@@ -48,19 +48,11 @@ public class Storage {
      * @param username username of SQL user
      * @param password password of SQL user
      */
-    public Storage(String username, String password)
+    public Storage(String username, String password) throws SQLException
     {
         this.USERNAME = username;
         this.PASSWORD = password;
-        try
-        {
-            initialize();
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        initialize();
 
         chairStorage = populateFurniture("chair",Chair.class);
         deskStorage = populateFurniture("desk",Desk.class);
