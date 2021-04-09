@@ -12,6 +12,8 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 
 public class UnitTest {
     //MUST BE EDITED BEFORE UNIT TESTING
@@ -290,27 +292,27 @@ public class UnitTest {
      //--STORAGE TEST--
      /**Testing Storage contructor, and that getChairStorage does return Chairs from the database*/
     @Test
-    public void testStorageChairInitialization()
+    public void testStorageChairInitialization() throws SQLException
     {
         assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage().size()!=0);
     }
     /**Testing Storage contructor, and that getDeskStorage does return Desks from the database*/
     @Test
-    public void testStorageDeskInitialization()
+    public void testStorageDeskInitialization() throws SQLException
     {
         assertTrue("Desk not initialzied", new Storage(username, password).getDeskStorage().size()!=0);
     }
 
     /**Testing Storage contructor, and that getFilingStorage does return Filings from the database*/
     @Test
-    public void testStorageFilingInitialization()
+    public void testStorageFilingInitialization() throws SQLException
     {
         assertTrue("Filing not initialzied", new Storage(username, password).getFilingStorage().size()!=0);
     }
 
     /**Testing Storage contructor, and that getLampStorage does return Lamps from the database*/
     @Test
-    public void testStorageLampInitialization()
+    public void testStorageLampInitialization() throws SQLException
     {
         assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage().size()!=0);
     }
@@ -319,14 +321,14 @@ public class UnitTest {
      * Testing storage filtered Chair getter to have returned an ArrayList of Chair with type Mesh
      */
     @Test
-    public void testStorageChairFiltered()
+    public void testStorageChairFiltered() throws SQLException
     {
         assertTrue("Chair filter does not correctly return", new Storage(username, password).getChairStorage("mesh").size()!=0);
     }
 
     /**Testing Storage filtered Chair getter to have returned an Empty ArrayList with an invalid input*/
     @Test
-    public void testStorageChairFilteredFail()
+    public void testStorageChairFilteredFail() throws SQLException
     {
         assertTrue("Chair filter does not correctly return", new Storage(username, password).getChairStorage("me sh").size()==0);
     }
@@ -335,13 +337,13 @@ public class UnitTest {
      * Testing Storage filtered Desk getter to have returned an ArrayList of Desk with type Standing
      */
     @Test
-    public void testStorageDeskFiltered()
+    public void testStorageDeskFiltered() throws SQLException
     {
         assertTrue("Desk filter does not correctly return", new Storage(username, password).getDeskStorage("standing").size()!=0);
     }
 
     /**Testing Storage filtered Desk getter to have returned an Empty ArrayList with an invalid input*/
-    public void testStorageDeskFilteredFail()
+    public void testStorageDeskFilteredFail() throws SQLException
     {
         assertTrue("Desk filter does not correctly return", new Storage(username, password).getDeskStorage("stand ing").size()==0);
     }
@@ -350,14 +352,14 @@ public class UnitTest {
      * Testing Storage filtered Filing getter to have returned an ArrayList of Filing with type small
      */
     @Test
-    public void testStorageFilingFiltered()
+    public void testStorageFilingFiltered() throws SQLException
     {
         assertTrue("Filing filter does not correctly return", new Storage(username, password).getFilingStorage("small").size()!=0);
     }
 
     /**Testing Storage filtered Filing getter to have returned an Empty ArrayList with an invalid input*/
     @Test
-    public void testStorageFilingFilteredFail()
+    public void testStorageFilingFilteredFail() throws SQLException
     {
         assertTrue("Filing filter does not correctly return", new Storage(username, password).getFilingStorage("sma ll").size()==0);
     }
@@ -366,14 +368,14 @@ public class UnitTest {
      * Testing Storage filtered Lamp getter to have returned an ArrayList of Lamp with type Swing Arm
      */
     @Test
-    public void testStorageLampFiltered()
+    public void testStorageLampFiltered() throws SQLException
     {
         assertTrue("Lamp filter does not correctly return", new Storage(username, password).getLampStorage("swing arm").size()!=0);
     }
 
     /**Testing Storage filtered Lamp getter to have returned an Empty ArrayList with an invalid input*/
     @Test
-    public void testStorageLampFilteredFail()
+    public void testStorageLampFilteredFail() throws SQLException
     {
         assertTrue("Lamp filter does not correctly return", new Storage(username, password).getLampStorage("sw ing arm").size()==0);
     }
@@ -382,7 +384,7 @@ public class UnitTest {
      * This test the request class to generate an output for a valid amount of Mesh Chair
      */
     @Test
-    public void testRequestChairSuccess()
+    public void testRequestChairSuccess() throws SQLException
     {
         Storage stor = new Storage(username, password);
         Request rq = new Request(stor);
@@ -393,7 +395,7 @@ public class UnitTest {
      * This test the request class to generate an output for a invalid input
      */
     @Test
-    public void testRequestChairFail()
+    public void testRequestChairFail() throws SQLException
     {
         Storage stor = new Storage(username, password);
         Request rq = new Request(stor);
