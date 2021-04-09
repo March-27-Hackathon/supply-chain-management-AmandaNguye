@@ -288,31 +288,93 @@ public class UnitTest {
     }
 
      //--STORAGE TEST--
-     @Test
-     public void testStorageChairInitialization()
-     {
-         assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage()!=null);
-     }
+    @Test
+    public void testStorageChairInitialization()
+    {
+        assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage().size()!=0);
+    }
 
-     @Test
-     public void testStorageDeskInitialization()
-     {
-         assertTrue("Desk not initialzied", new Storage(username, password).getDeskStorage()!=null);
-     }
+    @Test
+    public void testStorageDeskInitialization()
+    {
+        assertTrue("Desk not initialzied", new Storage(username, password).getDeskStorage().size()!=0);
+    }
 
-     @Test
-     public void testStorageFilingInitialization()
-     {
-         assertTrue("Filing not initialzied", new Storage(username, password).getFilingStorage()!=null);
-     }
+    @Test
+    public void testStorageFilingInitialization()
+    {
+        assertTrue("Filing not initialzied", new Storage(username, password).getFilingStorage().size()!=0);
+    }
 
-     @Test
-     public void testStorageLampInitialization()
-     {
-         assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage()!=null);
-     }
+    @Test
+    public void testStorageLampInitialization()
+    {
+        assertTrue("Lamp not initialzied", new Storage(username, password).getLampStorage().size()!=0);
+    }
 
-     
-     
+    @Test
+    public void testStorageChairFiltered()
+    {
+        assertTrue("Chair filter does not correctly return", new Storage(username, password).getChairStorage("mesh").size()!=0);
+    }
+
+    @Test
+    public void testStorageChairFilteredFail()
+    {
+        assertTrue("Chair filter does not correctly return", new Storage(username, password).getChairStorage("me sh").size()==0);
+    }
+
+
+    @Test
+    public void testStorageDeskFiltered()
+    {
+        assertTrue("Desk filter does not correctly return", new Storage(username, password).getDeskStorage("standing").size()!=0);
+    }
+
+    public void testStorageDeskFilteredFail()
+    {
+        assertTrue("Desk filter does not correctly return", new Storage(username, password).getDeskStorage("stand ing").size()==0);
+    }
+
+    @Test
+    public void testStorageFilingFiltered()
+    {
+        assertTrue("Filing filter does not correctly return", new Storage(username, password).getFilingStorage("small").size()!=0);
+    }
+
+    @Test
+    public void testStorageFilingFilteredFail()
+    {
+        assertTrue("Filing filter does not correctly return", new Storage(username, password).getFilingStorage("sma ll").size()==0);
+    }
+
+    @Test
+    public void testStorageLampFiltered()
+    {
+        assertTrue("Lamp filter does not correctly return", new Storage(username, password).getLampStorage("swing arm").size()!=0);
+    }
+
+    @Test
+    public void testStorageLampFilteredFail()
+    {
+        assertTrue("Lamp filter does not correctly return", new Storage(username, password).getLampStorage("sw ing arm").size()==0);
+    }
+
+    @Test
+    public void testRequestChairSuccess()
+    {
+        Storage stor = new Storage(username, password);
+        Request rq = new Request(stor);
+        assertTrue("Unable to find a possible combination of chair", rq.request("chair", "mesh", 1).size()!=0);
+    }
+
+    @Test
+    public void testRequestChairFail()
+    {
+        Storage stor = new Storage(username, password);
+        Request rq = new Request(stor);
+        assertTrue("Unable to find a possible combination of chair", rq.request("chair", "mush", 1)==null);
+    }
+
     
 }
