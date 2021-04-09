@@ -1,4 +1,5 @@
-/** @author Tommy Tran <a href="mailto:tommy.tran3@ucalgary.ca">tommy.tran3@ucalgary.ca</a>
+/** 
+ * @author Tommy Tran <a href="mailto:tommy.tran3@ucalgary.ca">tommy.tran3@ucalgary.ca</a>
  * @author Dat Lam <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
  * @author Tyler Tran <a href="mailto:tyler.tran3@ucalgary.ca"> tyler.tran3@ucalgary.ca</a>
  * @version  1.2
