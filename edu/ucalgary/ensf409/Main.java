@@ -6,22 +6,26 @@
  * @since 1.0
 */
 
-// TODO
-/**
- * JUnit test
- * Finishing UML
- * Youtube
- */
-
 package edu.ucalgary.ensf409;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
+/**
+ * The Main class house the main method that is use to run the program
+ */
 @SuppressWarnings("unchecked")
 public class Main extends Output{
+    /**
+     * The main method is use to run the program
+     * First, it makes a connection to the database using the
+     * promted user input. Then it tries to find the lowest priced combination
+     * for the requested item  (Which is also taken in through a promted input).
+     * An output is produced detailed the success/fail of the order and process
+     * can be repeated.
+     * @param args
+     */
     public static void main(String[] args) {
 
         /**
