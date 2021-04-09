@@ -266,7 +266,7 @@ public class Storage {
     public ArrayList<Chair> getChairStorage(String type)
     {
         ArrayList<Chair> arr = new ArrayList<>();
-        arr.addAll(chairStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        arr.addAll(chairStorage.stream().filter(c -> c.getType().equalsIgnoreCase(type)).collect(Collectors.toList()));
         return arr;
     }
 
@@ -277,7 +277,7 @@ public class Storage {
     public ArrayList<Desk> getDeskStorage(String type)
     {
         ArrayList<Desk> arr = new ArrayList<>();
-        arr.addAll(deskStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        arr.addAll(deskStorage.stream().filter(c -> c.getType().equalsIgnoreCase(type)).collect(Collectors.toList()));
         return arr;
     }
 
@@ -288,7 +288,7 @@ public class Storage {
     public ArrayList<Filing> getFilingStorage(String type)
     {
         ArrayList<Filing> arr = new ArrayList<>();
-        arr.addAll(filingStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        arr.addAll(filingStorage.stream().filter(c -> c.getType().equalsIgnoreCase(type)).collect(Collectors.toList()));
         return arr;
     }
 
@@ -299,7 +299,7 @@ public class Storage {
     public ArrayList<Lamp> getLampStorage(String type)
     {
         ArrayList<Lamp> arr = new ArrayList<>();
-        arr.addAll(lampStorage.stream().filter(c -> c.getType().equals(type)).collect(Collectors.toList()));
+        arr.addAll(lampStorage.stream().filter(c -> c.getType().equalsIgnoreCase(type)).collect(Collectors.toList()));
         return arr;
     }
     

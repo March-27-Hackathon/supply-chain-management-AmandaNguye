@@ -1,7 +1,8 @@
 /**
+ * @author Amanda Nguyen <a href="mailto:amanda.nguyen1@ucalgary.ca">amanda.nguyen1@ucalgary.ca</a>
  * @author Dat Lam <a href="mailto:dat.lam1@ucalgary.ca">dat.lam1@ucalgary.ca</a>
- * @version 1.4
- * @since 1.1
+ * @version 2.0
+ * @since 1.4
  * 
  */
 
@@ -10,423 +11,446 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 
 public class Request {
-
+    // CLASS FIELDS
     private Storage storage;
+    private int count;
 
-    public Request(Storage storage)
-    {
+    /**
+     * Constructor of a Request, takes in the storage, an ArrayList of the
+     * inventory.
+     */
+    public Request(Storage storage) {
         this.storage = storage;
     }
 
+    // CLASS METHODS
     /**
      * Calculate posible combination of furniture that would make a complete
      * furniture of the type, then return the array list of those furnitures.
+     * 
      * @param furniture
      * @param type
      * @return Array list of type object that extend from furniture
      */
-    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity)
-    {
-        switch(furniture.toLowerCase())
-        {
+    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) {
+        count = quantity;
+        switch (furniture.toLowerCase()) {
             case "chair":
-                //List only contain chair of that type
+                // List only contain chair of that type
                 ArrayList<Chair> chairList = storage.getChairStorage(type);
-                ArrayList<Chair> returnChair = new ArrayList<Chair>();
-                while(quantity != 0)
+                if(chairList == null || chairList.isEmpty())
                 {
-                    ArrayList<Chair> arr = requestChair(chairList);
-                    if(arr == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        for(Chair chair : arr)
-                        {
-                            returnChair.add(chair);
-                            chairList.remove(chair);
-                        }
-                    }
-                    quantity --;
+                    return null;
                 }
+                ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
+                findValidChairCombos(chairList, validChairCombinations);
+                ArrayList<Chair> returnChair = findLowestChairCombo(validChairCombinations);
                 return returnChair;
             case "desk":
-                //List only contain desk of that type
+                // List only contain chair of that type
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
-                ArrayList<Desk> returnDesk = new ArrayList<Desk>();
-                while(quantity != 0)
+                if(deskList == null || deskList.isEmpty())
                 {
-                    ArrayList<Desk> arr = requestDesk(deskList);
-                    if(arr == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        for(Desk desk : arr)
-                        {
-                            returnDesk.add(desk);
-                            deskList.remove(desk);
-                        }
-                    }
-                    quantity --;
+                    return null;
                 }
+                ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
+                findValidDeskCombos(deskList, validDeskCombinations);
+                ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
                 return returnDesk;
             case "filing":
-                //List only contain filing of that type
+                // List only contain filing of that type
                 ArrayList<Filing> filingList = storage.getFilingStorage(type);
-                ArrayList<Filing> returnFiling = new ArrayList<Filing>();
-                while(quantity != 0)
+                if(filingList == null || filingList.isEmpty())
                 {
-                    ArrayList<Filing> arr = requestFiling(filingList);
-                    if(arr == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        for(Filing filing : arr)
-                        {
-                            returnFiling.add(filing);
-                            filingList.remove(filing);
-                        }
-                    }
-                    quantity --;
+                    return null;
                 }
+                ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
+                findValidFilingCombos(filingList, validFilingCombinations);
+                ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
                 return returnFiling;
             case "lamp":
-                //List only contain desk of that type
-                ArrayList<Lamp> lampList = storage.getLampStorage();
-                ArrayList<Lamp> returnLamp = new ArrayList<Lamp>();
-                while(quantity != 0)
+                // List only contain lamp of that type
+                ArrayList<Lamp> lampList = storage.getLampStorage(type);
+                if(lampList == null || lampList.isEmpty())
                 {
-                    ArrayList<Lamp> arr = requestLamp(lampList);
-                    if(arr == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        for(Lamp lamp : arr)
-                        {
-                            returnLamp.add(lamp);
-                            lampList.remove(lamp);
-                        }
-                    }
-                    quantity --;
+                    return null;
                 }
+                ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
+                findValidLampCombos(lampList, validLampCombinations);
+                ArrayList<Lamp> returnLamp = findLowestLampCombo(validLampCombinations);
                 return returnLamp;
-            default:
-                throw new IllegalArgumentException();
+            
         }
+        return null;
     }
 
     /**
-     * Calculate and returnt the combined price of the items in the paramater
-     * @param furnitures
-     * @return price of all the item in the ArrayList
-     */
-    private static int priceOf(ArrayList<? extends Furniture> furnitures)
-    {
-        int total = 0;
-        for(Furniture c: furnitures)
-        {
-            total += c.getPrice();
-        }
-        return total;
-    }
-
-    /**
-     * Check wether or not the combination of chair will make a valid chair
-     * @param chairs
-     * @return if the combination of chair can make a valid chair
-     */
-    private boolean checkChairs(ArrayList<Chair> chairs)
-    {
-        boolean legs = false, arms = false, 
-            seat = false, cushion = false;
-        for(Chair c: chairs)
-        {
-            legs = legs || c.getLegs();
-            arms = arms || c.getArms();
-            cushion = cushion || c.getCushion();
-            seat = seat || c.getSeat();
-        }
-
-        return legs && arms && seat && cushion;
-    }
-    
-    /**
-     * Make a a request for the lowest price combination of chairs
-     * using the list of chairs provided. 
+     * Method that tests all of the possible combinations of a certain type of chair
+     * by calling its recursive function.
+     * 
      * @param list
-     * @return ArrayList of combination of chair that would make a new
-     * chair at the lowest price. null if request cannont be fulfill
+     * @param valids
      */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Chair> requestChair(ArrayList<Chair> list)
-    {
-        ArrayList<ArrayList<Chair>> correctList = new ArrayList<ArrayList<Chair>>();
-        ArrayList<Chair> temp1, temp2;
-        for(int i = 0; i < list.size(); i ++)
-        {
-            temp1 = new ArrayList<Chair>();
-            temp1.add(list.get(i));
-            if(checkChairs(temp1))
-            {
-                correctList.add((ArrayList<Chair>)temp1.clone());
+    private void findValidChairCombos(ArrayList<Chair> list, ArrayList<ArrayList<Chair>> valids) {
+        ArrayList<Chair> staged = new ArrayList<Chair>();
+        testChairCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of chair
+     * and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Chair> raw list of typed chair
+     * @param staged ArrayList<Chair> Chair combination to be tested
+     * @param valids ArrayList<ArrayList<Chair>> list of valid Chair combinations
+     */
+    private void testChairCombos(int index, ArrayList<Chair> list, ArrayList<Chair> staged,
+            ArrayList<ArrayList<Chair>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testChairCombos(temp + 1, list, staged, valids);
             }
-            for(int j = i+1; j < list.size(); j ++)
-            {
-                temp2 = (ArrayList<Chair>)temp1.clone();
-                for(int n = 0; n+j < list.size(); n ++)
-                {
-                    temp2.add(list.get(j+n));
-                    if(checkChairs(temp2))
-                    {
-                        correctList.add((ArrayList<Chair>)temp2.clone());
-                        temp2.remove(temp2.size()-1);
-                    }
-                }
+        } else {
+            staged.add(list.get(index));
+            if (isValidChairCombo(staged)) {
+                valids.add(new ArrayList<Chair>(staged));
+            }
+            testChairCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Chair combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Chair> Chair combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidChairCombo(ArrayList<Chair> staged) {
+        int[] partsToFill = new int[] { 0, 0, 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getArms()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getCushion()) {
+                partsToFill[1]++;
+            }
+            if (staged.get(i).getLegs()) {
+                partsToFill[2]++;
+            }
+            if (staged.get(i).getSeat()) {
+                partsToFill[3]++;
             }
         }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        if(correctList.size() == 0)
-        {
+    /**
+     * Method that returns the lowest priced Chair combination in a list of Chair
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Chair>>
+     * @return ArrayList<Chair> lowest priced Chair combination
+     */
+    private ArrayList<Chair> findLowestChairCombo(ArrayList<ArrayList<Chair>> valids) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
-        int lowest = priceOf(correctList.get(0));
-        ArrayList<Chair> lowestChairs = correctList.get(0);
-        for(int i = 1; i < correctList.size(); i++)
-        {
-            if(lowest > priceOf(correctList.get(i)))
-            {
-                lowest = priceOf(correctList.get(i));
-                lowestChairs = correctList.get(i);
-            }   
+        ArrayList<Chair> temp = valids.get(0);
+        for (ArrayList<Chair> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
         }
-        return lowestChairs;
-    }
-
-
-    /**
-     * Check wether the combination of desk in param desks
-     * can be combine into a new desk.
-     * @param desks
-     * @return if the desks in list "desks" can make a complete desk.
-     */
-    private boolean checkDesks(ArrayList<Desk> desks)
-    {
-        boolean legs = false, top = false, 
-            drawer = false;
-        for(Desk d: desks)
-        {
-            legs = legs || d.getLegs();
-            top = top || d.getTop();
-            drawer = drawer || d.getDrawer();
-        }
-
-        return legs && top && drawer;
+        return temp;
     }
 
     /**
-     * Make a a request for the lowest price combination of desks
-     * using the list of desks provided. return array list of
-     * desk.
+     * Method that tests all of the possible combinations of a certain type of Desk
+     * by calling its recursive function.
+     * 
      * @param list
-     * @return ArrayList of combination of desk with the lowest price that would make a new desk.
-     * null if request cannont be fulfill
+     * @param valids
      */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Desk> requestDesk(ArrayList<Desk> list)
-    {
-        ArrayList<ArrayList<Desk>> correctList = new ArrayList<ArrayList<Desk>>();
-        ArrayList<Desk> temp1, temp2;
-        for(int i = 0; i < list.size(); i ++)
-        {
-            temp1 = new ArrayList<Desk>();
-            temp1.add(list.get(i));
-            if(checkDesks(temp1))
-            {
-                correctList.add((ArrayList<Desk>)temp1.clone());
+    private void findValidDeskCombos(ArrayList<Desk> list, ArrayList<ArrayList<Desk>> valids) {
+        ArrayList<Desk> staged = new ArrayList<Desk>();
+        testDeskCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of Desk
+     * and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Desk> raw list of typed Desk
+     * @param staged ArrayList<Desk> Desk combination to be tested
+     * @param valids ArrayList<ArrayList<Desk>> list of valid Desk combinations
+     */
+    private void testDeskCombos(int index, ArrayList<Desk> list, ArrayList<Desk> staged,
+            ArrayList<ArrayList<Desk>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testDeskCombos(temp + 1, list, staged, valids);
             }
-            for(int j = i+1; j < list.size(); j ++)
-            {
-                temp2 = (ArrayList<Desk>)temp1.clone();
-                for(int n = 0; n + j < list.size(); n++)
-                {
-                    temp2.add(list.get(j+n));
-                    if(checkDesks(temp2))
-                    {
-                        correctList.add((ArrayList<Desk>)temp2.clone());
-                        temp2.remove(temp2.size()-1);
-                    }
-                }
+        } else {
+            staged.add(list.get(index));
+            if (isValidDeskCombo(staged)) {
+                valids.add(new ArrayList<Desk>(staged));
+            }
+            testDeskCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Desk combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Desk> Desk combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidDeskCombo(ArrayList<Desk> staged) {
+        int[] partsToFill = new int[] { 0, 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getDrawer()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getLegs()) {
+                partsToFill[1]++;
+            }
+            if (staged.get(i).getTop()) {
+                partsToFill[2]++;
             }
         }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        if(correctList.size() == 0)
-        {
+    /**
+     * Method that returns the lowest priced Desk combination in a list of Desk
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Desk>>
+     * @return ArrayList<Desk> lowest priced Desk combination
+     */
+    private ArrayList<Desk> findLowestDeskCombo(ArrayList<ArrayList<Desk>> valids) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
-        int lowest = priceOf(correctList.get(0));
-        ArrayList<Desk> lowestDesks = correctList.get(0);
-        for(int i = 1; i < list.size(); i++)
-        {
-            if(lowest > priceOf(correctList.get(i)))
-            {
-                lowest = priceOf(correctList.get(i));
-                lowestDesks = correctList.get(i);
-            }   
+        ArrayList<Desk> temp = valids.get(0);
+        for (ArrayList<Desk> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
         }
-
-        return lowestDesks;
+        return temp;
     }
 
     /**
-     * Check wether the combination of desk in param filings
-     * can be combine into a new filing.
-     * @param filings
-     * @return if the filings in  list "filings" can make a complete filing.
-     */
-    private boolean checkFilings(ArrayList<Filing> filings)
-    {
-        boolean rails = false, drawers = false, 
-            cabinet = false;
-        for(Filing f: filings)
-        {
-            rails = rails || f.getRails();
-            cabinet = cabinet || f.getCabinet();
-            drawers = drawers || f.getDrawers();
-        }
-
-        return rails && cabinet && drawers;
-    }
-
-    /**
-     * Make a a request for the lowest price combination of filings
-     * using the list of filings provided. 
+     * Method that tests all of the possible combinations of a certain type of
+     * Filing by calling its recursive function.
+     * 
      * @param list
-     * @return ArrayList of combination of filing with the lowest price that would make a new filing.
-     * null if request cannont be fulfill
+     * @param valids
      */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Filing> requestFiling(ArrayList<Filing> list)
-    {
-        ArrayList<ArrayList<Filing>> correctList = new ArrayList<ArrayList<Filing>>();
-        ArrayList<Filing> temp1, temp2;
-        for(int i = 0; i < list.size(); i ++)
-        {
-            temp1 = new ArrayList<Filing>();
-            temp1.add(list.get(i));
-            if(checkFilings(temp1))
-            {
-                correctList.add((ArrayList<Filing>)temp1.clone());
+    private void findValidFilingCombos(ArrayList<Filing> list, ArrayList<ArrayList<Filing>> valids) {
+        ArrayList<Filing> staged = new ArrayList<Filing>();
+        testFilingCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of
+     * Filing and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Filing> raw list of typed Filing
+     * @param staged ArrayList<Filing> Filing combination to be tested
+     * @param valids ArrayList<ArrayList<Filing>> list of valid Filing combinations
+     */
+    private void testFilingCombos(int index, ArrayList<Filing> list, ArrayList<Filing> staged,
+            ArrayList<ArrayList<Filing>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testFilingCombos(temp + 1, list, staged, valids);
             }
-            for(int j = i+1; j < list.size(); j ++)
-            {
-                temp2 = (ArrayList<Filing>)temp1.clone();
-                for(int n = 0; n + j < list.size(); n++)
-                {
-                    temp2.add(list.get(j+n));
-                    if(checkFilings(temp2))
-                    {
-                        correctList.add((ArrayList<Filing>)temp2.clone());
-                        temp2.remove(temp2.size()-1);
-                    }
-                }
+        } else {
+            staged.add(list.get(index));
+            if (isValidFilingCombo(staged)) {
+                valids.add(new ArrayList<Filing>(staged));
+            }
+            testFilingCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Filing combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Filing> Filing combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidFilingCombo(ArrayList<Filing> staged) {
+        int[] partsToFill = new int[] { 0, 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getCabinet()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getDrawers()) {
+                partsToFill[1]++;
+            }
+            if (staged.get(i).getRails()) {
+                partsToFill[2]++;
             }
         }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        if(correctList.size() == 0)
-        {
+    /**
+     * Method that returns the lowest priced Filing combination in a list of Filing
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Filing>>
+     * @return ArrayList<Filing> lowest priced Filing combination
+     */
+    private ArrayList<Filing> findLowestFilingCombo(ArrayList<ArrayList<Filing>> valids) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
-        int lowest = priceOf(correctList.get(0));
-        ArrayList<Filing> lowestFilings = correctList.get(0);
-        for(int i = 1; i < list.size(); i++)
-        {
-            if(lowest > priceOf(correctList.get(i)))
-            {
-                lowest = priceOf(correctList.get(i));
-                lowestFilings = correctList.get(i);
-            }   
-
+        ArrayList<Filing> temp = valids.get(0);
+        for (ArrayList<Filing> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
         }
-
-        return lowestFilings;
-
-    }
-    
-    /**
-     * Check wether the combination of desk in param lamps
-     * can be combine into a new lamps.
-     * @param lamps
-     * @return if the lamps in  list "lamps" can make a complete lamp.
-     */
-    private boolean checkLamps(ArrayList<Lamp> lamps)
-    {
-        boolean base = false, bulb = false;
-        for(Lamp l: lamps)
-        {
-            base = base || l.getBase();
-            bulb = bulb || l.getBulb();
-        }
-
-        return base && bulb;
+        return temp;
     }
 
     /**
-     * Make a a request for the lowest price combination of lamps
-     * using the list of lamps provided. 
+     * Method that tests all of the possible combinations of a certain type of Lamp
+     * by calling its recursive function.
+     * 
      * @param list
-     * @return ArrayList of combination of lamp with the lowest price that would make a new lamp
-     * null if request cannont be fulfill
+     * @param valids
      */
-    @SuppressWarnings("unchecked")
-    public ArrayList<Lamp> requestLamp(ArrayList<Lamp> list)
-    {
-        ArrayList<ArrayList<Lamp>> correctList = new ArrayList<ArrayList<Lamp>>();
-        ArrayList<Lamp> temp1, temp2;
-        for(int i = 0; i < list.size(); i ++)
-        {
-            temp1 = new ArrayList<Lamp>();
-            temp1.add(list.get(i));
-            if(checkLamps(temp1))
-            {
-                correctList.add((ArrayList<Lamp>)temp1.clone());
+    private void findValidLampCombos(ArrayList<Lamp> list, ArrayList<ArrayList<Lamp>> valids) {
+        ArrayList<Lamp> staged = new ArrayList<Lamp>();
+        testLampCombos(0, list, staged, valids);
+    }
+
+    /**
+     * Method that tests all of the possible combinations of a certain type of Lamp
+     * and adds valid combinations to a list.
+     * 
+     * @param index  int of list to be added next
+     * @param list   ArrayList<Lamp> raw list of typed Lamp
+     * @param staged ArrayList<Lamp> Lamp combination to be tested
+     * @param valids ArrayList<ArrayList<Lamp>> list of valid Lamp combinations
+     */
+    private void testLampCombos(int index, ArrayList<Lamp> list, ArrayList<Lamp> staged,
+            ArrayList<ArrayList<Lamp>> valids) {
+        if (index >= list.size()) {
+            staged.remove(staged.size() - 1);
+            if (staged.size() == 0) {
+                return;
+            } else {
+                int temp = list.indexOf(staged.get(staged.size() - 1));
+                staged.remove(staged.size() - 1);
+                testLampCombos(temp + 1, list, staged, valids);
             }
-            for(int j = i+1; j < list.size(); j ++)
-            {
-                temp2 = (ArrayList<Lamp>)temp1.clone();
-                for(int n = 0; n+j< list.size(); n++)
-                {
-                    temp2.add(list.get(j+n));
-                    if(checkLamps(temp2))
-                    {
-                        correctList.add((ArrayList<Lamp>)temp2.clone());
-                        temp2.remove(temp2.size()-1);
-                    }
-                }
+        } else {
+            staged.add(list.get(index));
+            if (isValidLampCombo(staged)) {
+                valids.add(new ArrayList<Lamp>(staged));
+            }
+            testLampCombos(index + 1, list, staged, valids);
+        }
+    }
+
+    /**
+     * Method that returns true if the input Lamp combination fills the input
+     * request.
+     * 
+     * @param staged ArrayList<Lamp> Lamp combination to be tested
+     * @return boolean of combincation validity
+     */
+    private boolean isValidLampCombo(ArrayList<Lamp> staged) {
+        int[] partsToFill = new int[] { 0, 0 };
+        for (int i = 0; i < staged.size(); i++) {
+            if (staged.get(i).getBase()) {
+                partsToFill[0]++;
+            }
+            if (staged.get(i).getBulb()) {
+                partsToFill[1]++;
             }
         }
+        for (int j = 0; j < partsToFill.length; j++) {
+            if (partsToFill[j] < count) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        if(correctList.size() == 0)
-        {
+    /**
+     * Method that returns the lowest priced Lamp combination in a list of Lamp
+     * combinations.
+     * 
+     * @param valids ArrayList<ArrayList<Lamp>>
+     * @return ArrayList<Lamp> lowest priced Lamp combination
+     */
+    private ArrayList<Lamp> findLowestLampCombo(ArrayList<ArrayList<Lamp>> valids) {
+        if (valids == null || valids.isEmpty()) {
             return null;
         }
-        int lowest = priceOf(correctList.get(0));
-        ArrayList<Lamp> lowestLamps = correctList.get(0);
-        for(int i = 1; i < list.size(); i++)
-        {
-            if(lowest > priceOf(correctList.get(i)))
-            {
-                lowest = priceOf(correctList.get(i));
-                lowestLamps = correctList.get(i);
-            }   
+        ArrayList<Lamp> temp = valids.get(0);
+        for (ArrayList<Lamp> combo : valids) {
+            if (priceOf(combo) < priceOf(temp)) {
+                temp = combo;
+            }
         }
+        return temp;
+    }
 
-        return lowestLamps;
+    /**
+     * Method that returns the price of a Furniture list
+     * 
+     * @param list ArrayList<? extends Furniture>
+     * @return int total price of list
+     */
+    private int priceOf(ArrayList<? extends Furniture> list) {
+        int price = 0;
+        for (Furniture item : list) {
+            price += item.getPrice();
+        }
+        return price;
     }
 }
