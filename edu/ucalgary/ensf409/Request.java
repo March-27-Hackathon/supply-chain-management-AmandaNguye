@@ -30,9 +30,10 @@ public class Request {
      * 
      * @param furniture
      * @param type
+     * @throws IllegalArgumentException
      * @return Array list of type object that extend from furniture
      */
-    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) {
+    public ArrayList<? extends Furniture> request(String furniture, String type, int quantity) throws IllegalArgumentException {
         count = quantity;
         switch (furniture.toLowerCase()) {
             case "chair":
@@ -40,7 +41,7 @@ public class Request {
                 ArrayList<Chair> chairList = storage.getChairStorage(type);
                 if(chairList == null || chairList.isEmpty())
                 {
-                    return null;
+                    throw new IllegalArgumentException();
                 }
                 ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
                 findValidChairCombos(chairList, validChairCombinations);
@@ -51,7 +52,7 @@ public class Request {
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
                 if(deskList == null || deskList.isEmpty())
                 {
-                    return null;
+                    throw new IllegalArgumentException();
                 }
                 ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
                 findValidDeskCombos(deskList, validDeskCombinations);
@@ -62,7 +63,7 @@ public class Request {
                 ArrayList<Filing> filingList = storage.getFilingStorage(type);
                 if(filingList == null || filingList.isEmpty())
                 {
-                    return null;
+                    throw new IllegalArgumentException();
                 }
                 ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
                 findValidFilingCombos(filingList, validFilingCombinations);
@@ -73,7 +74,7 @@ public class Request {
                 ArrayList<Lamp> lampList = storage.getLampStorage(type);
                 if(lampList == null || lampList.isEmpty())
                 {
-                    return null;
+                    throw new IllegalArgumentException();
                 }
                 ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
                 findValidLampCombos(lampList, validLampCombinations);
