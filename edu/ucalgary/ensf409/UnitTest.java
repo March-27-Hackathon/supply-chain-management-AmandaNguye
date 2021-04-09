@@ -291,7 +291,7 @@ public class UnitTest {
      @Test
      public void testStorageChairInitialization()
      {
-         assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage()!=null)
+         assertTrue("Chair not initialzied", new Storage(username, password).getChairStorage()!=null);
      }
 
      @Test
