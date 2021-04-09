@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 public class UnitTest {
     //MUST BE EDITED BEFORE UNIT TESTING
-    String username = "tyler";
+    String username = "scm";
     String password = "ensf409";
     
     //--FURNITURE TEST--
