@@ -108,9 +108,9 @@ public class Main extends Output{
             {
                 JOptionPane.showMessageDialog(null,"Furniture input is invalid");
             }
-            else if(arr==null)
+            else if(arr == null || arr.isEmpty())
             {
-                JOptionPane.showMessageDialog(null,"No available chairs to match the critera");
+                JOptionPane.showMessageDialog(null,"No available " + input.getFurniture() + " to match the critera");
                 Output.unsuccessfulOutput(input.getFurniture(),input.getFurType(),input.getQuantity(),storage.getManufacturerStorage(input.getFurniture()));
             }
             else 

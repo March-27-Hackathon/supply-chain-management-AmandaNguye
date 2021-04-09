@@ -39,10 +39,6 @@ public class Request {
             case "chair":
                 // List only contain chair of that type
                 ArrayList<Chair> chairList = storage.getChairStorage(type);
-                if(chairList == null || chairList.isEmpty())
-                {
-                    throw new IllegalArgumentException();
-                }
                 ArrayList<ArrayList<Chair>> validChairCombinations = new ArrayList<ArrayList<Chair>>();
                 findValidChairCombos(chairList, validChairCombinations);
                 ArrayList<Chair> returnChair = findLowestChairCombo(validChairCombinations);
@@ -50,10 +46,6 @@ public class Request {
             case "desk":
                 // List only contain chair of that type
                 ArrayList<Desk> deskList = storage.getDeskStorage(type);
-                if(deskList == null || deskList.isEmpty())
-                {
-                    throw new IllegalArgumentException();
-                }
                 ArrayList<ArrayList<Desk>> validDeskCombinations = new ArrayList<ArrayList<Desk>>();
                 findValidDeskCombos(deskList, validDeskCombinations);
                 ArrayList<Desk> returnDesk = findLowestDeskCombo(validDeskCombinations);
@@ -61,10 +53,6 @@ public class Request {
             case "filing":
                 // List only contain filing of that type
                 ArrayList<Filing> filingList = storage.getFilingStorage(type);
-                if(filingList == null || filingList.isEmpty())
-                {
-                    throw new IllegalArgumentException();
-                }
                 ArrayList<ArrayList<Filing>> validFilingCombinations = new ArrayList<ArrayList<Filing>>();
                 findValidFilingCombos(filingList, validFilingCombinations);
                 ArrayList<Filing> returnFiling = findLowestFilingCombo(validFilingCombinations);
@@ -72,17 +60,13 @@ public class Request {
             case "lamp":
                 // List only contain lamp of that type
                 ArrayList<Lamp> lampList = storage.getLampStorage(type);
-                if(lampList == null || lampList.isEmpty())
-                {
-                    throw new IllegalArgumentException();
-                }
                 ArrayList<ArrayList<Lamp>> validLampCombinations = new ArrayList<ArrayList<Lamp>>();
                 findValidLampCombos(lampList, validLampCombinations);
                 ArrayList<Lamp> returnLamp = findLowestLampCombo(validLampCombinations);
                 return returnLamp;
-            
+            default:
+                throw new IllegalArgumentException();
         }
-        return null;
     }
 
     /**
@@ -108,6 +92,10 @@ public class Request {
      */
     private void testChairCombos(int index, ArrayList<Chair> list, ArrayList<Chair> staged,
             ArrayList<ArrayList<Chair>> valids) {
+        if(index==0 && list.size()==0)
+        {
+            return;
+        }
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
             if (staged.size() == 0) {
@@ -200,6 +188,10 @@ public class Request {
      */
     private void testDeskCombos(int index, ArrayList<Desk> list, ArrayList<Desk> staged,
             ArrayList<ArrayList<Desk>> valids) {
+        if(index==0 && list.size()==0)
+        {
+            return;
+        }
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
             if (staged.size() == 0) {
@@ -289,6 +281,10 @@ public class Request {
      */
     private void testFilingCombos(int index, ArrayList<Filing> list, ArrayList<Filing> staged,
             ArrayList<ArrayList<Filing>> valids) {
+        if(index==0 && list.size()==0)
+        {
+            return;
+        }
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
             if (staged.size() == 0) {
@@ -378,6 +374,10 @@ public class Request {
      */
     private void testLampCombos(int index, ArrayList<Lamp> list, ArrayList<Lamp> staged,
             ArrayList<ArrayList<Lamp>> valids) {
+        if(index==0 && list.size()==0)
+        {
+            return;
+        }
         if (index >= list.size()) {
             staged.remove(staged.size() - 1);
             if (staged.size() == 0) {
